@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Legal Chords — A youth-focused legal awareness and education platform making legal knowledge practical, accessible and relevant to everyday life." />
+<meta name="keywords" content="Legal Chords, Legal Awareness, Youth Development, Law, Nigeria, Legal Education, Civic Engagement, Innovation" />
+<meta name="author" content="Legal Chords" />
+<meta property="og:title" content="Legal Chords — Legal Knowledge, Redesigned for a New Generation" />
+<meta property="og:description" content="Making the law easier to understand, access, and apply." />
+<meta property="og:type" content="website" />
+<title>Legal Chords — Legal Knowledge, Redesigned for a New Generation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<script>
+  // Apply theme before paint to prevent flash
+  (function () {
+    try {
+      var saved = localStorage.getItem('lc-theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<!-- ============== NAVIGATION ============== -->
+<header class="navbar" id="navbar">
+  <div class="container nav-container">
+    <a href="#home" class="logo" aria-label="Legal Chords Home">
+      <span class="logo-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="0" y="0" width="40" height="40" rx="10" fill="transparent"/>
+          <path d="M12 14L20 22L12 30" stroke="#F5C62F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"/>
+          <path d="M20 14L28 22L20 30" stroke="#F7F7F8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"/>
+        </svg>
+      </span>
+      <span class="logo-text">
+        <span class="logo-title">LEGAL CHORDS</span>
+        <span class="logo-sub">Legal Awareness Platform</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#what-we-do" class="nav-link">What We Do</a>
+      <a href="#programs" class="nav-link">Programs</a>
+      <a href="#events" class="nav-link">Events</a>
+      <a href="#resources" class="nav-link">Resources</a>
+      <a href="#impact" class="nav-link">Impact</a>
+      <a href="#get-involved" class="nav-link">Get Involved</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="#get-involved" class="btn btn-primary nav-cta" data-join-open>Join Legal Chords</a>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+  </div>
+
+  <div class="container hero-content">
+    <div class="hero-text">
+      <div class="hero-badge reveal">
+        <span class="hero-badge-dot"></span>
+        <span>Youth-Led • Nigeria • Est. 2023</span>
+      </div>
+
+      <h1 class="hero-headline reveal">
+        LEGAL KNOWLEDGE<br />
+        <span class="hero-headline-accent">SHOULD NOT BE</span><br />
+        A PRIVILEGE.
+      </h1>
+
+      <p class="hero-sub reveal">
+        Making the law easier to understand, access, and apply. Legal Chords is a youth-focused
+        legal awareness platform making legal education practical, accessible and relevant
+        to everyday life.
+      </p>
+
+      <div class="hero-actions reveal">
+        <a href="#programs" class="btn btn-primary btn-lg">
+          Explore Legal Chords
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#get-involved" class="btn btn-ghost btn-lg" data-join-open>Join Our Community</a>
+      </div>
+
+      <div class="hero-trust reveal">
+        <span class="trust-dot"></span>
+        Legal Awareness
+        <span class="trust-sep">•</span>
+        Youth Development
+        <span class="trust-sep">•</span>
+        Leadership
+        <span class="trust-sep">•</span>
+        Innovation
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="hero-card hero-card-main">
+        <div class="hero-card-header">
+          <span class="hero-card-dot red"></span>
+          <span class="hero-card-dot yellow"></span>
+          <span class="hero-card-dot green"></span>
+          <span class="hero-card-label">Legal Nuggets — Daily</span>
+        </div>
+        <div class="hero-card-body">
+          <div class="lc-tag">RIGHTS & RESPONSIBILITIES</div>
+          <h3>Know Your Rights.</h3>
+          <p>Simple, practical legal education designed for everyday life — not just for lawyers.</p>
+          <div class="hero-card-meta">
+            <span class="meta-pill"><span class="dot dot-gold"></span>Webinar Series</span>
+            <span class="meta-pill"><span class="dot dot-blue"></span>Live Sessions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card hero-card-float hero-card-float-1">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z" stroke="#F5C62F" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#F5C62F" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <div class="float-title">Verified Knowledge</div>
+          <div class="float-sub">Practical & accurate</div>
+        </div>
+      </div>
+
+      <div class="hero-card hero-card-float hero-card-float-2">
+        <div class="float-avatars">
+          <span class="avatar a1">A</span>
+          <span class="avatar a2">K</span>
+          <span class="avatar a3">T</span>
+          <span class="avatar a4">+</span>
+        </div>
+        <div>
+          <div class="float-title">Community</div>
+          <div class="float-sub">100+ young minds</div>
+        </div>
+      </div>
+
+      <div class="hero-card hero-card-float hero-card-float-3">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 12l4 4 14-14" stroke="#246FE0" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v6a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h9" stroke="#246FE0" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></svg>
+        <div>
+          <div class="float-title">Innovation Meets Law</div>
+          <div class="float-sub">New initiative</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============== MARQUEE ============== -->
+<section class="marquee" aria-label="Reach">
+  <div class="marquee-track">
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2696.svg" alt="" aria-hidden="true" />Legal Awareness</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4d8.svg" alt="" aria-hidden="true" />Legal Education</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f680.svg" alt="" aria-hidden="true" />Youth Development</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f91d.svg" alt="" aria-hidden="true" />Leadership</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4a1.svg" alt="" aria-hidden="true" />Innovation Meets Law</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f30d.svg" alt="" aria-hidden="true" />Access to Justice</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f91d.svg" alt="" aria-hidden="true" />Community</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2696.svg" alt="" aria-hidden="true" />Legal Awareness</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4d8.svg" alt="" aria-hidden="true" />Legal Education</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f680.svg" alt="" aria-hidden="true" />Youth Development</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f91d.svg" alt="" aria-hidden="true" />Leadership</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4a1.svg" alt="" aria-hidden="true" />Innovation Meets Law</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f30d.svg" alt="" aria-hidden="true" />Access to Justice</div>
+    <div class="marquee-item"><img class="marquee-icon" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f91d.svg" alt="" aria-hidden="true" />Community</div>
+  </div>
+</section>
+
+<!-- ============== ABOUT ============== -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">About Legal Chords</span>
+      <h2 class="section-title">Law Should Be <span class="accent">Understandable.</span></h2>
+      <p class="section-lede">
+        Legal Chords exists to bridge the gap between people and legal knowledge. We are a
+        youth-focused legal awareness and education platform committed to making legal
+        knowledge simple, practical and accessible.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p>
+          Through digital education, conversations, webinars, events and community
+          initiatives, we help young people understand their rights, responsibilities and
+          the legal systems that affect their everyday lives.
+        </p>
+        <p>
+          We are not a law firm. We are a movement of young people, professionals and
+          educators using education, innovation and collaboration to make the law a tool
+          for empowerment — not intimidation.
+        </p>
+        <a href="#what-we-do" class="btn btn-link">
+          See what we do
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card reveal">
+          <div class="stat-num"><span class="counter" data-target="3">0</span>+</div>
+          <div class="stat-label">Years Building<br/>Legal Awareness</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-num"><span class="counter" data-target="100">0</span>+</div>
+          <div class="stat-label">Community Members<br/>Reached</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-num">Multiple</div>
+          <div class="stat-label">Educational Programs<br/>& Initiatives</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MISSION / VISION ============== -->
+<section class="section mv">
+  <div class="container">
+    <div class="mv-grid">
+      <div class="mv-card reveal">
+        <div class="mv-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#246FE0" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="6" stroke="#246FE0" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="2" fill="#F5C62F"/>
+          </svg>
+        </div>
+        <span class="eyebrow eyebrow-light">Our Mission</span>
+        <h3>Make legal knowledge accessible, understandable and practical for everyone.</h3>
+        <p>
+          We exist to simplify the law and bring it into everyday conversations, classrooms
+          and communities — so that no one is excluded because the language is too dense or
+          the system too distant.
+        </p>
+        <div class="mv-line"></div>
+      </div>
+
+      <div class="mv-card reveal">
+        <div class="mv-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="#246FE0" stroke-width="1.6"/>
+            <circle cx="12" cy="12" r="3" fill="#F5C62F"/>
+          </svg>
+        </div>
+        <span class="eyebrow eyebrow-light">Our Vision</span>
+        <h3>A society where people understand the law well enough to know their rights, fulfill their responsibilities and make informed decisions.</h3>
+        <p>
+          A Nigeria — and a generation — that leads with knowledge, participates with
+          confidence and shapes the future with clarity.
+        </p>
+        <div class="mv-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WHAT WE DO ============== -->
+<section class="section what" id="what-we-do">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">What We Do</span>
+      <h2 class="section-title">Six ways we make the law <span class="accent">practical.</span></h2>
+      <p class="section-lede">
+        We work at the intersection of law, education, technology and youth development —
+        building a generation that understands the rules of the game.
+      </p>
+    </div>
+
+    <div class="what-grid">
+      <article class="what-card reveal">
+        <div class="what-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z" stroke="#246FE0" stroke-width="1.6"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#246FE0" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Legal Education</h4>
+        <p>Breaking down complex legal concepts into simple, understandable information.</p>
+      </article>
+
+      <article class="what-card reveal">
+        <div class="what-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M3 11l9-7 9 7v9a2 2 0 01-2 2h-4v-7H9v7H5a2 2 0 01-2-2v-9z" stroke="#246FE0" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Legal Awareness</h4>
+        <p>Creating awareness about rights, responsibilities, laws and everyday legal issues.</p>
+      </article>
+
+      <article class="what-card reveal">
+        <div class="what-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M12 14l9-5-9-5-9 5 9 5z" stroke="#246FE0" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 14l6.16-3.42a12 12 0 01.34 6.84A12 12 0 0112 21a12 12 0 01-6.5-3.58 12 12 0 01.34-6.84L12 14z" stroke="#246FE0" stroke-width="1.6" stroke-linejoin="round" opacity="0.7"/></svg>
+        </div>
+        <h4>Youth Development</h4>
+        <p>Equipping young people with knowledge, confidence and leadership skills.</p>
+      </article>
+
+      <article class="what-card reveal">
+        <div class="what-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#246FE0" stroke-width="1.6"/><circle cx="9" cy="7" r="4" stroke="#246FE0" stroke-width="1.6"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#F5C62F" stroke-width="1.6"/></svg>
+        </div>
+        <h4>Leadership & Civic Engagement</h4>
+        <p>Encouraging ethical leadership, responsible citizenship and meaningful participation.</p>
+      </article>
+
+      <article class="what-card reveal">
+        <div class="what-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#246FE0" stroke-width="1.6"/><path d="M3 9h18M8 13h2M14 13h2M8 16h8" stroke="#246FE0" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Events & Conversations</h4>
+        <p>Hosting webinars, summits, workshops, panel discussions and physical events.</p>
+      </article>
+
+      <article class="what-card reveal">
+        <div class="what-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="#246FE0" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="#F5C62F"/></svg>
+        </div>
+        <h4>Law, Technology & Innovation</h4>
+        <p>Exploring how law intersects with technology, startups, digital rights and IP.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROGRAMS ============== -->
+<section class="section programs" id="programs">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our Programs</span>
+      <h2 class="section-title">A living platform for <span class="accent">legal learning.</span></h2>
+      <p class="section-lede">
+        Five flagship programs turning legal awareness into action — from short daily
+        lessons to flagship summits.
+      </p>
+    </div>
+
+    <div class="programs-grid">
+      <article class="program-card program-card-large reveal">
+        <div class="program-tag">Flagship</div>
+        <div class="program-visual">
+          <svg viewBox="0 0 80 80" width="64" height="64" fill="none"><circle cx="40" cy="40" r="36" stroke="#246FE0" stroke-width="1.4" opacity="0.4"/><circle cx="40" cy="40" r="24" stroke="#246FE0" stroke-width="1.4" opacity="0.6"/><circle cx="40" cy="40" r="12" fill="#F5C62F"/><path d="M40 28v24M28 40h24" stroke="#020512" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Legal Chords Summit</h3>
+        <p>A flagship platform bringing young people, legal professionals, leaders and changemakers together for bold conversations about law, justice and society.</p>
+        <div class="program-meta">
+          <span>Annual</span><span>•</span><span>Multi-city</span><span>•</span><span>Hybrid</span>
+        </div>
+        <a href="#" class="btn btn-link">Learn More <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+
+      <article class="program-card reveal">
+        <div class="program-tag">Education</div>
+        <h3>Legal Nuggets</h3>
+        <p>Short, practical legal education designed for everyday life — knowledge you can actually use.</p>
+        <div class="program-meta"><span>Weekly</span><span>•</span><span>Digital</span></div>
+        <a href="#" class="btn btn-link">Learn More <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+
+      <article class="program-card reveal">
+        <div class="program-tag">Conversation</div>
+        <h3>Legal Chords Webinars</h3>
+        <p>Interactive conversations on law, rights, leadership and society with experts and practitioners.</p>
+        <div class="program-meta"><span>weekly</span><span>•</span><span>Live</span></div>
+        <a href="#" class="btn btn-link">Learn More <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+
+      <article class="program-card reveal">
+        <div class="program-tag">Innovation</div>
+        <h3>Innovation Meets Law</h3>
+        <p>Exploring the intersection between law, technology, entrepreneurship and innovation.</p>
+        <div class="program-meta"><span>Series</span><span>•</span><span>Cross-sector</span></div>
+        <a href="#" class="btn btn-link">Learn More <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+
+      <article class="program-card reveal">
+        <div class="program-tag">Leadership</div>
+        <h3>Leadership Training</h3>
+        <p>Developing character, mindset and practical leadership skills among young people.</p>
+        <div class="program-meta"><span>Cohort</span><span>•</span><span>Mentorship</span></div>
+        <a href="#" class="btn btn-link">Learn More <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FEATURED EVENT ============== -->
+<section class="section event-section" id="events">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Featured Event</span>
+      <h2 class="section-title">What's Happening at <span class="accent">Legal Chords?</span></h2>
+      <p class="section-lede">
+        Legal Chords is an active organization. Here is what is coming up next —
+        join the conversation, share your perspective and connect with change.
+      </p>
+    </div>
+
+    <article class="event-card reveal">
+      <div class="event-poster">
+        <div class="event-poster-inner">
+          <span class="event-poster-tag">Upcoming</span>
+          <div class="event-poster-date">
+            <span class="d-day">14</span>
+            <span class="d-mon">NOV</span>
+          </div>
+          <h3 class="event-poster-title">Legal Chords Summit 2026</h3>
+          <p class="event-poster-sub">Law • Innovation • Youth</p>
+          <div class="event-poster-orb"></div>
+        </div>
+      </div>
+
+      <div class="event-body">
+        <div class="event-meta">
+          <span class="event-pill"><span class="dot dot-gold"></span>Summit</span>
+          <span class="event-pill">Hybrid</span>
+        </div>
+        <h3>Legal Chords Summit 2026 — The Next Generation of Justice</h3>
+        <p>
+          A flagship gathering of young leaders, lawyers, technologists and policymakers
+          shaping the future of law, civic engagement and innovation in Nigeria and
+          across Africa.
+        </p>
+
+        <ul class="event-info">
+          <li>
+            <span class="info-label">Date</span>
+            <span class="info-value">Saturday, 14 November 2026</span>
+          </li>
+          <li>
+            <span class="info-label">Time</span>
+            <span class="info-value">10:00 AM — 4:00 PM (WAT)</span>
+          </li>
+          <li>
+            <span class="info-label">Format</span>
+            <span class="info-value">Hybrid (Lagos + Online)</span>
+          </li>
+          <li>
+            <span class="info-label">Speakers</span>
+            <span class="info-value">20+ legal, civic & tech leaders</span>
+          </li>
+        </ul>
+
+        <div class="event-actions">
+          <a href="#" class="btn btn-primary">Register Now</a>
+          <a href="#" class="btn btn-ghost">View All Events →</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============== COMMUNITY ============== -->
+<section class="section community">
+  <div class="container">
+    <div class="community-wrap reveal">
+      <div class="community-bg">
+        <div class="community-glow"></div>
+        <svg viewBox="0 0 600 400" class="community-lines" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <g stroke="#246FE0" stroke-width="1" fill="none" opacity="0.4">
+            <circle cx="100" cy="100" r="40"/>
+            <circle cx="500" cy="120" r="50"/>
+            <circle cx="300" cy="200" r="60"/>
+            <circle cx="120" cy="320" r="35"/>
+            <circle cx="480" cy="320" r="45"/>
+            <path d="M100 100 L300 200 L500 120" />
+            <path d="M300 200 L120 320" />
+            <path d="M300 200 L480 320" />
+          </g>
+          <g fill="#F5C62F">
+            <circle cx="100" cy="100" r="4"/>
+            <circle cx="500" cy="120" r="4"/>
+            <circle cx="300" cy="200" r="5"/>
+            <circle cx="120" cy="320" r="3"/>
+            <circle cx="480" cy="320" r="4"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="community-grid">
+        <div class="community-text">
+          <span class="eyebrow eyebrow-light">The Legal Chords Community</span>
+          <h2 class="section-title">Learn. <span class="accent">Connect.</span> Lead.</h2>
+          <p class="section-lede light">
+            Join a growing community of young people interested in law, leadership,
+            innovation, justice and personal development.
+          </p>
+          <a href="#get-involved" class="btn btn-primary btn-lg" data-join-open>Join the Community</a>
+        </div>
+
+        <ul class="community-benefits">
+          <li>
+            <span class="ben-num">01</span>
+            <div>
+              <h5>Access to Legal Education</h5>
+              <p>Courses, articles, and Legal Nuggets made for everyday understanding.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ben-num">02</span>
+            <div>
+              <h5>Webinars & Events</h5>
+              <p>Live conversations and experiences with lawyers, leaders and innovators.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ben-num">03</span>
+            <div>
+              <h5>Leadership Opportunities</h5>
+              <p>Step into roles that sharpen your voice, your judgement and your impact.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ben-num">04</span>
+            <div>
+              <h5>Volunteer Opportunities</h5>
+              <p>Contribute your time, skills and creativity to the mission.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ben-num">05</span>
+            <div>
+              <h5>Networking</h5>
+              <p>Connect with changemakers across universities and cities.</p>
+            </div>
+          </li>
+          <li>
+            <span class="ben-num">06</span>
+            <div>
+              <h5>Youth-Focused Resources</h5>
+              <p>Toolkits, guides and templates tailored to young people's realities.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== IMPACT ============== -->
+<section class="section impact" id="impact">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Our Impact</span>
+      <h2 class="section-title">Numbers that <span class="accent">tell a story.</span></h2>
+      <p class="section-lede">
+        Legal awareness is not a slogan. It is a measurable shift in how people
+        understand and exercise their rights.
+      </p>
+    </div>
+
+    <div class="impact-grid">
+      <div class="impact-stat reveal">
+        <div class="impact-num"><span class="counter" data-target="100">0</span>+</div>
+        <div class="impact-label">Community Members</div>
+        <div class="impact-sub">Young people reached across programs</div>
+      </div>
+      <div class="impact-stat reveal">
+        <div class="impact-num"><span class="counter" data-target="10">0</span>+</div>
+        <div class="impact-label">Educational Sessions</div>
+        <div class="impact-sub">Webinars, workshops and Legal Nuggets</div>
+      </div>
+      <div class="impact-stat reveal">
+        <div class="impact-num">Multiple</div>
+        <div class="impact-label">University Partnerships</div>
+        <div class="impact-sub">Building presence on campuses</div>
+      </div>
+      <div class="impact-stat reveal">
+        <div class="impact-num">Growing</div>
+        <div class="impact-label">Young People Reached</div>
+        <div class="impact-sub">Across cities and online communities</div>
+      </div>
+    </div>
+
+    <div class="map-card reveal">
+      <div class="map-bg">
+        <svg viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <radialGradient id="mapGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#246FE0" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#246FE0" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="800" height="360" fill="url(#mapGlow)" opacity="0.3"/>
+          <g stroke="#246FE0" stroke-width="1" fill="none" opacity="0.4">
+            <path d="M150 180 Q 250 100, 400 180 T 650 180" />
+            <path d="M150 220 Q 280 260, 420 200 T 680 230" />
+            <path d="M200 100 Q 350 200, 500 120" />
+            <path d="M180 280 Q 320 240, 460 290" />
+          </g>
+          <g fill="#F5C62F">
+            <circle cx="180" cy="190" r="5"/>
+            <circle cx="280" cy="160" r="4"/>
+            <circle cx="380" cy="200" r="6"/>
+            <circle cx="470" cy="170" r="5"/>
+            <circle cx="560" cy="200" r="4"/>
+            <circle cx="640" cy="180" r="3"/>
+            <circle cx="320" cy="240" r="3"/>
+            <circle cx="450" cy="260" r="4"/>
+          </g>
+          <g fill="currentColor" opacity="0.85">
+            <text x="186" y="210" font-size="10" font-family="Inter, sans-serif">Lagos</text>
+            <text x="386" y="220" font-size="10" font-family="Inter, sans-serif">Abuja</text>
+            <text x="476" y="190" font-size="10" font-family="Inter, sans-serif">Kano</text>
+            <text x="566" y="220" font-size="10" font-family="Inter, sans-serif">Kaduna</text>
+          </g>
+        </svg>
+      </div>
+      <div class="map-content">
+        <h3>Expanding across Nigeria.</h3>
+        <p>From Lagos to Kano, Abuja to Kaduna — Legal Chords is building a national footprint of legal awareness, education and youth empowerment.</p>
+        <span class="map-note">Editable metrics — easy to update from your CMS as the organization grows.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PARTNERS ============== -->
+<section class="section partners">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Partners & Collaborators</span>
+      <h2 class="section-title">Building impact <span class="accent">through collaboration.</span></h2>
+      <p class="section-lede">
+        We believe meaningful impact happens through collaboration. Legal Chords works with
+        institutions, student communities, professionals, organizations and changemakers
+        to expand access to legal knowledge.
+      </p>
+    </div>
+
+    <div class="partners-grid reveal">
+      <div class="partner-logo"><span>Partner Logo</span></div>
+      <div class="partner-logo"><span>University</span></div>
+      <div class="partner-logo"><span>NGO</span></div>
+      <div class="partner-logo"><span>Community</span></div>
+      <div class="partner-logo"><span>Organization</span></div>
+      <div class="partner-logo"><span>Innovation Hub</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== RESOURCES ============== -->
+<section class="section resources" id="resources">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Resources / Legal Education Hub</span>
+      <h2 class="section-title">Read. <span class="accent">Learn.</span> Apply.</h2>
+      <p class="section-lede">
+        Editorial-style legal education — written for clarity, designed for relevance,
+        and updated as society evolves.
+      </p>
+    </div>
+
+    <div class="resource-tabs reveal">
+      <button class="tab active">All</button>
+      <button class="tab">Legal Nuggets</button>
+      <button class="tab">Articles</button>
+      <button class="tab">Youth & Law</button>
+      <button class="tab">Leadership</button>
+      <button class="tab">Technology & Law</button>
+      <button class="tab">Rights & Responsibilities</button>
+    </div>
+
+    <div class="resource-grid">
+      <article class="resource-card reveal">
+        <div class="resource-thumb rc-1">
+          <span class="rc-cat">RIGHTS & RESPONSIBILITIES</span>
+          <div class="rc-pattern"></div>
+        </div>
+        <div class="resource-body">
+          <h4>5 Legal Rights Every Nigerian Youth Should Know</h4>
+          <p>A simple guide to the rights that protect you in everyday situations — from arrest to online expression.</p>
+          <div class="resource-meta">
+            <span>Nov 02, 2026</span>
+            <a href="#" class="rc-link">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="resource-card reveal">
+        <div class="resource-thumb rc-2">
+          <span class="rc-cat">TECHNOLOGY & LAW</span>
+          <div class="rc-pattern"></div>
+        </div>
+        <div class="resource-body">
+          <h4>Digital Rights in Nigeria: What the Law Actually Says</h4>
+          <p>Demystifying cyber laws, data protection and online freedoms for young creators and users.</p>
+          <div class="resource-meta">
+            <span>Oct 28, 2026</span>
+            <a href="#" class="rc-link">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="resource-card reveal">
+        <div class="resource-thumb rc-3">
+          <span class="rc-cat">LEADERSHIP</span>
+          <div class="rc-pattern"></div>
+        </div>
+        <div class="resource-body">
+          <h4>From Awareness to Action: Leading with Legal Literacy</h4>
+          <p>How understanding the law transforms leadership — in student unions, startups and communities.</p>
+          <div class="resource-meta">
+            <span>Oct 20, 2026</span>
+            <a href="#" class="rc-link">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="resource-card reveal">
+        <div class="resource-thumb rc-4">
+          <span class="rc-cat">LEGAL NUGGETS</span>
+          <div class="rc-pattern"></div>
+        </div>
+        <div class="resource-body">
+          <h4>Renting in Nigeria: A Quick Legal Nugget</h4>
+          <p>What every tenant and landlord should know before signing a lease — short and practical.</p>
+          <div class="resource-meta">
+            <span>Oct 14, 2026</span>
+            <a href="#" class="rc-link">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="resource-card reveal">
+        <div class="resource-thumb rc-5">
+          <span class="rc-cat">YOUTH & LAW</span>
+          <div class="rc-pattern"></div>
+        </div>
+        <div class="resource-body">
+          <h4>Starting a Business as a Young Nigerian: Legal Basics</h4>
+          <p>Registration, intellectual property, contracts and the legal foundation of entrepreneurship.</p>
+          <div class="resource-meta">
+            <span>Oct 05, 2026</span>
+            <a href="#" class="rc-link">Read More →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="resource-card reveal">
+        <div class="resource-thumb rc-6">
+          <span class="rc-cat">ARTICLES</span>
+          <div class="rc-pattern"></div>
+        </div>
+        <div class="resource-body">
+          <h4>Why Legal Awareness is the New Civic Literacy</h4>
+          <p>A longer read on why legal education belongs in every school, household and movement.</p>
+          <div class="resource-meta">
+            <span>Sep 28, 2026</span>
+            <a href="#" class="rc-link">Read More →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="resource-cta reveal">
+      <a href="#" class="btn btn-primary">Explore the Legal Education Hub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== GET INVOLVED ============== -->
+<section class="section get-involved" id="get-involved">
+  <div class="container">
+    <div class="gi-wrap reveal">
+      <div class="gi-bg">
+        <div class="gi-glow"></div>
+      </div>
+
+      <div class="gi-content">
+        <span class="eyebrow eyebrow-light">Get Involved</span>
+        <h2 class="section-title">Don't just learn. <span class="accent">Help us create impact.</span></h2>
+        <p class="section-lede light">
+          Whether you're a student, professional, creative, researcher, communicator or
+          changemaker, there is a place for you to contribute to the Legal Chords mission.
+        </p>
+
+        <div class="gi-grid">
+          <a href="#" class="gi-card">
+            <div class="gi-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#F5C62F" stroke-width="1.6"/><circle cx="9" cy="7" r="4" stroke="#F5C62F" stroke-width="1.6"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#F5C62F" stroke-width="1.6"/></svg>
+            </div>
+            <h4>Become a Volunteer</h4>
+            <p>Join our team of contributors — write, design, organize, mentor, research.</p>
+            <span class="gi-arrow">→</span>
+          </a>
+
+          <a href="#" class="gi-card">
+            <div class="gi-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z" stroke="#F5C62F" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#F5C62F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h4>Partner With Us</h4>
+            <p>Universities, NGOs, brands and government bodies — let's build together.</p>
+            <span class="gi-arrow">→</span>
+          </a>
+
+          <a href="#" class="gi-card">
+            <div class="gi-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" stroke="#F5C62F" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <h4>Support Our Work</h4>
+            <p>Help fund programs, scholarships, summits and outreach to new communities.</p>
+            <span class="gi-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== TESTIMONIALS ============== -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Voices from the Community</span>
+      <h2 class="section-title">What our community <span class="accent">says.</span></h2>
+    </div>
+
+    <div class="testimonial-carousel reveal">
+      <button class="t-arrow t-prev" aria-label="Previous">‹</button>
+      <div class="t-track" id="tTrack">
+        <article class="t-card">
+          <div class="t-quote">"</div>
+          <p>Legal Chords made me realize that the law isn't just for lawyers. The Legal Nuggets series changed how I make decisions about work, contracts and even online content.</p>
+          <div class="t-person">
+            <div class="t-avatar">A</div>
+            <div>
+              <strong>Adaeze O.</strong>
+              <span>Student, University of Lagos</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="t-card">
+          <div class="t-quote">"</div>
+          <p>Speaking at the Legal Chords Webinar was one of the most engaging youth conversations I've been part of. They understand how to make the law relevant.</p>
+          <div class="t-person">
+            <div class="t-avatar">K</div>
+            <div>
+              <strong>Kelechi N.</strong>
+              <span>Legal Practitioner & Speaker</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="t-card">
+          <div class="t-quote">"</div>
+          <p>Volunteering with Legal Chords sharpened my communication, research and community skills. It's the kind of platform that grows people.</p>
+          <div class="t-person">
+            <div class="t-avatar">T</div>
+            <div>
+              <strong>Tobi A.</strong>
+              <span>Volunteer & Law Student</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="t-card">
+          <div class="t-quote">"</div>
+          <p>The Innovation Meets Law program opened my eyes to how technology and the law intersect. It shaped my final year project and career direction.</p>
+          <div class="t-person">
+            <div class="t-avatar">M</div>
+            <div>
+              <strong>Mariam B.</strong>
+              <span>Tech & Law Enthusiast</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="t-card">
+          <div class="t-quote">"</div>
+          <p>Partnering with Legal Chords on our civic literacy campaign brought real, measurable engagement from students. They are building something important.</p>
+          <div class="t-person">
+            <div class="t-avatar">D</div>
+            <div>
+              <strong>David E.</strong>
+              <span>Partner Organization</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <button class="t-arrow t-next" aria-label="Next">›</button>
+    </div>
+
+    <div class="t-dots" id="tDots"></div>
+  </div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<section class="section final-cta">
+  <div class="container">
+    <div class="cta-wrap reveal">
+      <div class="cta-bg">
+        <div class="cta-glow cta-glow-1"></div>
+        <div class="cta-glow cta-glow-2"></div>
+        <div class="cta-orb"></div>
+      </div>
+
+      <div class="cta-content">
+        <span class="eyebrow eyebrow-light">A New Generation of Legal Citizens</span>
+        <h2>
+          Knowledge creates power.<br />
+          <span class="cta-accent">Legal knowledge creates protection.</span>
+        </h2>
+        <p>
+          Be part of a generation that understands the law, knows its rights and leads
+          with purpose.
+        </p>
+        <div class="cta-actions">
+          <a href="https://chat.whatsapp.com/B4jgGjfF7tYKxDFowlYlWF" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Join The Community</a>
+          <a href="#programs" class="btn btn-ghost btn-lg">Explore Our Programs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <span class="logo-mark footer-logo-mark">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0" width="40" height="40" rx="10" fill="transparent"/>
+              <path d="M12 14L20 22L12 30" stroke="#F5C62F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"/>
+              <path d="M20 14L28 22L20 30" stroke="#F7F7F8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.98"/>
+            </svg>
+          </span>
+          <span class="logo-text">
+            <span class="logo-title">LEGAL CHORDS</span>
+            <span class="logo-sub">Legal Awareness Platform</span>
+          </span>
+        </a>
+        <p>Making legal knowledge accessible, practical and understandable — for a new generation of Nigerian changemakers.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 4a2 2 0 110 4 2 2 0 010-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+          <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#events">Events</a>
+        <a href="#resources">Resources</a>
+        <a href="#impact">Our Impact</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>Get Involved</h5>
+        <a href="#">Volunteer</a>
+        <a href="#">Partner With Us</a>
+        <a href="#" data-join-open>Join the Community</a>
+        <a href="#">Support Us</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">X / Twitter</a>
+        <a href="mailto:hello@legalchords.ng">Email</a>
+      </div>
+
+      <div class="footer-col footer-newsletter">
+        <h5>Stay Updated</h5>
+        <p>Get Legal Nuggets and updates straight to your inbox.</p>
+        <form class="newsletter" onsubmit="event.preventDefault(); this.querySelector('button').innerText='Subscribed ✓';">
+          <input type="email" placeholder="Your email" required />
+          <button type="submit">→</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Legal Chords. All rights reserved.</p>
+      <p class="disclaimer">
+        Legal Chords provides legal awareness and educational content and does not provide individual
+        legal representation or legal advice.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============== JOIN MODAL ============== -->
+<div class="join-modal" id="joinModal" aria-hidden="true">
+  <div class="join-modal-backdrop" data-join-close></div>
+  <div class="join-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle" tabindex="-1">
+    <button class="join-modal-close" type="button" data-join-close aria-label="Close dialog">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="join-modal-header">
+      <span class="eyebrow">Join Legal Chords</span>
+      <h2 id="joinModalTitle">Become a member of the movement.</h2>
+      <p>Tell us a little about yourself so we can connect you with the right programs, events and opportunities.</p>
+    </div>
+
+    <form class="join-form" id="joinForm" novalidate>
+      <div class="join-field-group join-name-group">
+        <div class="join-field">
+          <label for="joinFirstname">First Name</label>
+          <input type="text" id="joinFirstname" name="firstname" placeholder="Adaeze" required />
+        </div>
+        <div class="join-field">
+          <label for="joinMiddlename">Middle Name</label>
+          <input type="text" id="joinMiddlename" name="middlename" placeholder="Chidera" required />
+        </div>
+        <div class="join-field">
+          <label for="joinLastname">Last Name</label>
+          <input type="text" id="joinLastname" name="lastname" placeholder="Okonkwo" required />
+        </div>
+      </div>
+
+      <div class="join-field">
+        <label for="joinEmail">Email Address</label>
+        <input type="email" id="joinEmail" name="email" placeholder="you@example.com" required />
+      </div>
+
+      <div class="join-field">
+        <label for="joinPhone">Phone Number</label>
+        <div class="join-phone-group">
+          <select id="joinCountryCode" name="country_code" class="join-country-code">
+            <option value="+234" selected>🇳🇬 +234</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+91">🇮🇳 +91</option>
+            <option value="+27">🇿🇦 +27</option>
+            <option value="+233">🇬🇭 +233</option>
+            <option value="+254">🇰🇪 +254</option>
+            <option value="+256">🇺🇬 +256</option>
+            <option value="+255">🇹🇿 +255</option>
+            <option value="+237">🇨🇲 +237</option>
+            <option value="+225">🇨🇮 +225</option>
+            <option value="+221">🇸🇳 +221</option>
+            <option value="+213">🇩🇿 +213</option>
+            <option value="+212">🇲🇦 +212</option>
+            <option value="+216">🇹🇳 +216</option>
+            <option value="+20">🇪🇬 +20</option>
+            <option value="+971">🇦🇪 +971</option>
+            <option value="+966">🇸🇦 +966</option>
+            <option value="+974">🇶🇦 +974</option>
+            <option value="+973">🇧🇭 +973</option>
+            <option value="+968">🇴🇲 +968</option>
+            <option value="+965">🇰🇼 +965</option>
+            <option value="+962">🇯🇴 +962</option>
+            <option value="+961">🇱🇧 +961</option>
+            <option value="+963">🇸🇾 +963</option>
+            <option value="+964">🇮🇶 +964</option>
+            <option value="+972">🇮🇱 +972</option>
+            <option value="+90">🇹🇷 +90</option>
+            <option value="+86">🇨🇳 +86</option>
+            <option value="+81">🇯🇵 +81</option>
+            <option value="+82">🇰🇷 +82</option>
+            <option value="+84">🇻🇳 +84</option>
+            <option value="+66">🇹🇭 +66</option>
+            <option value="+63">🇵🇭 +63</option>
+            <option value="+60">🇲🇾 +60</option>
+            <option value="+65">🇸🇬 +65</option>
+            <option value="+62">🇮🇩 +62</option>
+            <option value="+95">🇲🇲 +95</option>
+            <option value="+880">🇧🇩 +880</option>
+            <option value="+94">🇱🇰 +94</option>
+            <option value="+977">🇳🇵 +977</option>
+            <option value="+92">🇵🇰 +92</option>
+            <option value="+93">🇦🇫 +93</option>
+            <option value="+98">🇮🇷 +98</option>
+            <option value="+7">🇷🇺 +7</option>
+            <option value="+380">🇺🇦 +380</option>
+            <option value="+48">🇵🇱 +48</option>
+            <option value="+420">🇨🇿 +420</option>
+            <option value="+36">🇭🇺 +36</option>
+            <option value="+40">🇷🇴 +40</option>
+            <option value="+359">🇧🇬 +359</option>
+            <option value="+381">🇷🇸 +381</option>
+            <option value="+385">🇭🇷 +385</option>
+            <option value="+386">🇸🇮 +386</option>
+            <option value="+387">🇧🇦 +387</option>
+            <option value="+389">🇲🇰 +389</option>
+            <option value="+355">🇦🇱 +355</option>
+            <option value="+30">🇬🇷 +30</option>
+            <option value="+39">🇮🇹 +39</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+351">🇵🇹 +351</option>
+            <option value="+33">🇫🇷 +33</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+31">🇳🇱 +31</option>
+            <option value="+32">🇧🇪 +32</option>
+            <option value="+352">🇱🇺 +352</option>
+            <option value="+41">🇨🇭 +41</option>
+            <option value="+43">🇦🇹 +43</option>
+            <option value="+46">🇸🇪 +46</option>
+            <option value="+47">🇳🇴 +47</option>
+            <option value="+45">🇩🇰 +45</option>
+            <option value="+358">🇫🇮 +358</option>
+            <option value="+354">🇮🇸 +354</option>
+            <option value="+370">🇱🇹 +370</option>
+            <option value="+371">🇱🇻 +371</option>
+            <option value="+372">🇪🇪 +372</option>
+            <option value="+380">🇺🇦 +380</option>
+            <option value="+375">🇧🇾 +375</option>
+            <option value="+373">🇲🇩 +373</option>
+            <option value="+374">🇦🇲 +374</option>
+            <option value="+995">🇬🇪 +995</option>
+            <option value="+994">🇦🇿 +994</option>
+            <option value="+992">🇹🇯 +992</option>
+            <option value="+993">🇹🇲 +993</option>
+            <option value="+996">🇰🇬 +996</option>
+            <option value="+998">🇺🇿 +998</option>
+            <option value="+7">🇰🇿 +7</option>
+            <option value="+61">🇦🇺 +61</option>
+            <option value="+64">🇳🇿 +64</option>
+            <option value="+51">🇵🇪 +51</option>
+            <option value="+56">🇨🇱 +56</option>
+            <option value="+57">🇨🇴 +57</option>
+            <option value="+58">🇻🇪 +58</option>
+            <option value="+55">🇧🇷 +55</option>
+            <option value="+54">🇦🇷 +54</option>
+            <option value="+593">🇪🇨 +593</option>
+            <option value="+595">🇵🇾 +595</option>
+            <option value="+598">🇺🇾 +598</option>
+            <option value="+507">🇵🇦 +507</option>
+            <option value="+506">🇨🇷 +506</option>
+            <option value="+503">🇸🇻 +503</option>
+            <option value="+502">🇬🇹 +502</option>
+            <option value="+504">🇭🇳 +504</option>
+            <option value="+505">🇳🇮 +505</option>
+            <option value="+1809">🇩🇴 +1809</option>
+            <option value="+1876">🇯🇲 +1876</option>
+            <option value="+1787">🇵🇷 +1787</option>
+            <option value="+52">🇲🇽 +52</option>
+            <option value="+53">🇨🇺 +53</option>
+            <option value="+1">🇨🇦 +1</option>
+            <option value="+218">🇱🇾 +218</option>
+            <option value="+218">🇹🇳 +216</option>
+            <option value="+269">🇰🇲 +269</option>
+            <option value="+243">🇨🇩 +243</option>
+            <option value="+242">🇨🇬 +242</option>
+            <option value="+240">🇬🇶 +240</option>
+            <option value="+241">🇬🇦 +241</option>
+            <option value="+263">🇿🇼 +263</option>
+            <option value="+260">🇿🇲 +260</option>
+            <option value="+265">🇲🇼 +265</option>
+            <option value="+266">🇱🇸 +266</option>
+            <option value="+267">🇧🇼 +267</option>
+            <option value="+268">🇸🇿 +268</option>
+            <option value="+264">🇳🇦 +264</option>
+            <option value="+258">🇲🇿 +258</option>
+            <option value="+257">🇧🇮 +257</option>
+            <option value="+250">🇷🇼 +250</option>
+            <option value="+251">🇪🇹 +251</option>
+            <option value="+252">🇸🇴 +252</option>
+            <option value="+253">🇩🇯 +253</option>
+            <option value="+291">🇪🇷 +291</option>
+            <option value="+262">🇷🇪 +262</option>
+            <option value="+230">🇲🇺 +230</option>
+            <option value="+248">🇸🇨 +248</option>
+            <option value="+262">🇾🇹 +262</option>
+            <option value="+262">🇷🇪 +262</option>
+            <option value="+960">🇲🇻 +960</option>
+            <option value="+94">🇱🇰 +94</option>
+            <option value="+670">🇹🇱 +670</option>
+            <option value="+673">🇧🇳 +673</option>
+            <option value="+856">🇱🇦 +856</option>
+            <option value="+855">🇰🇭 +855</option>
+            <option value="+672">🇦🇶 +672</option>
+            <option value="+676">🇹🇴 +676</option>
+            <option value="+679">🇫🇯 +679</option>
+            <option value="+685">🇼🇸 +685</option>
+            <option value="+690">🇹🇰 +690</option>
+            <option value="+686">🇰🇮 +686</option>
+            <option value="+688">🇹🇻 +688</option>
+            <option value="+691">🇫🇲 +691</option>
+            <option value="+692">🇲🇭 +692</option>
+            <option value="+670">🇹🇱 +670</option>
+          </select>
+          <input type="tel" id="joinPhone" name="phone" placeholder="800 000 0000" required />
+        </div>
+      </div>
+
+      <div class="join-field-group">
+        <div class="join-field">
+          <label for="joinRole">What best describes you?</label>
+          <select id="joinRole" name="role" required>
+            <option value="" disabled selected>Select one</option>
+            <option>Student</option>
+            <option>Young Professional</option>
+            <option>Legal Practitioner</option>
+            <option>Entrepreneur</option>
+            <option>Educator</option>
+            <option>Creative / Content Creator</option>
+            <option>Researcher</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="join-field">
+          <label for="joinInstitution">School / Organization</label>
+          <input type="text" id="joinInstitution" name="institution" placeholder="e.g. University of Lagos" required />
+        </div>
+      </div>
+
+      <div class="join-field">
+        <label for="joinLocation">City &amp; State</label>
+        <input type="text" id="joinLocation" name="location" placeholder="e.g. Ikeja, Lagos" required />
+      </div>
+
+      <fieldset class="join-field">
+        <legend>Areas of interest <span class="join-opt">(select at least one)</span></legend>
+        <div class="join-check-grid">
+          <label class="join-check"><input type="checkbox" name="interests" value="Legal Education" required /> Legal Education</label>
+          <label class="join-check"><input type="checkbox" name="interests" value="Legal Awareness" required /> Legal Awareness</label>
+          <label class="join-check"><input type="checkbox" name="interests" value="Youth Development" required /> Youth Development</label>
+          <label class="join-check"><input type="checkbox" name="interests" value="Leadership" required /> Leadership</label>
+          <label class="join-check"><input type="checkbox" name="interests" value="Innovation &amp; Technology" required /> Innovation &amp; Technology</label>
+          <label class="join-check"><input type="checkbox" name="interests" value="Events &amp; Conversations" required /> Events &amp; Conversations</label>
+        </div>
+      </fieldset>
+
+      <div class="join-field">
+        <label for="joinInvolvement">How would you like to get involved?</label>
+        <select id="joinInvolvement" name="involvement" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Volunteer</option>
+          <option>Partner / Collaborate</option>
+          <option>Attend events &amp; webinars</option>
+          <option>Receive resources &amp; Legal Nuggets</option>
+          <option>Support the mission</option>
+        </select>
+      </div>
+
+      <div class="join-field">
+        <label for="joinHear">How did you hear about Legal Chords?</label>
+        <select id="joinHear" name="source" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Social media</option>
+          <option>Word of mouth / friend</option>
+          <option>School / campus</option>
+          <option>Webinar or event</option>
+          <option>Website / internet</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="join-field">
+        <label for="joinMessage">Anything else we should know?</label>
+        <textarea id="joinMessage" name="message" rows="3" placeholder="Your motivation, goals, questions…" required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg join-submit">Submit Application</button>
+      <p class="join-note">By submitting, you agree to be contacted by Legal Chords about membership, events and programs. We never share your details.</p>
+    </form>
+
+    <div class="join-success" id="joinSuccess" hidden>
+      <div class="join-success-icon">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>Welcome to Legal Chords!</h3>
+      <p>Thanks for signing up. Keep an eye on your inbox — we'll reach out soon with the next steps.</p>
+      <button type="button" class="btn btn-primary btn-lg" data-join-close>Done</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
