@@ -1,0 +1,572 @@
+[
+  {
+    "term": "Habeas Corpus",
+    "slug": "habeas-corpus",
+    "definition": "A legal writ requiring a person who has detained another to bring the detainee before a court and justify the detention. It is a fundamental safeguard against unlawful imprisonment.",
+    "plainLanguageSummary": "If someone is locked up without a good reason, a judge can order their release. It's basically the law saying 'you can't just hold people without explaining why.'",
+    "category": "Constitutional Law",
+    "relatedTerms": ["fundamental-rights", "due-process", "remand"],
+    "citations": ["Section 35(2) 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Fundamental Rights",
+    "slug": "fundamental-rights",
+    "definition": "Rights guaranteed to every citizen by the Constitution, including the right to life, personal liberty, freedom of expression, freedom of religion, and the right to peaceful assembly.",
+    "plainLanguageSummary": "The basic rights the Constitution gives you just for being a Nigerian citizen — like the right to speak freely, move freely, and not be treated unfairly by the government.",
+    "category": "Constitutional Law",
+    "relatedTerms": ["habeas-corpus", "due-process", "rule-of-law", "judicial-review"],
+    "citations": ["Chapter IV, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Due Process",
+    "slug": "due-process",
+    "definition": "The legal requirement that the state must respect all legal rights owed to a person. It guarantees fair treatment through the judicial system according to established rules and principles.",
+    "plainLanguageSummary": "The government has to follow the rules when dealing with you. They can't just skip steps or make up procedures — there's a proper way to do things, and they have to follow it.",
+    "category": "Constitutional Law",
+    "relatedTerms": ["fundamental-rights", "rule-of-law", "habeas-corpus"],
+    "citations": ["Section 36, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Rule of Law",
+    "slug": "rule-of-law",
+    "definition": "The principle that all people and institutions are subject to and accountable to law that is fairly applied and enforced. No one is above the law, including government officials.",
+    "plainLanguageSummary": "Nobody is bigger than the law — not the president, not a judge, not anyone. The law applies equally to everyone, and everyone has to play by the same rules.",
+    "category": "Constitutional Law",
+    "relatedTerms": ["due-process", "fundamental-rights", "separation-of-powers", "judicial-review"],
+    "citations": ["Section 1(1), 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Separation of Powers",
+    "slug": "separation-of-powers",
+    "definition": "The division of government responsibilities into distinct branches — executive, legislative, and judicial — to prevent any one branch from exercising the core functions of another.",
+    "plainLanguageSummary": "The government is split into three parts: the ones who make laws (National Assembly), the ones who enforce them (Executive/President), and the ones who judge disputes (Courts). Each stays in its lane.",
+    "category": "Constitutional Law",
+    "relatedTerms": ["rule-of-law", "checks-and-balances", "judicial-review"],
+    "citations": ["Sections 4, 5, 6, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Checks and Balances",
+    "slug": "checks-and-balances",
+    "definition": "The system that allows each branch of government to amend or veto acts of another branch so as to prevent any one branch from exerting too much power.",
+    "plainLanguageSummary": "Each part of government can keep the others in check. The President can veto a law, the National Assembly can override the veto, and the courts can declare the law unconstitutional. Nobody gets unchecked power.",
+    "category": "Constitutional Law",
+    "relatedTerms": ["separation-of-powers", "judicial-review", "rule-of-law"],
+    "citations": ["Sections 4, 5, 6, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Judicial Review",
+    "slug": "judicial-review",
+    "definition": "The power of courts to examine the actions of the legislative, executive, and administrative arms of government and determine whether they are consistent with the constitution.",
+    "plainLanguageSummary": "Courts can check whether the government is playing by the rules. If a law or government action violates the Constitution, the courts can strike it down. It's the judiciary keeping everyone else in check.",
+    "category": "Constitutional Law",
+    "relatedTerms": ["separation-of-powers", "checks-and-balances", "rule-of-law"],
+    "citations": ["Section 6, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Jurisdiction",
+    "slug": "jurisdiction",
+    "definition": "The authority given to a legal court to hear and determine a case. It defines the geographic area, subject matter, and persons over which a court can exercise its judicial power.",
+    "plainLanguageSummary": "Every court has a 'territory' — a specific area or type of case it handles. A local court can't try a federal crime, and a Lagos court can't handle a case from Kano. Jurisdiction decides who hears what.",
+    "category": "Court System",
+    "relatedTerms": ["appellate-jurisdiction", "original-jurisdiction"],
+    "citations": ["Section 6, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Original Jurisdiction",
+    "slug": "original-jurisdiction",
+    "definition": "The power of a court to hear a case for the first time, as opposed to appellate jurisdiction where a higher court reviews a decision from a lower court.",
+    "plainLanguageSummary": "Some courts get to hear a case right from the start — that's their first shot at it. The Supreme Court has original jurisdiction in disputes between states or between the federal government and a state.",
+    "category": "Court System",
+    "relatedTerms": ["jurisdiction", "appellate-jurisdiction"],
+    "citations": ["Section 232, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Appellate Jurisdiction",
+    "slug": "appellate-jurisdiction",
+    "definition": "The power of a higher court to review decisions and change outcomes of decisions of lower courts. Most appellate jurisdiction is legislatively created.",
+    "plainLanguageSummary": "If you lose in a lower court, you can appeal to a higher court. That higher court doesn't redo the whole trial — they check if the lower court made legal mistakes. That power to review is called appellate jurisdiction.",
+    "category": "Court System",
+    "relatedTerms": ["jurisdiction", "original-jurisdiction"],
+    "citations": ["Section 240, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Bail",
+    "slug": "bail",
+    "definition": "The temporary release of an accused person awaiting trial, usually on payment of a sum of money or other security as guarantee of their appearance in court.",
+    "plainLanguageSummary": "If you're charged with a crime but haven't been convicted yet, you might be allowed to go home while waiting for your trial — as long as you promise to come back to court. Sometimes you need to pay money or provide a guarantor.",
+    "category": "Criminal Law",
+    "relatedTerms": ["arraignment", "remand", "suspect", "arrest", "plea-bargain"],
+    "citations": ["Section 35(4), 1999 Constitution of Nigeria; Administration of Criminal Justice Act 2015"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Arrest",
+    "slug": "arrest",
+    "definition": "The act of apprehending a person suspected of committing an offence, typically by law enforcement officers, in accordance with legal procedures.",
+    "plainLanguageSummary": "When the police pick you up because they think you've broken the law. There are rules about how it has to happen — they usually need a warrant, and they have to tell you why you're being arrested.",
+    "category": "Criminal Law",
+    "relatedTerms": ["bail", "suspect", "warrant", "remand"],
+    "citations": ["Section 35, 1999 Constitution of Nigeria; ACJA 2015"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Suspect",
+    "slug": "suspect",
+    "definition": "A person believed to have committed a crime but who has not yet been charged or convicted. A suspect retains all fundamental rights until proven guilty by a court of law.",
+    "plainLanguageSummary": "Someone the police think did something wrong. But thinking isn't proving — a suspect is innocent until the court says otherwise. They still have rights, including the right to a lawyer.",
+    "category": "Criminal Law",
+    "relatedTerms": ["arrest", "bail", "arraignment", "warrant"],
+    "citations": ["Section 36(5), 1999 Constitution of Nigeria; ACJA 2015"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Warrant",
+    "slug": "warrant",
+    "definition": "A written order issued by a judge or magistrate that authorises law enforcement to make an arrest, search a premises, or carry out another specific legal action.",
+    "plainLanguageSummary": "A judge's written permission for the police to do something — like arrest someone or search your house. Without a warrant (in most cases), the police can't just barge in.",
+    "category": "Criminal Law",
+    "relatedTerms": ["arrest", "search-and-seizure", "suspect"],
+    "citations": ["Administration of Criminal Justice Act 2015; Criminal Code Act"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Arraignment",
+    "slug": "arraignment",
+    "definition": "The procedure by which an accused person is brought before a court to hear the charges against them and to enter a plea (guilty, not guilty, or no contest).",
+    "plainLanguageSummary": "The first time you stand in court after being charged. The judge reads out what you're accused of, and you say whether you plead guilty or not guilty. It's the formal start of the trial process.",
+    "category": "Criminal Law",
+    "relatedTerms": ["bail", "plea-bargain", "suspect", "sentence"],
+    "citations": ["ACJA 2015, Sections 293-296"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Remand",
+    "slug": "remand",
+    "definition": "The detention of a suspect in custody pending further investigation or trial, when bail has been refused or is not available for the type of offence charged.",
+    "plainLanguageSummary": "When someone is kept in custody because they can't get bail — maybe the crime is too serious or the court thinks they might flee. They stay in prison waiting for the next court date.",
+    "category": "Criminal Law",
+    "relatedTerms": ["bail", "arrest", "habeas-corpus"],
+    "citations": ["ACJA 2015; Section 35, 1999 Constitution of Nigeria"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Sentence",
+    "slug": "sentence",
+    "definition": "The punishment given to a person convicted of a crime by a court. Sentences can include imprisonment, fines, community service, probation, or a combination thereof.",
+    "plainLanguageSummary": "What happens after you're found guilty. The judge decides your punishment — it could be time in prison, a fine, community service, or a mix. The seriousness of the crime and your history matter.",
+    "category": "Criminal Law",
+    "relatedTerms": ["plea-bargain", "arraignment", "bail"],
+    "citations": ["Criminal Code Act; Penal Code Act; ACJA 2015"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Plea Bargain",
+    "slug": "plea-bargain",
+    "definition": "An agreement between the prosecutor and defendant whereby the defendant pleads guilty to a lesser charge or receives a lighter sentence in exchange for cooperation.",
+    "plainLanguageSummary": "A deal in criminal cases: instead of going to trial and risking a heavy sentence, the accused agrees to plead guilty to a lesser offence. The prosecution saves time, and the accused gets a lighter punishment.",
+    "category": "Criminal Law",
+    "relatedTerms": ["bail", "arraignment", "sentence"],
+    "citations": ["Administration of Criminal Justice Act 2015, Sections 270-275"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Contract",
+    "slug": "contract",
+    "definition": "A legally binding agreement between two or more parties that creates mutual obligations enforceable by law. A valid contract requires offer, acceptance, consideration, and intention to create legal relations.",
+    "plainLanguageSummary": "A deal that the law will enforce. If you agree to do something for someone and they agree to pay you, that's a contract. If one side breaks the deal, the other can go to court about it.",
+    "category": "Civil Law",
+    "relatedTerms": ["consideration", "breach-of-contract", "offer-and-acceptance", "damages"],
+    "citations": ["Contract Act, Cap C21, Laws of the Federation of Nigeria 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Consideration",
+    "slug": "consideration",
+    "definition": "Something of value exchanged between parties to a contract. Each party must give something (a promise, act, or forbearance) for the contract to be legally enforceable.",
+    "plainLanguageSummary": "The 'price' of the deal. Both sides have to give something up — money, services, a promise. If only one side gives something, it's a gift, not a contract, and the law won't enforce it.",
+    "category": "Civil Law",
+    "relatedTerms": ["contract", "offer-and-acceptance", "breach-of-contract"],
+    "citations": ["Contract Act, Cap C21, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Offer and Acceptance",
+    "slug": "offer-and-acceptance",
+    "definition": "The two essential elements of a contract: an offer is a definite proposal made by one party, and acceptance is the unconditional agreement to that proposal.",
+    "plainLanguageSummary": "One person says 'I'll do this for you at this price' (offer), and the other says 'deal' (acceptance). Once both sides agree on the same terms, a contract is formed.",
+    "category": "Civil Law",
+    "relatedTerms": ["contract", "consideration", "breach-of-contract"],
+    "citations": ["Contract Act, Cap C21, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Breach of Contract",
+    "slug": "breach-of-contract",
+    "definition": "The failure of one party to fulfil their obligations under a contract without a lawful excuse. The innocent party may claim damages or seek specific performance.",
+    "plainLanguageSummary": "When someone breaks their side of the deal. Maybe they didn't deliver the goods, didn't do the work, or didn't pay. The other party can sue for compensation or ask the court to force performance.",
+    "category": "Civil Law",
+    "relatedTerms": ["contract", "damages", "consideration"],
+    "citations": ["Contract Act, Cap C21, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Tort",
+    "slug": "tort",
+    "definition": "A civil wrong that causes someone else to suffer loss or harm, resulting in legal liability for the person who commits the tortious act. Examples include negligence, defamation, and nuisance.",
+    "plainLanguageSummary": "When someone does something wrong (but it's not a crime) and it hurts you. Like if a shop leaves a wet floor and you slip, or someone spreads lies about you. You can sue them for damages.",
+    "category": "Civil Law",
+    "relatedTerms": ["negligence", "defamation", "damages", "duty-of-care"],
+    "citations": ["Common law principles; various Nigerian statutes"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Negligence",
+    "slug": "negligence",
+    "definition": "Failure to exercise the standard of care that a reasonably prudent person would have exercised in a similar situation. It is the basis of most personal injury claims.",
+    "plainLanguageSummary": "Being careless when you should have been careful. If a doctor makes a mistake that any good doctor wouldn't make, or a driver runs a red light — that's negligence, and the person who got hurt can claim damages.",
+    "category": "Civil Law",
+    "relatedTerms": ["tort", "damages", "duty-of-care"],
+    "citations": ["Common law; Donoghue v Stevenson [1932] AC 562"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Duty of Care",
+    "slug": "duty-of-care",
+    "definition": "A legal obligation to adhere to a standard of reasonable care while performing any acts that could foreseeably harm others. It is the first element that must be proven in a negligence claim.",
+    "plainLanguageSummary": "If you're doing something that could hurt someone, the law says you must be careful. A doctor owes a duty to patients, a driver owes a duty to other road users. Break that duty, and you're liable.",
+    "category": "Civil Law",
+    "relatedTerms": ["negligence", "tort", "damages"],
+    "citations": ["Common law; Donoghue v Stevenson [1932]"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Damages",
+    "slug": "damages",
+    "definition": "A sum of money claimed by, or awarded to, a person as compensation for loss or injury caused by the wrongful act of another party.",
+    "plainLanguageSummary": "Money the court orders someone to pay you because they hurt you or broke a deal. It's not punishment — it's meant to put you back in the position you'd have been in if they hadn't messed up.",
+    "category": "Civil Law",
+    "relatedTerms": ["tort", "negligence", "breach-of-contract", "defamation"],
+    "citations": ["Common law; various Nigerian statutes"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Defamation",
+    "slug": "defamation",
+    "definition": "The act of communicating false statements that injure the reputation of a person or entity. In Nigeria, both libel (written) and slander (spoken) are recognized forms of defamation.",
+    "plainLanguageSummary": "When someone tells lies about you that damage your reputation. If it's written or posted online, it's libel. If it's spoken, it's slander. You can sue for compensation.",
+    "category": "Civil Law",
+    "relatedTerms": ["tort", "libel", "slander", "damages"],
+    "citations": ["Defamation Act, Cap D11, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Libel",
+    "slug": "libel",
+    "definition": "A published false statement that is damaging to a person's reputation; a written or broadcast form of defamation.",
+    "plainLanguageSummary": "Defamation that's in writing — a newspaper article, a social media post, a YouTube video. If someone publishes lies about you that hurt your reputation, that's libel and you can sue.",
+    "category": "Civil Law",
+    "relatedTerms": ["defamation", "slander", "tort"],
+    "citations": ["Defamation Act, Cap D11, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Slander",
+    "slug": "slander",
+    "definition": "A false spoken statement that damages a person's reputation; the oral form of defamation.",
+    "plainLanguageSummary": "Defamation that's spoken — someone tells lies about you face-to-face or in a speech. It's harder to prove than libel because there's no written record, but you can still sue.",
+    "category": "Civil Law",
+    "relatedTerms": ["defamation", "libel", "tort"],
+    "citations": ["Defamation Act, Cap D11, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Power of Attorney",
+    "slug": "power-of-attorney",
+    "definition": "A legal document authorizing one person (the agent or attorney-in-fact) to act on behalf of another (the principal) in legal or financial matters.",
+    "plainLanguageSummary": "You write a letter saying 'this person can make decisions for me.' If you're travelling or unable to handle your own affairs, you can give someone you trust the legal authority to act on your behalf.",
+    "category": "Property & Commercial Law",
+    "relatedTerms": ["fiduciary-duty", "agency", "trust"],
+    "citations": ["Land Use Act 1978; Powers of Attorney Act, Cap P5, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Agency",
+    "slug": "agency",
+    "definition": "A legal relationship where one person (the agent) is authorised to act on behalf of another (the principal) to create legal relations with third parties.",
+    "plainLanguageSummary": "When you appoint someone to act for you — like hiring a lawyer to represent you or giving a real estate agent authority to sell your property. The agent's actions legally bind you.",
+    "category": "Property & Commercial Law",
+    "relatedTerms": ["power-of-attorney", "fiduciary-duty", "contract"],
+    "citations": ["Agency Law; common law principles"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Fiduciary Duty",
+    "slug": "fiduciary-duty",
+    "definition": "A legal obligation to act in the best interest of another party. A fiduciary must not profit from their position and must avoid conflicts of interest.",
+    "plainLanguageSummary": "When someone trusts you to handle their affairs, the law says you MUST put their interests first — not yours. If you're a lawyer, trustee, or financial advisor, you can't use their money or information for your own gain.",
+    "category": "Commercial Law",
+    "relatedTerms": ["power-of-attorney", "agency", "trust"],
+    "citations": ["Common law principles; Companies and Allied Matters Act 2020"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Trust",
+    "slug": "trust",
+    "definition": "A legal arrangement where one party (the trustee) holds property or assets for the benefit of another (the beneficiary), subject to specific terms and obligations.",
+    "plainLanguageSummary": "Someone gives you something valuable to hold and manage for someone else's benefit. You don't own it — you're just the custodian. If you misuse it, the law will hold you accountable.",
+    "category": "Property & Commercial Law",
+    "relatedTerms": ["fiduciary-duty", "power-of-attorney", "probate"],
+    "citations": ["Trustee Act, Cap T6, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Intellectual Property",
+    "slug": "intellectual-property",
+    "definition": "Creations of the mind — inventions, literary and artistic works, designs, symbols, and names — that are protected by law through patents, copyrights, trademarks, and trade secrets.",
+    "plainLanguageSummary": "The law protects things you create with your brain. Your songs, your inventions, your brand logo, your app code — someone can't just steal them. You get exclusive rights to use and profit from your creations.",
+    "category": "Intellectual Property",
+    "relatedTerms": ["copyright", "trademark", "patent"],
+    "citations": ["Copyright Act 2022; Trade Marks Act, Cap T13, LFN 2004; Patents and Designs Act, Cap P2, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Copyright",
+    "slug": "copyright",
+    "definition": "A type of intellectual property that grants the creator of an original work exclusive rights to its use and distribution, typically for a limited time.",
+    "plainLanguageSummary": "Once you create something original — a book, song, video, software — the law automatically gives you the right to decide who can use, copy, or sell it. No one can use your work without your permission.",
+    "category": "Intellectual Property",
+    "relatedTerms": ["intellectual-property", "trademark", "patent"],
+    "citations": ["Copyright Act 2022"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Trademark",
+    "slug": "trademark",
+    "definition": "A recognizable sign, design, or expression that identifies products or services of a particular source and distinguishes them from others.",
+    "plainLanguageSummary": "That logo, name, or symbol that makes your brand yours. When you register it, no one else can use something similar to confuse customers. Think of the Nike swoosh or the Coca-Cola script.",
+    "category": "Intellectual Property",
+    "relatedTerms": ["intellectual-property", "copyright", "patent"],
+    "citations": ["Trade Marks Act, Cap T13, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Patent",
+    "slug": "patent",
+    "definition": "A exclusive right granted for an invention, providing the patent holder with the right to decide how the invention can be used by others for a limited period.",
+    "plainLanguageSummary": "If you invent something new and useful, you can get a patent that gives you exclusive rights to it for 20 years. Others can't make, sell, or use your invention without your permission.",
+    "category": "Intellectual Property",
+    "relatedTerms": ["intellectual-property", "copyright", "trademark"],
+    "citations": ["Patents and Designs Act, Cap P2, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Caveat Emptor",
+    "slug": "caveat-emptor",
+    "definition": "A Latin phrase meaning 'let the buyer beware.' It places the responsibility on the buyer to examine and assess the quality and suitability of goods before purchasing.",
+    "plainLanguageSummary": "Before you buy something, it's your job to check it out. If you buy a phone without testing it and it turns out to be faulty, the law says you should have checked first. (Though consumer protection laws have softened this rule.)",
+    "category": "Commercial Law",
+    "relatedTerms": ["contract", "consumer-protection"],
+    "citations": ["Common law principle; Sale of Goods Act, Cap S1, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Consumer Protection",
+    "slug": "consumer-protection",
+    "definition": "Laws and regulations designed to ensure that products and services sold to consumers meet acceptable standards of safety, quality, and fairness.",
+    "plainLanguageSummary": "The law has your back when you shop. If you buy something dangerous, defective, or misrepresented, consumer protection laws let you get a refund, replacement, or compensation.",
+    "category": "Commercial Law",
+    "relatedTerms": ["caveat-emptor", "contract", "damages"],
+    "citations": ["Federal Competition and Consumer Protection Act 2018"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Election Petition",
+    "slug": "election-petition",
+    "definition": "A legal challenge to the result of an election, filed by a candidate or voter who alleges that the election was not conducted fairly or in accordance with electoral laws.",
+    "plainLanguageSummary": "If you believe an election was rigged or conducted unfairly, you can take the matter to court. Election petitions have strict timelines and rules — the courts must decide them quickly.",
+    "category": "Electoral Law",
+    "relatedTerms": ["electoral-tribunal", "franchise"],
+    "citations": ["Electoral Act 2022; Third Schedule, 1999 Constitution"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Electoral Tribunal",
+    "slug": "electoral-tribunal",
+    "definition": "Special courts established to hear and determine disputes arising from elections in Nigeria. They include the National and State Houses of Assembly Election Tribunals and the Governorship Election Tribunals.",
+    "plainLanguageSummary": "When election results are disputed, they don't go to regular courts — they go to special election tribunals set up just for that purpose. They're faster than regular courts because election disputes need quick resolution.",
+    "category": "Electoral Law",
+    "relatedTerms": ["election-petition", "franchise"],
+    "citations": ["Third Schedule, 1999 Constitution of Nigeria; Electoral Act 2022"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Franchise",
+    "slug": "franchise",
+    "definition": "The right to vote in public elections; also known as suffrage. In Nigeria, every citizen who is 18 or older and registered has the franchise.",
+    "plainLanguageSummary": "Your right to vote. Once you're 18 and registered, you have the franchise — the power to choose who represents you in government. It's one of the most fundamental rights in a democracy.",
+    "category": "Electoral Law",
+    "relatedTerms": ["election-petition", "electoral-tribunal", "fundamental-rights"],
+    "citations": ["Section 77, 1999 Constitution of Nigeria; Electoral Act 2022"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Statute of Limitations",
+    "slug": "statute-of-limitations",
+    "definition": "A law that sets the maximum time after an event within which legal proceedings may be initiated. Once the time limit expires, the claim is usually barred.",
+    "plainLanguageSummary": "There's a deadline for filing lawsuits. If you wait too long, you lose the right to sue. For example, you usually have 6 years to sue over a contract breach, but only 3 months for an election petition.",
+    "category": "Civil Procedure",
+    "relatedTerms": ["limitation-law", "cause-of-action"],
+    "citations": ["Limitation Law, Cap L9, LFN 2004 (varies by state)"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Limitation Law",
+    "slug": "limitation-law",
+    "definition": "State-level legislation that prescribes the time limits within which civil actions must be commenced. The specific periods vary by state and by type of claim.",
+    "plainLanguageSummary": "Each state in Nigeria has its own rules about how long you have to file a lawsuit. These time limits vary — some give you 6 years, others 12. If you miss the deadline, your case is dead.",
+    "category": "Civil Procedure",
+    "relatedTerms": ["statute-of-limitations", "cause-of-action"],
+    "citations": ["Limitation Laws of various Nigerian states"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Cause of Action",
+    "slug": "cause-of-action",
+    "definition": "The fact or set of facts that give a person the right to seek judicial relief against another party. It is the legal basis for a lawsuit.",
+    "plainLanguageSummary": "The reason you're suing. Something happened — a broken contract, an injury, a property dispute — and that event gives you the legal right to go to court. That event is your cause of action.",
+    "category": "Civil Procedure",
+    "relatedTerms": ["statute-of-limitations", "limitation-law", "damages"],
+    "citations": ["Civil Procedure rules; various Nigerian statutes"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Affidavit",
+    "slug": "affidavit",
+    "definition": "A written statement confirmed by oath or affirmation, for use as evidence in court. It is one of the most common legal documents used in Nigerian courts.",
+    "plainLanguageSummary": "A written statement where you swear that everything in it is true, just like if you were speaking in court. It's used as evidence and lying in one is a serious offence — it's the same as perjury.",
+    "category": "Court Procedure",
+    "relatedTerms": ["oath", "perjury", "sworn-statement"],
+    "citations": ["Evidence Act 2011; various court rules"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Oath",
+    "slug": "oath",
+    "definition": "A solemn declaration or promise, invoking a deity or something sacred, to fulfil a duty or speak the truth. In legal proceedings, oaths are required for affidavits and witness testimony.",
+    "plainLanguageSummary": "When you raise your hand and swear to tell the truth, or sign a document saying you've told the truth — that's an oath. Breaking an oath is a crime called perjury.",
+    "category": "Court Procedure",
+    "relatedTerms": ["affidavit", "perjury", "sworn-statement"],
+    "citations": ["Evidence Act 2011; Oaths Act, Cap O1, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Perjury",
+    "slug": "perjury",
+    "definition": "The offence of deliberately making a false statement under oath or affirmation in legal proceedings.",
+    "plainLanguageSummary": "Lying in court or in a sworn document. If you promise to tell the truth and then don't, that's perjury — a serious criminal offence that can land you in prison.",
+    "category": "Court Procedure",
+    "relatedTerms": ["affidavit", "oath", "sworn-statement"],
+    "citations": ["Criminal Code Act, Section 117; Penal Code Act, Section 191"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Sworn Statement",
+    "slug": "sworn-statement",
+    "definition": "A written statement made under oath or affirmation, similar to an affidavit but sometimes used in less formal legal contexts or administrative proceedings.",
+    "plainLanguageSummary": "Like an affidavit but sometimes used in simpler situations — like when you're making a statement to a government agency. You still swear it's true, and lying is still perjury.",
+    "category": "Court Procedure",
+    "relatedTerms": ["affidavit", "oath", "perjury"],
+    "citations": ["Evidence Act 2011; various administrative procedures"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Arbitration",
+    "slug": "arbitration",
+    "definition": "A form of alternative dispute resolution where parties agree to submit their dispute to one or more arbitrators whose decision is binding, instead of going to court.",
+    "plainLanguageSummary": "Instead of going to court, you and the other person agree to let a neutral third party (the arbitrator) decide who's right. It's faster and more private than a lawsuit, and the decision is final.",
+    "category": "Dispute Resolution",
+    "relatedTerms": ["mediation", "alternative-dispute-resolution"],
+    "citations": ["Arbitration and Mediation Act 2023"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Mediation",
+    "slug": "mediation",
+    "definition": "A voluntary process where a neutral third party (the mediator) helps disputing parties negotiate a mutually acceptable resolution. Unlike arbitration, the mediator does not impose a decision.",
+    "plainLanguageSummary": "A trained neutral person helps you and the other side talk it out and find a solution you both agree on. The mediator doesn't decide who's right — they just help you find common ground.",
+    "category": "Dispute Resolution",
+    "relatedTerms": ["arbitration", "alternative-dispute-resolution"],
+    "citations": ["Arbitration and Mediation Act 2023"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Alternative Dispute Resolution",
+    "slug": "alternative-dispute-resolution",
+    "definition": "A range of methods for resolving disputes outside of the traditional courtroom process, including arbitration, mediation, conciliation, and negotiation.",
+    "plainLanguageSummary": "Ways to settle disagreements without going to court. Arbitration, mediation, negotiation — all of these are faster, cheaper, and more private than a full-blown lawsuit.",
+    "category": "Dispute Resolution",
+    "relatedTerms": ["arbitration", "mediation"],
+    "citations": ["Arbitration and Mediation Act 2023; various court ADR rules"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Probate",
+    "slug": "probate",
+    "definition": "The legal process of proving a will is valid and distributing the deceased person's estate according to the will or, in the absence of a will, according to intestacy laws.",
+    "plainLanguageSummary": "When someone dies, someone has to go to court to prove the will is real and then make sure their property goes to the right people. That whole court process is called probate.",
+    "category": "Family & Estate Law",
+    "relatedTerms": ["will", "intestacy", "estate-administration", "trust"],
+    "citations": ["Wills Act, Cap W2, LFN 2004; Administration of Estates Laws (various states)"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Will",
+    "slug": "will",
+    "definition": "A legal document in which a person (the testator) expresses their wishes regarding the distribution of their property and the care of any minor children after their death.",
+    "plainLanguageSummary": "A written document that says what happens to your stuff when you die. Without one, the law decides for you — and it might not be what you wanted. Everyone should have a will.",
+    "category": "Family & Estate Law",
+    "relatedTerms": ["probate", "intestacy", "estate-administration"],
+    "citations": ["Wills Act, Cap W2, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Intestacy",
+    "slug": "intestacy",
+    "definition": "The state of dying without a valid will. When a person dies intestate, their estate is distributed according to statutory rules of succession rather than their personal wishes.",
+    "plainLanguageSummary": "Dying without a will. When that happens, the government decides who gets your property based on fixed rules — usually spouse and children first. It's not always what you'd have wanted.",
+    "category": "Family & Estate Law",
+    "relatedTerms": ["probate", "will", "estate-administration"],
+    "citations": ["Administration of Estates Laws (various states); Wills Act, Cap W2, LFN 2004"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Estate Administration",
+    "slug": "estate-administration",
+    "definition": "The process of managing and distributing a deceased person's estate, including collecting assets, paying debts, and distributing remaining property to beneficiaries.",
+    "plainLanguageSummary": "After someone dies, someone has to take charge — gather their assets, pay their debts, and give what's left to the right people. That whole process is estate administration.",
+    "category": "Family & Estate Law",
+    "relatedTerms": ["probate", "will", "intestacy", "trust"],
+    "citations": ["Administration of Estates Laws (various states)"],
+    "lastReviewed": "2026-09-01"
+  },
+  {
+    "term": "Search and Seizure",
+    "slug": "search-and-seizure",
+    "definition": "The government's power to search a person's property and seize evidence of a crime, generally requiring a warrant supported by probable cause.",
+    "plainLanguageSummary": "The police can search your house and take things — but only if they have a good reason and usually a warrant from a judge. If they search without a warrant, whatever they find might not be usable in court.",
+    "category": "Criminal Law",
+    "relatedTerms": ["warrant", "arrest", "fundamental-rights"],
+    "citations": ["Section 37, 1999 Constitution of Nigeria; ACJA 2015"],
+    "lastReviewed": "2026-09-01"
+  }
+]

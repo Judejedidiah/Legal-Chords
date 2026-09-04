@@ -1,0 +1,254 @@
+/* =====================================================
+   LEGAL CHORDS — Terms & Conditions Page
+   ===================================================== */
+
+/* ============ TERMS HERO ============ */
+.terms-hero {
+  padding: 140px 0 48px;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.terms-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 30% 40%, rgba(36,111,224,0.1), transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(245,198,47,0.04), transparent 50%);
+  pointer-events: none;
+}
+.terms-hero .container { position: relative; z-index: 1; }
+.terms-hero .eyebrow { margin-bottom: 14px; }
+.terms-hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+.terms-hero p {
+  font-size: 15px;
+  color: var(--text-subtle);
+  max-width: 600px;
+  line-height: 1.7;
+}
+.terms-meta {
+  margin-top: 20px;
+  display: flex; flex-wrap: wrap; gap: 20px;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+.terms-meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.terms-meta svg {
+  width: 14px; height: 14px;
+  color: var(--brand-blue-bright);
+  flex-shrink: 0;
+}
+
+/* ============ TERMS LAYOUT ============ */
+.terms-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px;
+  padding: 48px 0 100px;
+}
+
+/* ============ TERMS SIDEBAR (TOC) ============ */
+.terms-toc {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding-right: 12px;
+}
+.terms-toc h4 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--brand-blue-bright);
+  margin-bottom: 14px;
+}
+.terms-toc-list {
+  list-style: none;
+  padding: 0;
+}
+.terms-toc-list li { margin-bottom: 2px; }
+.terms-toc-list a {
+  display: block;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: var(--text-subtle);
+  border-radius: 6px;
+  border-left: 2px solid transparent;
+  transition: all 0.2s var(--ease);
+  line-height: 1.4;
+}
+.terms-toc-list a:hover {
+  color: var(--text);
+  background: rgba(36,111,224,0.06);
+}
+.terms-toc-list a.active {
+  color: var(--brand-blue-bright);
+  border-left-color: var(--brand-blue-bright);
+  background: rgba(36,111,224,0.08);
+  font-weight: 500;
+}
+.terms-toc-list a .toc-num {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-faint);
+  margin-right: 6px;
+  min-width: 18px;
+  display: inline-block;
+}
+
+/* ============ TERMS CONTENT ============ */
+.terms-content {
+  max-width: 780px;
+}
+.terms-content h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-soft);
+  scroll-margin-top: 100px;
+}
+.terms-content h2:first-child { margin-top: 0; }
+.terms-content h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 28px 0 10px;
+}
+.terms-content p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.terms-content ul,
+.terms-content ol {
+  margin: 0 0 16px 20px;
+  color: var(--text-muted);
+}
+.terms-content li {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+.terms-content li::marker {
+  color: var(--brand-blue-bright);
+}
+.terms-content strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.terms-content hr {
+  border: none;
+  height: 1px;
+  background: var(--border-soft);
+  margin: 36px 0;
+}
+
+/* ============ BACK TO TOP ============ */
+.terms-back-top {
+  position: fixed; bottom: 32px; right: 32px;
+  width: 44px; height: 44px;
+  background: var(--grad-blue);
+  border: none;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--brand-white);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(36,111,224,0.35);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.3s var(--ease);
+  z-index: 100;
+}
+.terms-back-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.terms-back-top:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(36,111,224,0.5);
+}
+
+/* ============ FOOTER (reused) ============ */
+.terms-footer {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  padding: 48px 0 24px;
+}
+.terms-footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+}
+.terms-footer p {
+  font-size: 13px;
+  color: var(--text-subtle);
+}
+.terms-footer a {
+  color: var(--brand-blue-bright);
+  font-weight: 600;
+}
+.terms-footer a:hover { color: var(--brand-gold); }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  .terms-layout {
+    grid-template-columns: 180px 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .terms-hero { padding: 120px 0 36px; }
+  .terms-hero h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+
+  .terms-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 0 80px;
+  }
+
+  .terms-toc {
+    position: static;
+    max-height: none;
+    padding: 0 0 24px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 24px;
+  }
+  .terms-toc-list {
+    display: flex; flex-wrap: wrap; gap: 4px;
+  }
+  .terms-toc-list a {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .terms-toc-list a.active {
+    border-left: none;
+    border-bottom-color: var(--brand-blue-bright);
+  }
+  .terms-toc-list a .toc-num { display: none; }
+
+  .terms-content h2 { font-size: 20px; margin-top: 36px; }
+  .terms-content p, .terms-content li { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+  .terms-hero { padding: 110px 0 28px; }
+  .terms-meta { flex-direction: column; gap: 8px; }
+}
