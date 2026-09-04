@@ -45,5 +45,5 @@ CREATE POLICY "Admin delete event images"
 
 -- 3. Add posterImage + full section fields to the events content seed
 UPDATE site_content
-SET content = content || '{"posterImage": "", "heading": "Legal Chords Summit 2026 — The Next Generation of Justice", "typePill": "Summit", "formatPill": "Hybrid"}'
+SET content = content || '{"posterImage": "", "heading": "Legal Chords Summit 2026: The Next Generation of Justice", "typePill": "Summit", "formatPill": "Hybrid"}'
 WHERE section_key = 'events';

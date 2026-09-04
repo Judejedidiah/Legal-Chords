@@ -125,7 +125,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "subtitle": "Law, Innovation, Youth",
   "description": "A flagship gathering of young leaders, lawyers, technologists and policymakers shaping the future of law, civic engagement and innovation in Nigeria and across Africa.",
   "date": "Saturday, 14 November 2026",
-  "time": "10:00 AM — 4:00 PM (WAT)",
+  "time": "10:00 AM to 4:00 PM (WAT)",
   "format": "Hybrid (Lagos + Online)",
   "speakers": "20+ legal, civic & tech leaders"
 }')
