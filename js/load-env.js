@@ -17,25 +17,28 @@
   // Try to load .env file
   fetch(envPath)
     .then(function (res) {
-      if (!res.ok) throw new Error('.env not found (' + res.status + ')');
+      if (!res.ok) {
+        console.warn('[Legal Chords] .env not found at ' + envPath + ' (status ' + res.status + '), using defaults');
+        document.dispatchEvent(new Event('env-ready'));
+        return null;
+      }
       return res.text();
     })
     .then(function (text) {
+      if (!text) return; // .env not found, already dispatched env-ready
       text.split('\n').forEach(function (line) {
         line = line.trim();
-        if (!line || line.startsWith('#')) return; // skip comments and blanks
+        if (!line || line.startsWith('#')) return;
         var idx = line.indexOf('=');
         if (idx === -1) return;
         var key = line.slice(0, idx).trim();
         var val = line.slice(idx + 1).trim();
-        // strip surrounding quotes if present
         if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
           val = val.slice(1, -1);
         }
         window.ENV[key] = val;
       });
-      console.info('[Legal Chords] .u0024.env loaded.');
-      // Dispatch event so other scripts know env is ready
+      console.info('[Legal Chords] .env loaded.');
       document.dispatchEvent(new Event('env-ready'));
     })
     .catch(function (err) {

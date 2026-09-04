@@ -18,6 +18,13 @@ window.AdminAuth = (() => {
   async function checkSession() {
     await waitForDb();
 
+    if (!window.db) {
+      const errEl = document.getElementById('loginError');
+      errEl.textContent = 'Could not connect to database. Check supabase.js in console.';
+      errEl.classList.add('visible');
+      return;
+    }
+
     // Register auth state change listener now that window.db exists
     window.db.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
@@ -55,6 +62,14 @@ window.AdminAuth = (() => {
     btn.disabled = true;
     btn.textContent = 'Signing in...';
     errEl.classList.remove('visible');
+
+    if (!window.db) {
+      errEl.textContent = 'Database not connected yet. Please refresh the page.';
+      errEl.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+      return;
+    }
 
     try {
       const { data, error } = await window.db.auth.signInWithPassword({ email, password });

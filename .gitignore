@@ -5,7 +5,6 @@ node_modules/
 .env
 .env.local
 .env.*.local
-js/config.js
 
 # OS
 .DS_Store
