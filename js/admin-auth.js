@@ -12,7 +12,14 @@ window.AdminAuth = (() => {
     loginForm.addEventListener('submit', handleLogin);
     logoutBtn.addEventListener('click', handleLogout);
 
-    window.db?.auth?.onAuthStateChange((_event, session) => {
+    checkSession();
+  }
+
+  async function checkSession() {
+    await waitForDb();
+
+    // Register auth state change listener now that window.db exists
+    window.db.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         currentUser = session.user;
         showDashboard();
@@ -21,13 +28,6 @@ window.AdminAuth = (() => {
       }
     });
 
-    checkSession();
-  }
-
-  async function checkSession() {
-    if (!window.db) {
-      await waitForDb();
-    }
     const { data: { session } } = await window.db.auth.getSession();
     if (session?.user) {
       currentUser = session.user;

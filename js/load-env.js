@@ -9,8 +9,13 @@
 
   window.ENV = window.ENV || {};
 
+  // Resolve .env path relative to this script (works from root and subdirectories)
+  var scriptSrc = document.currentScript ? document.currentScript.src : '';
+  var basePath = scriptSrc.replace(/[^/]*$/, ''); // e.g. /js/
+  var envPath = basePath + '../.env';
+
   // Try to load .env file
-  fetch('.env')
+  fetch(envPath)
     .then(function (res) {
       if (!res.ok) throw new Error('.env not found (' + res.status + ')');
       return res.text();
