@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — Legal Chords</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ==================== LOGIN PAGE ==================== -->
+  <div id="loginPage" class="login-wrap">
+    <div class="login-card">
+      <div class="logo" style="justify-content:center; margin-bottom:32px;">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--brand-blue-bright)">
+          <path d="M24 4 L24 12"/>
+          <line x1="10" y1="12" x2="38" y2="12"/>
+          <line x1="10" y1="12" x2="10" y2="28"/>
+          <line x1="38" y1="12" x2="38" y2="28"/>
+          <line x1="10" y1="28" x2="18" y2="28"/>
+          <line x1="30" y1="28" x2="38" y2="28"/>
+          <circle cx="14" cy="34" r="6"/>
+          <circle cx="34" cy="34" r="6"/>
+          <path d="M18 28 L14 34"/>
+          <path d="M30 28 L34 34"/>
+          <path d="M20 4 L24 4"/>
+          <rect x="20" y="38" width="8" height="4" rx="1"/>
+          <rect x="16" y="42" width="16" height="2" rx="1"/>
+        </svg>
+        <span class="logo-title" style="margin-left:10px;">LEGAL CHORDS</span>
+      </div>
+      <h1>Admin Dashboard</h1>
+      <p class="login-sub">Sign in to manage your platform</p>
+      <div id="loginError" class="login-error"></div>
+      <form id="loginForm">
+        <div class="login-field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="admin@legalchords.ng" required>
+        </div>
+        <div class="login-field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== DASHBOARD ==================== -->
+  <div id="adminDashboard" class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="sidebar">
+      <div class="admin-sidebar-logo">
+        <div class="logo-title">LEGAL CHORDS</div>
+        <div class="logo-sub">Admin Panel</div>
+      </div>
+      <nav class="admin-nav">
+        <button class="admin-nav-item active" data-tab="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Overview
+        </button>
+        <button class="admin-nav-item" data-tab="memberships">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Memberships
+        </button>
+        <button class="admin-nav-item" data-tab="newsletter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+          Newsletter
+        </button>
+        <div class="admin-nav-divider"></div>
+        <button class="admin-nav-item" data-tab="content">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Edit Content
+        </button>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <div class="admin-user-info" id="adminEmail"></div>
+        <button class="admin-logout-btn" id="logoutBtn">Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+      <!-- ===== OVERVIEW TAB ===== -->
+      <div class="admin-tab visible" id="tab-overview">
+        <div class="admin-header">
+          <div>
+            <h2>Dashboard</h2>
+            <p>Welcome back. Here's your platform at a glance.</p>
+          </div>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <div class="admin-stat-label">Total Members</div>
+            <div class="admin-stat-num" id="statMembers">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Pending Reviews</div>
+            <div class="admin-stat-num" id="statPending">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Newsletter Subscribers</div>
+            <div class="admin-stat-num" id="statSubscribers">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Content Sections</div>
+            <div class="admin-stat-num" id="statSections">0</div>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>Recent Applications</h3>
+          </div>
+          <table class="admin-table">
+            <thead><tr>
+              <th>Name</th><th>Email</th><th>Role</th><th>Date</th><th>Status</th>
+            </tr></thead>
+            <tbody id="overviewTable">
+              <tr><td colspan="5" class="admin-empty" style="padding:40px;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== MEMBERSHIPS TAB ===== -->
+      <div class="admin-tab" id="tab-memberships" style="display:none;">
+        <div class="admin-header">
+          <div>
+            <h2>Membership Applications</h2>
+            <p>Review and manage all community registrations.</p>
+          </div>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <div class="admin-stat-label">Total</div>
+            <div class="admin-stat-num" id="memTotal">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Pending</div>
+            <div class="admin-stat-num" id="memPending">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Approved</div>
+            <div class="admin-stat-num" id="memApproved">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Rejected</div>
+            <div class="admin-stat-num" id="memRejected">0</div>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>All Applications</h3>
+            <input type="search" class="admin-table-search" id="memSearch" placeholder="Search by name, email...">
+          </div>
+          <table class="admin-table">
+            <thead><tr>
+              <th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Location</th><th>Date</th><th>Status</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="memTable">
+              <tr><td colspan="8" class="admin-empty" style="padding:40px;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== NEWSLETTER TAB ===== -->
+      <div class="admin-tab" id="tab-newsletter" style="display:none;">
+        <div class="admin-header">
+          <div>
+            <h2>Newsletter Subscribers</h2>
+            <p>Manage your email subscriber list.</p>
+          </div>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <div class="admin-stat-label">Active</div>
+            <div class="admin-stat-num" id="nlActive">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Unsubscribed</div>
+            <div class="admin-stat-num" id="nlUnsub">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Total</div>
+            <div class="admin-stat-num" id="nlTotal">0</div>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>Subscribers</h3>
+            <input type="search" class="admin-table-search" id="nlSearch" placeholder="Search by email...">
+          </div>
+          <table class="admin-table">
+            <thead><tr>
+              <th>Email</th><th>Status</th><th>Joined</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="nlTable">
+              <tr><td colspan="4" class="admin-empty" style="padding:40px;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== CONTENT EDITOR TAB ===== -->
+      <div class="admin-tab" id="tab-content" style="display:none;">
+        <div class="admin-header">
+          <div>
+            <h2>Edit Website Content</h2>
+            <p>Update text across the site. Changes appear live after saving.</p>
+          </div>
+        </div>
+        <div id="editorContainer">
+          <div class="admin-empty" style="padding:40px;">Loading content sections...</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===== DETAIL MODAL ===== -->
+  <div class="admin-modal-overlay" id="detailModal">
+    <div class="admin-modal">
+      <button class="admin-modal-close" id="modalClose">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <h3 id="modalTitle">Application Details</h3>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="admin-toast" id="adminToast"></div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/load-env.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

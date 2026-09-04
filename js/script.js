@@ -223,7 +223,7 @@
   });
 
   if (joinForm) {
-    joinForm.addEventListener('submit', (e) => {
+    joinForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!joinForm.checkValidity()) {
         joinForm.reportValidity();
@@ -232,9 +232,75 @@
       const data = new FormData(joinForm);
       const payload = Object.fromEntries(data.entries());
       payload.interests = data.getAll('interests');
-      try { console.info('[Legal Chords] Membership application received:', payload); } catch (err) {}
-      joinForm.hidden = true;
-      joinSuccess.hidden = false;
+
+      const btn = joinForm.querySelector('.join-submit');
+      const origText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      try {
+        if (window.db) {
+          const { error } = await window.db.from('memberships').insert({
+            firstname: payload.firstname,
+            middlename: payload.middlename,
+            lastname: payload.lastname,
+            email: payload.email,
+            country_code: payload.country_code || '+234',
+            phone: payload.phone,
+            role: payload.role,
+            institution: payload.institution,
+            location: payload.location,
+            interests: payload.interests,
+            involvement: payload.involvement,
+            source: payload.source,
+            message: payload.message
+          });
+          if (error) throw error;
+          console.info('[Legal Chords] Membership saved to Supabase:', payload.email);
+        } else {
+          console.warn('[Legal Chords] Supabase not available, form data logged only:', payload);
+        }
+      } catch (err) {
+        console.error('[Legal Chords] Submit error:', err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = origText;
+        joinForm.hidden = true;
+        joinSuccess.hidden = false;
+      }
+    });
+  }
+
+  /* ============ NEWSLETTER FORM ============ */
+  const newsletterForm = document.getElementById('newsletterForm');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = newsletterForm.querySelector('input[type="email"]');
+      const btn = newsletterForm.querySelector('button');
+      const email = input.value.trim();
+      if (!email) return;
+
+      const origText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      try {
+        if (window.db) {
+          const { error } = await window.db.from('newsletter_subscribers').upsert(
+            { email, status: 'active' },
+            { onConflict: 'email' }
+          );
+          if (error) throw error;
+          console.info('[Legal Chords] Newsletter subscriber saved:', email);
+        }
+      } catch (err) {
+        console.error('[Legal Chords] Newsletter error:', err.message);
+      } finally {
+        btn.textContent = '✓';
+        input.value = '';
+        setTimeout(() => { btn.textContent = origText; btn.disabled = false; }, 3000);
+      }
     });
   }
 
