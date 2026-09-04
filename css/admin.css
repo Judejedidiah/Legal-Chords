@@ -417,6 +417,32 @@
 .editor-save-btn:hover { transform: translateY(-1px); }
 .editor-save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* ============ EVENT IMAGE UPLOAD ============ */
+.event-image-upload {
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.event-image-preview {
+  max-width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-alt);
+}
+.event-image-preview[hidden] { display: none; }
+.event-image-controls {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.event-image-url {
+  width: 100% !important;
+  font-size: 12px !important;
+  color: var(--text-faint) !important;
+}
+
 /* ============ TOAST ============ */
 .admin-toast {
   position: fixed; top: 24px; right: 24px;

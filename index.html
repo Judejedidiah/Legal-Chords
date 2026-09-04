@@ -427,27 +427,29 @@
       </p>
     </div>
 
-    <article class="event-card reveal">
+    <article class="event-card reveal" id="featuredEvent" data-event-section="events">
       <div class="event-poster">
+        <img id="eventPosterImg" class="event-poster-img" alt="Featured event" hidden>
+        <div class="event-poster-overlay" id="eventPosterOverlay"></div>
         <div class="event-poster-inner">
-          <span class="event-poster-tag">Upcoming</span>
+          <span class="event-poster-tag" data-event="tag">Upcoming</span>
           <div class="event-poster-date">
-            <span class="d-day">14</span>
-            <span class="d-mon">NOV</span>
+            <span class="d-day" data-event="day">14</span>
+            <span class="d-mon" data-event="month">NOV</span>
           </div>
-          <h3 class="event-poster-title">Legal Chords Summit 2026</h3>
-          <p class="event-poster-sub">Law • Innovation • Youth</p>
+          <h3 class="event-poster-title" data-event="title">Legal Chords Summit 2026</h3>
+          <p class="event-poster-sub" data-event="subtitle">Law • Innovation • Youth</p>
           <div class="event-poster-orb"></div>
         </div>
       </div>
 
       <div class="event-body">
         <div class="event-meta">
-          <span class="event-pill"><span class="dot dot-gold"></span>Summit</span>
-          <span class="event-pill">Hybrid</span>
+          <span class="event-pill" data-event="typePill"><span class="dot dot-gold"></span>Summit</span>
+          <span class="event-pill" data-event="formatPill">Hybrid</span>
         </div>
-        <h3>Legal Chords Summit 2026 — The Next Generation of Justice</h3>
-        <p>
+        <h3 data-event="heading">Legal Chords Summit 2026 — The Next Generation of Justice</h3>
+        <p data-event="description">
           A flagship gathering of young leaders, lawyers, technologists and policymakers
           shaping the future of law, civic engagement and innovation in Nigeria and
           across Africa.
@@ -456,19 +458,19 @@
         <ul class="event-info">
           <li>
             <span class="info-label">Date</span>
-            <span class="info-value">Saturday, 14 November 2026</span>
+            <span class="info-value" data-event="date">Saturday, 14 November 2026</span>
           </li>
           <li>
             <span class="info-label">Time</span>
-            <span class="info-value">10:00 AM — 4:00 PM (WAT)</span>
+            <span class="info-value" data-event="time">10:00 AM — 4:00 PM (WAT)</span>
           </li>
           <li>
             <span class="info-label">Format</span>
-            <span class="info-value">Hybrid (Lagos + Online)</span>
+            <span class="info-value" data-event="format">Hybrid (Lagos + Online)</span>
           </li>
           <li>
             <span class="info-label">Speakers</span>
-            <span class="info-value">20+ legal, civic & tech leaders</span>
+            <span class="info-value" data-event="speakers">20+ legal, civic & tech leaders</span>
           </li>
         </ul>
 
@@ -1306,6 +1308,7 @@
 <script src="js/load-env.js"></script>
 <script src="js/config.js"></script>
 <script src="js/supabase.js"></script>
+<script src="js/content-loader.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

@@ -212,6 +212,7 @@ window.AdminDashboard = (() => {
 
       if (typeof content === 'object') {
         Object.entries(content).forEach(([key, val]) => {
+          if (key === 'posterImage') return; // handled by image uploader
           if (Array.isArray(val)) {
             val.forEach((item, i) => {
               fields += `<div class="editor-field">
@@ -228,12 +229,32 @@ window.AdminDashboard = (() => {
         });
       }
 
+      // Add image uploader for featured events
+      let uploaderField = '';
+      if (s.section_key === 'events') {
+        const imgUrl = (content && content.posterImage) || '';
+        uploaderField = `<div class="editor-field">
+          <label>Event Poster Image</label>
+          <div class="event-image-upload">
+            <img id="eventImgPreview-events" class="event-image-preview" src="${esc(imgUrl)}" alt="Event poster preview" ${imgUrl ? '' : 'hidden'}>
+            <div class="event-image-controls">
+              <input type="file" id="eventImgFile-events" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+              <button type="button" class="btn-sm" onclick="AdminDashboard.chooseEventImage()">Choose Image</button>
+              <button type="button" class="btn-sm success" onclick="AdminDashboard.uploadEventImage()">Upload</button>
+              ${imgUrl ? `<a class="btn-sm" href="${esc(imgUrl)}" target="_blank" rel="noopener">View Image</a>` : ''}
+            </div>
+            <input type="text" class="event-image-url" data-section="events" data-key="posterImage" value="${esc(imgUrl)}" placeholder="Image URL (auto-filled on upload)">
+          </div>
+        </div>`;
+      }
+
       return `<div class="editor-section" data-section-id="${s.id}">
         <div class="editor-header" onclick="AdminDashboard.toggleEditor(this)">
           <h3>${esc(s.section_label)}</h3>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <div class="editor-body">
+          ${uploaderField}
           ${fields}
           <div class="editor-actions">
             <button class="editor-save-btn" onclick="AdminDashboard.saveSection('${s.id}', '${s.section_key}')">Save Changes</button>
@@ -268,6 +289,51 @@ window.AdminDashboard = (() => {
       .eq('id', id);
 
     toast('Content saved successfully.', 'success');
+  }
+
+  /* ---------- EVENT IMAGE UPLOAD ---------- */
+  function chooseEventImage() {
+    document.getElementById('eventImgFile-events').click();
+  }
+
+  async function uploadEventImage() {
+    const fileInput = document.getElementById('eventImgFile-events');
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) {
+      toast('Please choose an image first.', 'error');
+      return;
+    }
+
+    const preview = document.getElementById('eventImgPreview-events');
+    const urlInput = document.querySelector('input[data-section="events"][data-key="posterImage"]');
+    const btn = document.querySelector('#tab-content .event-image-controls .btn-sm.success');
+
+    if (btn) { btn.disabled = true; btn.textContent = 'Uploading...'; }
+
+    try {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = 'events/' + Date.now() + '-' + safeName;
+
+      const { error } = await window.db.storage
+        .from('event-images')
+        .upload(path, file, { contentType: file.type, upsert: true });
+
+      if (error) throw error;
+
+      const { data: pub } = window.db.storage.from('event-images').getPublicUrl(path);
+      const url = pub.publicUrl;
+
+      if (preview) { preview.src = url; preview.hidden = false; }
+      if (urlInput) urlInput.value = url;
+
+      toast('Image uploaded.', 'success');
+    } catch (err) {
+      console.error('[Legal Chords] Image upload error:', err.message);
+      toast('Upload failed: ' + err.message, 'error');
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = 'Upload'; }
+      fileInput.value = '';
+    }
   }
 
   /* ---------- MODAL ---------- */
@@ -305,5 +371,5 @@ window.AdminDashboard = (() => {
     setTimeout(() => el.classList.remove('visible'), 3000);
   }
 
-  return { init, viewMember, updateStatus, removeSubscriber, toggleEditor, saveSection };
+  return { init, viewMember, updateStatus, removeSubscriber, toggleEditor, saveSection, chooseEventImage, uploadEventImage };
 })();
