@@ -106,16 +106,16 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "paragraphs": [
     "Legal Chords exists to bridge the gap between people and legal knowledge. We are a youth-focused legal awareness and education platform committed to making legal knowledge simple, practical and accessible.",
     "Through digital education, conversations, webinars, events and community initiatives, we help young people understand their rights, responsibilities and the legal systems that affect their everyday lives.",
-    "We are not a law firm. We are a movement of young people, professionals and educators using education, innovation and collaboration to make the law a tool for empowerment — not intimidation."
+    "We are not a law firm. We are a movement of young people, professionals and educators using education, innovation and collaboration to make the law a tool for empowerment, not intimidation."
   ]
 }'),
 ('mission', 'Mission', '{
   "heading": "Make legal knowledge accessible, understandable and practical for everyone.",
-  "body": "We exist to simplify the law and bring it into everyday conversations, classrooms and communities — so that no one is excluded because the language is too dense or the system too distant."
+  "body": "We exist to simplify the law and bring it into everyday conversations, classrooms and communities, so that no one is excluded because the language is too dense or the system too distant."
 }'),
 ('vision', 'Vision', '{
   "heading": "A society where people understand the law well enough to know their rights, fulfill their responsibilities and make informed decisions.",
-  "body": "A Nigeria — and a generation — that leads with knowledge, participates with confidence and shapes the future with clarity."
+  "body": "A Nigeria and a generation that leads with knowledge, participates with confidence and shapes the future with clarity."
 }'),
 ('events', 'Featured Event', '{
   "tag": "Upcoming",
