@@ -464,6 +464,7 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   padding: 140px 0 80px;
   display: flex; align-items: center;
   overflow: hidden;
@@ -784,10 +785,12 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
 .stat-card:hover { transform: translateY(-4px); border-color: var(--border-strong); }
 .stat-num {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 42px;
+  font-size: clamp(2rem, 4.5vw, 2.625rem);
   font-weight: 700;
   color: var(--brand-blue-bright);
   margin-bottom: 6px;
+  line-height: 1;
+  overflow-wrap: anywhere;
 }
 .stat-label {
   font-size: 13px;
@@ -1212,11 +1215,12 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
 }
 .impact-num {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 48px;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
   color: var(--brand-blue-bright);
   margin-bottom: 8px;
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 .impact-label {
   font-size: 14px;
@@ -2149,6 +2153,11 @@ body.join-open { overflow: hidden; }
   .cta-content h2 { font-size: 1.8rem; }
   .map-bg { padding: 20px; min-height: 260px; }
 
+  /* Testimonials: snap-scroll works without arrows on small screens */
+  .t-prev, .t-next { display: none; }
+  .testimonial-carousel { gap: 0; }
+  .resource-tabs::-webkit-scrollbar { display: none; }
+
   .join-modal-dialog { padding: 36px 20px; }
   .join-field-group { grid-template-columns: 1fr; gap: 16px; }
   .join-name-group { grid-template-columns: 1fr; }
@@ -2170,7 +2179,7 @@ body.join-open { overflow: hidden; }
   .event-actions .btn { width: 100%; }
   .cta-actions { flex-direction: column; }
   .cta-actions .btn { width: 100%; }
-  .impact-grid { grid-template-columns: 1fr 1fr; }
+  .impact-grid { grid-template-columns: 1fr; }
   .partners-grid { grid-template-columns: 1fr 1fr; }
   .about-grid { gap: 32px; }
   .community-wrap, .gi-wrap { padding: 32px 20px; }
@@ -2203,12 +2212,22 @@ body.join-open { overflow: hidden; }
   .hero-badge { flex-wrap: wrap; }
   .hero-trust { font-size: 12px; }
   .hero-actions .btn, .event-actions .btn, .cta-actions .btn { padding: 12px 18px; font-size: 13px; }
+  .btn { white-space: normal; }
   .impact-grid { gap: 10px; }
   .impact-num { font-size: 38px; }
   .d-day { font-size: 48px; }
   .newsletter input { font-size: 12px; }
   .footer-bottom p { font-size: 11px; }
   .footer-col h5 { letter-spacing: 0.1em; }
+}
+
+/* Prevent iOS auto-zoom on form fields (min 16px) */
+@media (max-width: 768px) and (pointer: coarse) {
+  .join-form input, .join-form select, .join-form textarea,
+  .login-field input,
+  .newsletter input {
+    font-size: 16px;
+  }
 }
 
 /* Short viewports / landscape phones — avoid hero overflow */

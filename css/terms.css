@@ -252,3 +252,16 @@
   .terms-hero { padding: 110px 0 28px; }
   .terms-meta { flex-direction: column; gap: 8px; }
 }
+
+@media (max-width: 600px) {
+  /* TOC becomes a swipeable horizontal strip instead of a tall pill pile */
+  .terms-toc-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .terms-toc-list::-webkit-scrollbar { display: none; }
+  .terms-toc-list a { white-space: nowrap; }
+}

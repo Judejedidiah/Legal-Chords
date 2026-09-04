@@ -511,3 +511,11 @@
   .dict-results-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
   .dict-panel { padding: 24px 16px; max-height: 90vh; border-radius: var(--radius-lg); }
 }
+
+@media (max-width: 380px) {
+  .dict-hero { padding: 104px 0 30px; }
+  .dict-panel { padding: 20px 14px; }
+  .dict-panel h2 { font-size: 20px; }
+  .dict-kbd-hint { flex-wrap: wrap; gap: 4px; }
+  .dict-az-btn { width: 28px; height: 28px; font-size: 11px; }
+}

@@ -8,9 +8,38 @@ window.AdminDashboard = (() => {
   async function init() {
     if (initialized) return;
     initialized = true;
+    setupMobileSidebar();
     setupNav();
     setupModal();
     await loadAll();
+  }
+
+  /* ---------- MOBILE SIDEBAR ---------- */
+  function setupMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.getElementById('adminMenuToggle');
+    const backdrop = document.getElementById('adminBackdrop');
+    if (!sidebar || !toggle) return;
+
+    const setOpen = (open) => {
+      sidebar.classList.toggle('open', open);
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      if (backdrop) backdrop.classList.toggle('visible', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setOpen(!sidebar.classList.contains('open'));
+    });
+
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+
+    // Close after navigating to a tab
+    document.querySelectorAll('.admin-nav-item[data-tab]').forEach(item => {
+      item.addEventListener('click', () => setOpen(false));
+    });
   }
 
   /* ---------- NAVIGATION ---------- */
@@ -63,11 +92,11 @@ window.AdminDashboard = (() => {
       return;
     }
     tbody.innerHTML = rows.map(r => `<tr>
-      <td style="font-weight:600;color:var(--text)">${esc(r.firstname)} ${esc(r.lastname)}</td>
-      <td>${esc(r.email)}</td>
-      <td>${esc(r.role)}</td>
-      <td>${formatDate(r.created_at)}</td>
-      <td><span class="status-badge status-${r.status}">${r.status}</span></td>
+      <td data-label="Name" style="font-weight:600;color:var(--text)">${esc(r.firstname)} ${esc(r.lastname)}</td>
+      <td data-label="Email">${esc(r.email)}</td>
+      <td data-label="Role">${esc(r.role)}</td>
+      <td data-label="Date">${formatDate(r.created_at)}</td>
+      <td data-label="Status"><span class="status-badge status-${r.status}">${r.status}</span></td>
     </tr>`).join('');
   }
 
@@ -94,14 +123,14 @@ window.AdminDashboard = (() => {
       return;
     }
     tbody.innerHTML = rows.map(r => `<tr>
-      <td style="font-weight:600;color:var(--text)">${esc(r.firstname)} ${esc(r.middlename || '')} ${esc(r.lastname)}</td>
-      <td>${esc(r.email)}</td>
-      <td>${esc(r.country_code || '+234')} ${esc(r.phone)}</td>
-      <td>${esc(r.role)}</td>
-      <td>${esc(r.location)}</td>
-      <td>${formatDate(r.created_at)}</td>
-      <td><span class="status-badge status-${r.status}">${r.status}</span></td>
-      <td>
+      <td data-label="Name" style="font-weight:600;color:var(--text)">${esc(r.firstname)} ${esc(r.middlename || '')} ${esc(r.lastname)}</td>
+      <td data-label="Email">${esc(r.email)}</td>
+      <td data-label="Phone">${esc(r.country_code || '+234')} ${esc(r.phone)}</td>
+      <td data-label="Role">${esc(r.role)}</td>
+      <td data-label="Location">${esc(r.location)}</td>
+      <td data-label="Date">${formatDate(r.created_at)}</td>
+      <td data-label="Status"><span class="status-badge status-${r.status}">${r.status}</span></td>
+      <td data-label="Actions" data-full>
         <button class="btn-sm" onclick="AdminDashboard.viewMember('${r.id}')">View</button>
         ${r.status === 'pending' ? `
           <button class="btn-sm success" onclick="AdminDashboard.updateStatus('${r.id}','approved')">Approve</button>
@@ -171,10 +200,10 @@ window.AdminDashboard = (() => {
       return;
     }
     tbody.innerHTML = rows.map(r => `<tr>
-      <td style="font-weight:500;color:var(--text)">${esc(r.email)}</td>
-      <td><span class="status-badge status-${r.status}">${r.status}</span></td>
-      <td>${formatDate(r.created_at)}</td>
-      <td>
+      <td data-label="Email" style="font-weight:500;color:var(--text)">${esc(r.email)}</td>
+      <td data-label="Status"><span class="status-badge status-${r.status}">${r.status}</span></td>
+      <td data-label="Joined">${formatDate(r.created_at)}</td>
+      <td data-label="Actions" data-full>
         <button class="btn-sm danger" onclick="AdminDashboard.removeSubscriber('${r.id}')">Remove</button>
       </td>
     </tr>`).join('');
