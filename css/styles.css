@@ -2065,10 +2065,17 @@ body.join-open { overflow: hidden; }
   .nav-actions { gap: 8px; }
   .logo-sub { display: none; }
 
-  /* Dropdowns become inline accordions on mobile */
+  /* Mobile: no dropdown/accordion — submenu items listed flat, always visible */
   .nav-dropdown { width: 100%; }
-  .nav-dropdown-toggle { width: 100%; justify-content: flex-start; }
+  .nav-dropdown-toggle {
+    width: 100%;
+    justify-content: flex-start;
+    cursor: default;
+    pointer-events: none;
+  }
+  .nav-caret { display: none; }
   .nav-dropdown-menu {
+    display: block;
     position: static;
     transform: none;
     min-width: 0;
@@ -2080,14 +2087,13 @@ body.join-open { overflow: hidden; }
     border-left: 2px solid var(--border);
     border-radius: 0;
     box-shadow: none;
-    padding: 0 0 0 16px;
-    margin: 4px 0 8px;
-    display: none;
+    padding: 2px 0 6px 16px;
+    margin: 0 0 8px;
     opacity: 1; visibility: visible;
     transition: none;
   }
-  .nav-dropdown.open .nav-dropdown-menu { display: block; }
   .nav-dropdown-menu::before { display: none; }
+  .nav-dropdown-item { white-space: normal; }
 }
 
 @media (max-width: 768px) {
