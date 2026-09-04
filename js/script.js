@@ -61,6 +61,27 @@
     link.addEventListener('click', () => toggleMenu(false));
   });
 
+  /* ============ NAV DROPDOWNS ============ */
+  const closeAllDropdowns = () => {
+    document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
+      dd.classList.remove('open');
+      const t = dd.querySelector('.nav-dropdown-toggle');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    });
+  };
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const dd = toggle.closest('.nav-dropdown');
+      const isOpen = dd.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) closeAllDropdowns();
+  });
+
   /* ============ ACTIVE NAV LINK ON SCROLL ============ */
   const sections = document.querySelectorAll('section[id]');
   const navItems = document.querySelectorAll('.nav-link');
@@ -73,7 +94,15 @@
       }
     });
     if (current) {
-      navItems.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+      navItems.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+      });
+      // Highlight dropdown toggles whose child is active
+      document.querySelectorAll('.nav-dropdown').forEach(dd => {
+        const hasActive = dd.querySelector('.nav-dropdown-item.active');
+        const t = dd.querySelector('.nav-dropdown-toggle');
+        if (t) t.classList.toggle('active', !!hasActive);
+      });
     }
   };
   window.addEventListener('scroll', setActiveLink, { passive: true });

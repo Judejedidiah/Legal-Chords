@@ -47,14 +47,34 @@
 
     <nav class="nav-links" id="navLinks" aria-label="Primary">
       <a href="#home" class="nav-link active">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#what-we-do" class="nav-link">What We Do</a>
+
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          About
+          <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="#about" class="nav-link nav-dropdown-item">About Us</a>
+          <a href="#what-we-do" class="nav-link nav-dropdown-item">What We Do</a>
+          <a href="#impact" class="nav-link nav-dropdown-item">Our Impact</a>
+        </div>
+      </div>
+
       <a href="#programs" class="nav-link">Programs</a>
       <a href="#events" class="nav-link">Events</a>
-      <a href="#resources" class="nav-link">Resources</a>
-      <a href="dictionary.html" class="nav-link">Dictionary</a>
-      <a href="terms.html" class="nav-link">Terms</a>
-      <a href="#impact" class="nav-link">Impact</a>
+
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          Resources
+          <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="#resources" class="nav-link nav-dropdown-item">Resource Hub</a>
+          <a href="dictionary.html" class="nav-link nav-dropdown-item">Legal Dictionary</a>
+          <a href="terms.html" class="nav-link nav-dropdown-item">Terms &amp; Conditions</a>
+        </div>
+      </div>
+
       <a href="#get-involved" class="nav-link">Get Involved</a>
     </nav>
 
