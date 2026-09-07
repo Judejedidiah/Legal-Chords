@@ -62,12 +62,40 @@
   let activeLetter = null;
   let activeCategory = null;
 
-  function loadTerms() {
-    fetch('data/legal-terms.json')
+  function mapDbTerm(row) {
+    return {
+      term: row.term,
+      slug: row.slug,
+      definition: row.definition,
+      plainLanguageSummary: row.plain_language_summary,
+      category: row.category,
+      relatedTerms: row.related_terms || [],
+      citations: row.citations || [],
+      keywords: row.keywords || [],
+      lastReviewed: row.last_reviewed || null
+    };
+  }
+
+  function loadBundledTerms() {
+    return fetch('data/legal-terms.json')
       .then(res => {
-        if (!res.ok) throw new Error('Failed to load terms');
+        if (!res.ok) throw new Error('Failed to load bundled terms');
         return res.json();
+      });
+  }
+
+  function loadTerms() {
+    const loadFromDb = (window.db && window.db.from)
+      ? window.db.from('legal_terms').select('*').order('term')
+      : Promise.reject(new Error('Supabase client unavailable'));
+
+    loadFromDb
+      .then(({ data, error }) => {
+        if (error) throw error;
+        if (!data || !data.length) throw new Error('No terms in Supabase');
+        return data.map(mapDbTerm);
       })
+      .catch(() => loadBundledTerms())
       .then(terms => {
         allTerms = terms.sort((a, b) => a.term.localeCompare(b.term));
         buildAZIndex();
@@ -146,10 +174,15 @@
   searchInput.addEventListener('input', () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(filterAndRender, 200);
+    renderSuggestions();
   });
 
   searchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (!suggestBox.hidden) {
+        hideSuggestions();
+        return;
+      }
       searchInput.value = '';
       filterAndRender();
       searchInput.blur();
@@ -167,6 +200,92 @@
     searchInput.focus();
   });
 
+  /* ============ SUGGEST-AS-YOU-TYPE ============ */
+  const suggestBox = document.getElementById('dictSuggest');
+  let suggestItems = [];
+  let suggestIndex = -1;
+
+  function norm(s) { return s.toLowerCase().trim(); }
+
+  function suggestMatches(query) {
+    const q = norm(query);
+    if (!q || !allTerms.length) return [];
+    const scored = [];
+    for (const t of allTerms) {
+      const name = norm(t.term);
+      const kw = (t.keywords || []).map(norm);
+      const inName = name.includes(q);
+      const startsName = name.startsWith(q);
+      const inKw = kw.some(k => k.includes(q));
+      if (inName || inKw) {
+        scored.push({ t, score: (startsName ? 0 : inName ? 1 : 2) });
+      }
+    }
+    return scored.sort((a, b) => a.score - b.score || a.t.term.localeCompare(b.t.term)).slice(0, 8);
+  }
+
+  function renderSuggestions() {
+    const matches = suggestMatches(searchInput.value);
+    if (!matches.length) {
+      hideSuggestions();
+      return;
+    }
+    suggestItems = matches;
+    suggestIndex = -1;
+    suggestBox.innerHTML = matches.map(({ t }, i) => `
+      <button type="button" class="dict-suggest-item" role="option"
+              data-index="${i}" data-slug="${t.slug}"
+              onclick="window.pickSuggestion('${t.slug}')">
+        <span class="dict-suggest-term">${t.term}</span>
+        <span class="dict-suggest-meta">${t.category}</span>
+      </button>
+    `).join('');
+    suggestBox.hidden = false;
+    suggestBox.setAttribute('aria-hidden', 'false');
+  }
+
+  function hideSuggestions() {
+    suggestBox.hidden = true;
+    suggestBox.setAttribute('aria-hidden', 'true');
+    suggestItems = [];
+    suggestIndex = -1;
+  }
+
+  window.pickSuggestion = function (slug) {
+    const hit = allTerms.find(t => t.slug === slug);
+    if (!hit) return;
+    searchInput.value = hit.term;
+    filterAndRender();
+    hideSuggestions();
+    window.openTerm(slug);
+  };
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (suggestBox.hidden) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const items = suggestBox.querySelectorAll('.dict-suggest-item');
+      suggestIndex += (e.key === 'ArrowDown' ? 1 : -1);
+      if (suggestIndex >= items.length) suggestIndex = 0;
+      if (suggestIndex < 0) suggestIndex = items.length - 1;
+      items.forEach((el, i) => el.classList.toggle('highlight', i === suggestIndex));
+      items[suggestIndex].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && suggestIndex >= 0) {
+      e.preventDefault();
+      const slug = suggestItems[suggestIndex].t.slug;
+      window.pickSuggestion(slug);
+    } else if (e.key === 'Enter') {
+      const first = suggestItems[0];
+      if (first) window.pickSuggestion(first.t.slug);
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!suggestBox.hidden && !e.target.closest('.dict-search-wrap')) {
+      hideSuggestions();
+    }
+  });
+
   /* ============ FILTER + RENDER ============ */
   function filterAndRender() {
     const query = searchInput.value.toLowerCase().trim();
@@ -177,7 +296,8 @@
         t.term.toLowerCase().includes(query) ||
         t.definition.toLowerCase().includes(query) ||
         t.plainLanguageSummary.toLowerCase().includes(query) ||
-        t.category.toLowerCase().includes(query)
+        t.category.toLowerCase().includes(query) ||
+        (t.keywords || []).some(k => k.toLowerCase().includes(query))
       );
     }
 
@@ -252,6 +372,10 @@
          </ul>`
       : '';
 
+    const reviewedLabel = term.lastReviewed
+      ? `Last reviewed: ${new Date(term.lastReviewed).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`
+      : 'Last reviewed: not recorded';
+
     panel.innerHTML = `
       <button class="dict-panel-close" aria-label="Close term detail" onclick="window.closeTerm()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -265,7 +389,7 @@
       <div class="dict-panel-plain"><p>${term.plainLanguageSummary}</p></div>
       ${citationsHTML}
       ${relatedHTML}
-      <p class="dict-panel-date">Last reviewed: ${new Date(term.lastReviewed).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+      <p class="dict-panel-date">${reviewedLabel}</p>
     `;
 
     overlay.classList.add('open');

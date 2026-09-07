@@ -58,6 +58,7 @@ window.AdminDashboard = (() => {
     if (tab === 'memberships') loadMemberships();
     if (tab === 'newsletter') loadNewsletter();
     if (tab === 'content') loadContent();
+    if (tab === 'dictionary') loadDictionary();
   }
 
   /* ---------- LOAD ALL (OVERVIEW) ---------- */
@@ -365,12 +366,222 @@ window.AdminDashboard = (() => {
     }
   }
 
+  /* ---------- DICTIONARY ---------- */
+  let dictAll = [];
+  let dictSearchWired = false;
+
+  async function loadDictionary() {
+    const { data, error } = await window.db.from('legal_terms').select('*').order('term');
+    if (error) {
+      toast('Failed to load terms: ' + error.message, 'error');
+      return;
+    }
+    dictAll = data || [];
+    renderDictionary(dictAll);
+    populateCategoryList();
+    if (!dictSearchWired) {
+      dictSearchWired = true;
+      document.getElementById('dictSearch').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        const filtered = dictAll.filter(r =>
+          r.term.toLowerCase().includes(q) ||
+          (r.keywords || []).some(k => k.toLowerCase().includes(q)) ||
+          r.category.toLowerCase().includes(q)
+        );
+        renderDictionary(filtered);
+      });
+    }
+  }
+
+  function renderDictionary(rows) {
+    const seen = new Set(rows.map(r => r.category));
+    document.getElementById('dictTotal').textContent = rows.length;
+    document.getElementById('dictCategories').textContent = seen.size;
+    document.getElementById('dictKeywords').textContent = rows.filter(r => (r.keywords || []).length).length;
+
+    const tbody = document.getElementById('dictTable');
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="admin-empty">No terms found.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map(r => {
+      const kws = (r.keywords || []).slice(0, 3);
+      const extra = (r.keywords || []).length - kws.length;
+      const chips = kws.map(k => `<span class="kw-chip">${esc(k)}</span>`).join('') +
+        (extra > 0 ? `<span class="kw-chip kw-chip-more">+${extra}</span>` : '');
+      return `<tr>
+        <td data-label="Term" style="font-weight:600;color:var(--text)">${esc(r.term)}
+          <div class="term-slug">${esc(r.slug)}</div>
+        </td>
+        <td data-label="Category"><span class="category-tag">${esc(r.category)}</span></td>
+        <td data-label="Keywords">${chips || '<span class="text-faint">—</span>'}</td>
+        <td data-label="Last Reviewed">${formatDate(r.last_reviewed)}</td>
+        <td data-label="Actions" data-full>
+          <button class="btn-sm" onclick="AdminDashboard.openTermEditor('${r.slug}')">Edit</button>
+          <button class="btn-sm danger" onclick="AdminDashboard.deleteTerm('${r.slug}')">Delete</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  function populateCategoryList() {
+    const cats = [...new Set(dictAll.map(r => r.category))].sort();
+    const dl = document.getElementById('dictCategoryList');
+    if (dl.dataset.filled === cats.join('|')) return;
+    dl.dataset.filled = cats.join('|');
+    dl.innerHTML = cats.map(c => `<option value="${esc(c)}"></option>`).join('');
+  }
+
+  function sortableLists(payload) {
+    Object.keys(payload).forEach(k => {
+      if (Array.isArray(payload[k])) {
+        payload[k] = [...new Set(payload[k])].sort().filter(Boolean);
+      }
+    });
+    return payload;
+  }
+
+  function slugifyTerm(s) {
+    return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  function openTermEditor(slug) {
+    const modal = document.getElementById('termModal');
+    document.getElementById('termForm').reset();
+    document.getElementById('termModalTitle').textContent = 'Add Legal Term';
+    document.getElementById('termSaveBtn').textContent = 'Save Term';
+
+    if (slug) {
+      const r = dictAll.find(x => x.slug === slug);
+      if (r) {
+        document.getElementById('termModalTitle').textContent = 'Edit Legal Term';
+        document.getElementById('termSaveBtn').textContent = 'Save Changes';
+        document.getElementById('termInput').value = r.term;
+        document.getElementById('termCategoryInput').value = r.category;
+        document.getElementById('termDefInput').value = r.definition;
+        document.getElementById('termSummaryInput').value = r.plain_language_summary;
+        document.getElementById('termKeywordsInput').value = (r.keywords || []).join(', ');
+        document.getElementById('termRelatedInput').value = (r.related_terms || []).join(', ');
+        document.getElementById('termCitationsInput').value = (r.citations || []).join(', ');
+        document.getElementById('termReviewedInput').value = r.last_reviewed || '';
+      }
+    }
+
+    modal.classList.add('open');
+  }
+
+  function closeTermEditor() {
+    document.getElementById('termModal').classList.remove('open');
+    document.getElementById('termForm').reset();
+  }
+
+  async function saveTerm(e) {
+    e.preventDefault();
+    const term = document.getElementById('termInput').value.trim();
+    const category = document.getElementById('termCategoryInput').value.trim();
+    const definition = document.getElementById('termDefInput').value.trim();
+    const summary = document.getElementById('termSummaryInput').value.trim();
+
+    if (!term || !category || !definition || !summary) {
+      toast('Term name, category, definition and summary are required.', 'error');
+      return;
+    }
+
+    const splitCsv = (v, n) => v.split(',').map(s => s.trim()).filter(Boolean).slice(0, n);
+
+    const payload = sortableLists({
+      term,
+      slug: slugifyTerm(term),
+      definition,
+      plain_language_summary: summary,
+      category,
+      keywords: splitCsv(document.getElementById('termKeywordsInput').value, 30),
+      related_terms: splitCsv(document.getElementById('termRelatedInput').value, 30),
+      citations: splitCsv(document.getElementById('termCitationsInput').value, 30),
+      last_reviewed: document.getElementById('termReviewedInput').value || null,
+      updated_at: new Date().toISOString()
+    });
+
+    const btn = document.getElementById('termSaveBtn');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+      const { error } = await window.db.from('legal_terms').upsert(payload, { onConflict: 'slug' });
+      if (error) throw error;
+      toast('Term saved.', 'success');
+      closeTermEditor();
+      loadDictionary();
+    } catch (err) {
+      console.error('[Legal Chords] Term save error:', err.message);
+      toast('Save failed: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = document.getElementById('termModalTitle').textContent === 'Add Legal Term' ? 'Save Term' : 'Save Changes';
+    }
+  }
+
+  async function deleteTerm(slug) {
+    if (!confirm('Delete this term? This cannot be undone.')) return;
+    const { error } = await window.db.from('legal_terms').delete().eq('slug', slug);
+    if (error) {
+      toast('Delete failed: ' + error.message, 'error');
+      return;
+    }
+    toast('Term deleted.', 'success');
+    loadDictionary();
+  }
+
+  async function syncBundledTerms() {
+    const btn = document.getElementById('dictSyncBtn');
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'Syncing...';
+
+    try {
+      const res = await fetch('../data/legal-terms.json');
+      if (!res.ok) throw new Error('Could not load bundled terms (status ' + res.status + ')');
+      const bundled = await res.json();
+
+      const rows = bundled.map(t => sortableLists({
+        term: t.term,
+        slug: t.slug,
+        definition: t.definition,
+        plain_language_summary: t.plainLanguageSummary,
+        category: t.category,
+        keywords: t.keywords || [],
+        related_terms: t.relatedTerms || [],
+        citations: t.citations || [],
+        last_reviewed: t.lastReviewed || null,
+        updated_at: new Date().toISOString()
+      }));
+
+      const { error } = await window.db.from('legal_terms').upsert(rows, { onConflict: 'slug' });
+      if (error) throw error;
+      toast(`Synced ${rows.length} terms from bundled data.`, 'success');
+      loadDictionary();
+    } catch (err) {
+      console.error('[Legal Chords] Bundle sync error:', err.message);
+      toast('Sync failed: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Sync from bundled';
+    }
+  }
+
   /* ---------- MODAL ---------- */
   function setupModal() {
     document.getElementById('modalClose').addEventListener('click', closeModal);
     document.getElementById('detailModal').addEventListener('click', e => {
       if (e.target === e.currentTarget) closeModal();
     });
+
+    document.getElementById('termModalClose').addEventListener('click', closeTermEditor);
+    document.getElementById('termModal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeTermEditor();
+    });
+    document.getElementById('termForm').addEventListener('submit', saveTerm);
   }
 
   function openModal() { document.getElementById('detailModal').classList.add('open'); }
@@ -400,5 +611,9 @@ window.AdminDashboard = (() => {
     setTimeout(() => el.classList.remove('visible'), 3000);
   }
 
-  return { init, viewMember, updateStatus, removeSubscriber, toggleEditor, saveSection, chooseEventImage, uploadEventImage };
+  return {
+    init, viewMember, updateStatus, removeSubscriber,
+    toggleEditor, saveSection, chooseEventImage, uploadEventImage,
+    openTermEditor, closeTermEditor, deleteTerm, syncBundledTerms
+  };
 })();

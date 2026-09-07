@@ -78,6 +78,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
           Newsletter
         </button>
+        <button class="admin-nav-item" data-tab="dictionary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          Dictionary
+        </button>
         <div class="admin-nav-divider"></div>
         <button class="admin-nav-item" data-tab="content">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
@@ -227,6 +231,52 @@
         </div>
       </div>
 
+      <!-- ===== DICTIONARY TAB ===== -->
+      <div class="admin-tab" id="tab-dictionary" style="display:none;">
+        <div class="admin-header">
+          <div>
+            <h2>Legal Dictionary</h2>
+            <p>Manage the legal terms shown on the public dictionary page.</p>
+          </div>
+          <div class="admin-header-actions">
+            <button class="btn-sm" id="dictSyncBtn" onclick="AdminDashboard.syncBundledTerms()">Sync from bundled</button>
+            <button class="btn-sm success" onclick="AdminDashboard.openTermEditor()">Add term</button>
+          </div>
+        </div>
+
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <div class="admin-stat-label">Total Terms</div>
+            <div class="admin-stat-num" id="dictTotal">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Categories</div>
+            <div class="admin-stat-num" id="dictCategories">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">With Keywords</div>
+            <div class="admin-stat-num" id="dictKeywords">0</div>
+          </div>
+        </div>
+
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>All Terms</h3>
+            <input type="search" class="admin-table-search" id="dictSearch" placeholder="Search terms, keywords, categories...">
+          </div>
+          <table class="admin-table">
+            <thead><tr>
+              <th>Term</th><th>Category</th><th>Keywords</th><th>Last Reviewed</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="dictTable">
+              <tr><td colspan="5" class="admin-empty" style="padding:40px;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <datalist id="dictCategoryList"></datalist>
+      </div>
+
     </main>
   </div>
 
@@ -243,6 +293,54 @@
 
   <!-- ===== TOAST ===== -->
   <div class="admin-toast" id="adminToast"></div>
+
+  <!-- ===== TERM EDITOR MODAL ===== -->
+  <div class="admin-modal-overlay" id="termModal">
+    <div class="admin-modal admin-modal-lg">
+      <button class="admin-modal-close" id="termModalClose">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <h3 id="termModalTitle">Add Legal Term</h3>
+      <form id="termForm">
+        <div class="editor-field">
+          <label for="termInput">Term name</label>
+          <input type="text" id="termInput" placeholder="e.g. Injunction" required>
+        </div>
+        <div class="editor-field">
+          <label for="termCategoryInput">Category</label>
+          <input type="text" id="termCategoryInput" list="dictCategoryList" placeholder="e.g. Court Procedure" required>
+        </div>
+        <div class="editor-field">
+          <label for="termDefInput">Definition</label>
+          <textarea id="termDefInput" rows="4" placeholder="Formal legal definition" required></textarea>
+        </div>
+        <div class="editor-field">
+          <label for="termSummaryInput">Plain language summary</label>
+          <textarea id="termSummaryInput" rows="3" placeholder="Simple explanation anyone can understand" required></textarea>
+        </div>
+        <div class="editor-field">
+          <label for="termKeywordsInput">Keywords (comma-separated)</label>
+          <input type="text" id="termKeywordsInput" placeholder="court order, restraining order, prohibitory order">
+        </div>
+        <div class="editor-field">
+          <label for="termRelatedInput">Related terms (comma-separated slugs)</label>
+          <input type="text" id="termRelatedInput" placeholder="interlocutory-application, stay-of-execution">
+        </div>
+        <div class="editor-field">
+          <label for="termCitationsInput">Citations (comma-separated)</label>
+          <textarea id="termCitationsInput" rows="2" placeholder="Various court rules"></textarea>
+        </div>
+        <div class="editor-field">
+          <label for="termReviewedInput">Last reviewed</label>
+          <input type="date" id="termReviewedInput">
+        </div>
+        <div class="editor-actions">
+          <button type="button" class="btn-sm" onclick="AdminDashboard.closeTermEditor()">Cancel</button>
+          <button type="submit" class="editor-save-btn" id="termSaveBtn">Save Term</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
