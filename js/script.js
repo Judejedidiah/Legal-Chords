@@ -254,6 +254,16 @@
   if (joinForm) {
     joinForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const interestBoxes = joinForm.querySelectorAll('input[name="interests"]');
+      if (interestBoxes.length) {
+        const anyChecked = Array.from(interestBoxes).some(box => box.checked);
+        if (anyChecked) {
+          interestBoxes.forEach(box => { box.required = false; box.setCustomValidity(''); });
+        } else {
+          interestBoxes.forEach(box => box.setAttribute('required', ''));
+          interestBoxes[0].setCustomValidity('Please select at least one area of interest.');
+        }
+      }
       if (!joinForm.checkValidity()) {
         joinForm.reportValidity();
         return;
@@ -261,17 +271,6 @@
       const data = new FormData(joinForm);
       const payload = Object.fromEntries(data.entries());
       payload.interests = data.getAll('interests');
-
-      if (payload.interests.length === 0) {
-        const grid = joinForm.querySelector('.join-check-grid');
-        const boxes = grid ? grid.querySelectorAll('input[name="interests"]') : [];
-        if (boxes[0]) {
-          boxes[0].setCustomValidity('Please select at least one area of interest.');
-          boxes[0].reportValidity();
-          boxes[0].setCustomValidity('');
-        }
-        return;
-      }
 
       const btn = joinForm.querySelector('.join-submit');
       const origText = btn.textContent;

@@ -1958,11 +1958,24 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
   transition: all 0.3s var(--ease);
 }
 .join-check:hover { border-color: var(--border-strong); }
+.join-check:has(input:checked) {
+  border-color: var(--brand-blue-bright);
+  background: rgba(36,111,224,0.12);
+  color: var(--text);
+}
 .join-check input {
   width: 16px; height: 16px;
   accent-color: var(--brand-blue-bright);
   flex-shrink: 0;
   margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  appearance: auto;
+  -webkit-appearance: checkbox;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .join-submit { width: 100%; justify-content: center; }
