@@ -143,6 +143,8 @@ window.AdminDashboard = (() => {
 
   function setupMembershipSearch(data) {
     const input = document.getElementById('memSearch');
+    if (input.dataset.wired) return;
+    input.dataset.wired = '1';
     input.addEventListener('input', () => {
       const q = input.value.toLowerCase();
       const filtered = data.filter(r =>
@@ -212,6 +214,8 @@ window.AdminDashboard = (() => {
 
   function setupNewsletterSearch(data) {
     const input = document.getElementById('nlSearch');
+    if (input.dataset.wired) return;
+    input.dataset.wired = '1';
     input.addEventListener('input', () => {
       const q = input.value.toLowerCase();
       renderNewsletter(data.filter(r => r.email.toLowerCase().includes(q)));

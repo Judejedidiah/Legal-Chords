@@ -198,12 +198,20 @@
     });
   }
 
-  /* ============ RESOURCE TABS ============ */
+  /* ============ RESOURCE TABS (filter cards) ============ */
   const tabs = document.querySelectorAll('.resource-tabs .tab');
+  const resourceCards = document.querySelectorAll('.resource-grid .resource-card');
+  const normalizeLabel = (s) => (s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
+      const filter = normalizeLabel(tab.textContent);
+      resourceCards.forEach(card => {
+        const catEl = card.querySelector('.rc-cat');
+        const matches = filter === 'ALL' || (catEl && normalizeLabel(catEl.textContent) === filter);
+        card.style.display = matches ? '' : 'none';
+      });
     });
   });
 

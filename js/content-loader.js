@@ -130,7 +130,7 @@
         sections[row.section_key] = row.content;
       });
 
-      document.querySelectorAll('[data-edit]').forEach(el => {
+      document.querySelectorAll('[data-edit], [data-edit-href], [data-edit-meta]').forEach(el => {
         try {
           applyElement(el, sections);
         } catch (err) {
