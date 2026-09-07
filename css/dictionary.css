@@ -488,7 +488,6 @@
   display: flex; align-items: center; justify-content: center;
   color: var(--brand-white);
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(36,111,224,0.35);
   opacity: 0;
   pointer-events: none;
   transform: translateY(10px);
@@ -502,7 +501,6 @@
 }
 .dict-back-top:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(36,111,224,0.5);
 }
 
 /* ============ KEYBOARD HINT ============ */

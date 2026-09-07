@@ -231,11 +231,10 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
 .btn-primary {
   background: var(--grad-blue);
   color: var(--brand-white);
-  box-shadow: 0 8px 24px rgba(36,111,224,0.35), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.15);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(36,111,224,0.5), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.15);
 }
 .btn-ghost {
   background: transparent;
@@ -1722,6 +1721,11 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
   transition: all 0.3s var(--ease);
 }
 .newsletter button:hover { transform: scale(1.08); }
+.newsletter-error {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-top: 6px;
+}
 .footer-divider {
   height: 1px;
   background: var(--border-soft);
@@ -2167,8 +2171,9 @@ body.join-open { overflow: hidden; }
   .join-modal-dialog { padding: 36px 20px; }
   .join-field-group { grid-template-columns: 1fr; gap: 16px; }
   .join-name-group { grid-template-columns: 1fr; }
-  .join-phone-group { flex-direction: column; }
-  .join-country-code { flex: none; border-right: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .join-phone-group { flex-direction: column; gap: 8px; }
+  .join-country-code { flex: none; width: 100%; border-right: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .join-phone-group input { border-radius: var(--radius-sm); }
   .join-modal-header h2 { font-size: 21px; }
   .join-form { gap: 16px; }
 

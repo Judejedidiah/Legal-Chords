@@ -262,30 +262,35 @@
       const payload = Object.fromEntries(data.entries());
       payload.interests = data.getAll('interests');
 
+      if (payload.interests.length === 0) {
+        const grid = joinForm.querySelector('.join-check-grid');
+        const boxes = grid ? grid.querySelectorAll('input[name="interests"]') : [];
+        if (boxes[0]) {
+          boxes[0].setCustomValidity('Please select at least one area of interest.');
+          boxes[0].reportValidity();
+          boxes[0].setCustomValidity('');
+        }
+        return;
+      }
+
       const btn = joinForm.querySelector('.join-submit');
       const origText = btn.textContent;
       btn.disabled = true;
       btn.textContent = 'Submitting...';
 
+      const cleanPayload = Object.fromEntries(
+        Object.entries(payload).filter(([, v]) => {
+          if (Array.isArray(v)) return true;
+          return v !== '';
+        })
+      );
+      cleanPayload.country_code = cleanPayload.country_code || '+234';
+
       try {
         if (window.db) {
-          const { error } = await window.db.from('memberships').insert({
-            firstname: payload.firstname,
-            middlename: payload.middlename,
-            lastname: payload.lastname,
-            email: payload.email,
-            country_code: payload.country_code || '+234',
-            phone: payload.phone,
-            role: payload.role,
-            institution: payload.institution,
-            location: payload.location,
-            interests: payload.interests,
-            involvement: payload.involvement,
-            source: payload.source,
-            message: payload.message
-          });
+          const { error } = await window.db.from('memberships').insert(cleanPayload);
           if (error) throw error;
-          console.info('[Legal Chords] Membership saved to Supabase:', payload.email);
+          console.info('[Legal Chords] Membership saved to Supabase:', cleanPayload.email);
         } else {
           console.warn('[Legal Chords] Supabase not available, form data logged only:', payload);
         }
@@ -303,12 +308,24 @@
   /* ============ NEWSLETTER FORM ============ */
   const newsletterForm = document.getElementById('newsletterForm');
   if (newsletterForm) {
+    const newsletterError = newsletterForm.nextElementSibling;
+    const input = newsletterForm.querySelector('input[type="email"]');
+    const btn = newsletterForm.querySelector('button');
+
+    const clearNewsletterError = () => {
+      if (newsletterError) newsletterError.hidden = true;
+    };
+    input.addEventListener('input', clearNewsletterError);
+
     newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const input = newsletterForm.querySelector('input[type="email"]');
-      const btn = newsletterForm.querySelector('button');
       const email = input.value.trim();
-      if (!email) return;
+      if (!email || !input.checkValidity()) {
+        if (newsletterError) newsletterError.hidden = false;
+        input.focus();
+        return;
+      }
+      clearNewsletterError();
 
       const origText = btn.textContent;
       btn.disabled = true;

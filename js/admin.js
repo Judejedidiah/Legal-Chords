@@ -224,7 +224,61 @@ window.AdminDashboard = (() => {
     loadNewsletter();
   }
 
-  /* ---------- CONTENT EDITOR ---------- */
+  /* ---------- CONTENT EDITOR (SCHEMA-FREE) ---------- */
+  let sectionsCache = [];
+  let sectionsDraft = {};
+
+  function cloneDeep(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function getPath(obj, segments) {
+    let cur = obj;
+    for (let i = 0; i < segments.length; i++) {
+      if (cur == null) return undefined;
+      cur = cur[segments[i]];
+    }
+    return cur;
+  }
+
+  function setPath(obj, segments, value) {
+    let cur = obj;
+    for (let i = 0; i < segments.length - 1; i++) {
+      const seg = segments[i];
+      const next = segments[i + 1];
+      if (cur[seg] == null || typeof cur[seg] !== 'object') {
+        cur[seg] = /^\d+$/.test(next) ? [] : {};
+      }
+      cur = cur[seg];
+    }
+    cur[segments[segments.length - 1]] = value;
+  }
+
+  function removePath(obj, segments) {
+    const parent = getPath(obj, segments.slice(0, -1));
+    if (parent == null) return;
+    const last = segments[segments.length - 1];
+    if (Array.isArray(parent)) parent.splice(Number(last), 1);
+    else delete parent[last];
+  }
+
+  function onEdit(el, sectionKey) {
+    const path = el.dataset.path;
+    if (!path || !sectionsDraft[sectionKey]) return;
+    const segments = path.split('.').slice(1);
+    let value;
+    if (el.type === 'checkbox') value = el.checked;
+    else if (el.type === 'number') value = el.value === '' ? null : Number(el.value);
+    else value = el.value;
+    setPath(sectionsDraft[sectionKey], segments, value);
+  }
+
+  function syncFromDOM(sectionKey) {
+    const section = document.querySelector(`.editor-section[data-section-key="${sectionKey}"]`);
+    if (!section) return;
+    section.querySelectorAll('[data-path]').forEach(el => onEdit(el, sectionKey));
+  }
+
   async function loadContent() {
     const { data: sections } = await window.db.from('site_content')
       .select('*')
@@ -236,125 +290,225 @@ window.AdminDashboard = (() => {
       return;
     }
 
-    container.innerHTML = sections.map(s => {
-      const content = s.content;
-      let fields = '';
+    sectionsCache = sections;
+    sectionsDraft = {};
+    sections.forEach(s => { sectionsDraft[s.section_key] = cloneDeep(s.content || {}); });
+    renderContentEditor();
+  }
 
-      if (typeof content === 'object') {
-        Object.entries(content).forEach(([key, val]) => {
-          if (key === 'posterImage') return; // handled by image uploader
-          if (Array.isArray(val)) {
-            val.forEach((item, i) => {
-              fields += `<div class="editor-field">
-                <label>${labelize(key)} ${i + 1}</label>
-                <textarea data-section="${s.section_key}" data-key="${key}" data-index="${i}">${esc(String(item))}</textarea>
-              </div>`;
-            });
-          } else if (typeof val === 'string') {
-            fields += `<div class="editor-field">
-              <label>${labelize(key)}</label>
-              <input type="text" data-section="${s.section_key}" data-key="${key}" value="${esc(val)}">
-            </div>`;
-          }
-        });
-      }
-
-      // Add image uploader for featured events
-      let uploaderField = '';
-      if (s.section_key === 'events') {
-        const imgUrl = (content && content.posterImage) || '';
-        uploaderField = `<div class="editor-field">
-          <label>Event Poster Image</label>
-          <div class="event-image-upload">
-            <img id="eventImgPreview-events" class="event-image-preview" src="${esc(imgUrl)}" alt="Event poster preview" ${imgUrl ? '' : 'hidden'}>
-            <div class="event-image-controls">
-              <input type="file" id="eventImgFile-events" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
-              <button type="button" class="btn-sm" onclick="AdminDashboard.chooseEventImage()">Choose Image</button>
-              <button type="button" class="btn-sm success" onclick="AdminDashboard.uploadEventImage()">Upload</button>
-              ${imgUrl ? `<a class="btn-sm" href="${esc(imgUrl)}" target="_blank" rel="noopener">View Image</a>` : ''}
-            </div>
-            <input type="text" class="event-image-url" data-section="events" data-key="posterImage" value="${esc(imgUrl)}" placeholder="Image URL (auto-filled on upload)">
-          </div>
-        </div>`;
-      }
-
-      return `<div class="editor-section" data-section-id="${s.id}">
+  function sectionHtml(s) {
+    return `<div class="editor-section" data-section-id="${s.id}" data-section-key="${s.section_key}">
         <div class="editor-header" onclick="AdminDashboard.toggleEditor(this)">
           <h3>${esc(s.section_label)}</h3>
+          <span class="editor-key">${esc(s.section_key)}</span>
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
         </div>
         <div class="editor-body">
-          ${uploaderField}
-          ${fields}
+          ${renderFields(s.section_key, sectionsDraft[s.section_key])}
           <div class="editor-actions">
-            <button class="editor-save-btn" onclick="AdminDashboard.saveSection('${s.id}', '${s.section_key}')">Save Changes</button>
+            <button class="editor-save-btn" onclick="AdminDashboard.saveSection('${s.section_key}')">Save Changes</button>
           </div>
         </div>
       </div>`;
-    }).join('');
+  }
+
+  function renderContentEditor() {
+    const container = document.getElementById('editorContainer');
+    container.innerHTML = sectionsCache.map(sectionHtml).join('');
+  }
+
+  function renderSection(sectionKey) {
+    const section = sectionsCache.find(s => s.section_key === sectionKey);
+    if (!section) return;
+    const wrapper = document.querySelector(`.editor-section[data-section-key="${sectionKey}"]`);
+    if (wrapper) wrapper.outerHTML = sectionHtml(section);
+    else renderContentEditor();
   }
 
   function toggleEditor(header) {
     header.closest('.editor-section').classList.toggle('open');
   }
 
-  async function saveSection(id, sectionKey) {
-    const inputs = document.querySelectorAll(`[data-section="${sectionKey}"]`);
-    const content = {};
-
-    inputs.forEach(el => {
-      const key = el.dataset.key;
-      const idx = el.dataset.index;
-
-      if (idx !== undefined) {
-        if (!content[key]) content[key] = [];
-        content[key][parseInt(idx)] = el.value;
-      } else {
-        content[key] = el.value;
-      }
+  function renderFields(sectionKey, obj, basePath) {
+    let out = '';
+    Object.keys(obj).forEach(key => {
+      const val = obj[key];
+      const path = basePath ? `${basePath}.${key}` : `${sectionKey}.${key}`;
+      out += renderField(sectionKey, key, val, path);
     });
-
-    await window.db.from('site_content')
-      .update({ content, updated_at: new Date().toISOString() })
-      .eq('id', id);
-
-    toast('Content saved successfully.', 'success');
+    return out;
   }
 
-  /* ---------- EVENT IMAGE UPLOAD ---------- */
-  function chooseEventImage() {
-    document.getElementById('eventImgFile-events').click();
+  function renderField(sectionKey, key, val, path) {
+    if (typeof val === 'string' && /Image$/i.test(key)) {
+      return imageUploaderHtml(path, val);
+    }
+
+    if (val && typeof val === 'object' && !Array.isArray(val)) {
+      return `<div class="editor-group">
+        <div class="editor-group-head"><span>${esc(labelize(key))}</span></div>
+        <div class="editor-group-body">${renderFields(sectionKey, val, path)}</div>
+      </div>`;
+    }
+
+    if (Array.isArray(val)) {
+      const hasObjects = val.some(v => v && typeof v === 'object');
+      if (hasObjects) {
+        let inner = '';
+        val.forEach((item, i) => {
+          if (item && typeof item === 'object') {
+            inner += `<div class="editor-group">
+              <div class="editor-group-head">
+                <span>${esc(labelize(key))} ${i + 1}</span>
+                <button type="button" class="editor-remove" onclick="AdminDashboard.removeItem('${sectionKey}','${path}.${i}')" title="Remove">×</button>
+              </div>
+              <div class="editor-group-body">${renderFields(sectionKey, item, `${path}.${i}`)}</div>
+            </div>`;
+          }
+        });
+        inner += `<button type="button" class="editor-add" onclick="AdminDashboard.addItem('${sectionKey}','${path}')">+ Add ${esc(labelize(key))}</button>`;
+        return inner;
+      }
+
+      let rows = '';
+      val.forEach((item, i) => {
+        rows += `<div class="editor-list-row">
+          <span class="editor-list-idx">${i + 1}</span>
+          <input type="text" data-path="${path}.${i}" value="${esc(String(item))}" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">
+          <button type="button" class="editor-remove" onclick="AdminDashboard.removeItem('${sectionKey}','${path}.${i}')" title="Remove">×</button>
+        </div>`;
+      });
+      rows += `<button type="button" class="editor-add" onclick="AdminDashboard.addItem('${sectionKey}','${path}')">+ Add ${esc(labelize(key))}</button>`;
+      return rows;
+    }
+
+    if (typeof val === 'boolean') {
+      return `<div class="editor-field">
+        <label>${esc(labelize(key))}</label>
+        <div class="editor-toggle-wrap">
+          <input type="checkbox" data-path="${path}" ${val ? 'checked' : ''} onchange="AdminDashboard.onEdit(this,'${sectionKey}')">
+        </div>
+      </div>`;
+    }
+
+    if (typeof val === 'number') {
+      return `<div class="editor-field">
+        <label>${esc(labelize(key))}</label>
+        <input type="number" data-path="${path}" value="${esc(String(val))}" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">
+      </div>`;
+    }
+
+    const multiline = String(val || '').length > 140;
+    return `<div class="editor-field">
+      <label>${esc(labelize(key))}</label>
+      ${multiline
+        ? `<textarea data-path="${path}" rows="3" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">${esc(val)}</textarea>`
+        : `<input type="text" data-path="${path}" value="${esc(val)}" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">`}
+    </div>`;
   }
 
-  async function uploadEventImage() {
-    const fileInput = document.getElementById('eventImgFile-events');
-    const file = fileInput.files && fileInput.files[0];
+  function imageUploaderHtml(path, url) {
+    const uid = path.replace(/[^a-zA-Z0-9]/g, '_');
+    return `<div class="editor-field">
+      <label>${esc(labelize(path.split('.').pop()))}</label>
+      <div class="event-image-upload">
+        <img id="imgPreview_${uid}" class="event-image-preview" src="${esc(url)}" alt="Image preview" ${url ? '' : 'hidden'}>
+        <div class="event-image-controls">
+          <input type="file" id="imgFile_${uid}" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+          <button type="button" class="btn-sm" onclick="AdminDashboard.chooseImage('${path}')">Choose Image</button>
+          <button type="button" class="btn-sm success" onclick="AdminDashboard.uploadImage('${path}')">Upload</button>
+          ${url ? `<a class="btn-sm" href="${esc(url)}" target="_blank" rel="noopener">View Image</a>` : ''}
+        </div>
+        <input type="text" class="event-image-url" id="imgUrl_${uid}" data-path="${path}" value="${esc(url)}" placeholder="Image URL (auto-filled on upload)" oninput="AdminDashboard.onEdit(this,'${path.split('.')[0]}')">
+      </div>
+    </div>`;
+  }
+
+  function addItem(sectionKey, path) {
+    syncFromDOM(sectionKey);
+    const segments = path.split('.').slice(1);
+    const parent = getPath(sectionsDraft[sectionKey], segments);
+    if (!Array.isArray(parent)) return;
+
+    const first = parent[0];
+    let item;
+    if (first && typeof first === 'object' && !Array.isArray(first)) {
+      item = {};
+      Object.keys(first).forEach(k => { item[k] = typeof first[k] === 'boolean' ? false : ''; });
+    } else if (first && typeof first === 'number') {
+      item = 0;
+    } else {
+      item = '';
+    }
+    parent.push(item);
+    renderSection(sectionKey);
+  }
+
+  function removeItem(sectionKey, path) {
+    syncFromDOM(sectionKey);
+    removePath(sectionsDraft[sectionKey], path.split('.').slice(1));
+    renderSection(sectionKey);
+  }
+
+  async function saveSection(sectionKey) {
+    const section = sectionsCache.find(s => s.section_key === sectionKey);
+    if (!section) return;
+    syncFromDOM(sectionKey);
+
+    const content = sectionsDraft[sectionKey];
+
+    try {
+      const { error } = await window.db.from('site_content')
+        .update({ content, updated_at: new Date().toISOString() })
+        .eq('id', section.id);
+      if (error) throw error;
+
+      section.content = cloneDeep(content);
+      toast(`"${section.section_label}" saved successfully.`, 'success');
+    } catch (err) {
+      console.error('[Legal Chords] Content save error:', err.message);
+      toast('Save failed: ' + err.message, 'error');
+    }
+  }
+
+  /* ---------- IMAGE UPLOAD (generic) ---------- */
+  function chooseImage(path) {
+    const uid = path.replace(/[^a-zA-Z0-9]/g, '_');
+    const input = document.getElementById('imgFile_' + uid);
+    if (input) input.click();
+  }
+
+  async function uploadImage(path) {
+    const sectionKey = path.split('.')[0];
+    const uid = path.replace(/[^a-zA-Z0-9]/g, '_');
+    const fileInput = document.getElementById('imgFile_' + uid);
+    const file = fileInput && fileInput.files && fileInput.files[0];
     if (!file) {
       toast('Please choose an image first.', 'error');
       return;
     }
 
-    const preview = document.getElementById('eventImgPreview-events');
-    const urlInput = document.querySelector('input[data-section="events"][data-key="posterImage"]');
-    const btn = document.querySelector('#tab-content .event-image-controls .btn-sm.success');
+    const preview = document.getElementById('imgPreview_' + uid);
+    const urlInput = document.getElementById('imgUrl_' + uid);
+    const btn = fileInput.parentElement.querySelector('.btn-sm.success');
 
     if (btn) { btn.disabled = true; btn.textContent = 'Uploading...'; }
 
     try {
       const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-      const path = 'events/' + Date.now() + '-' + safeName;
+      const storagePath = 'content/' + sectionKey + '/' + Date.now() + '-' + safeName;
 
       const { error } = await window.db.storage
         .from('event-images')
-        .upload(path, file, { contentType: file.type, upsert: true });
+        .upload(storagePath, file, { contentType: file.type, upsert: true });
 
       if (error) throw error;
 
-      const { data: pub } = window.db.storage.from('event-images').getPublicUrl(path);
+      const { data: pub } = window.db.storage.from('event-images').getPublicUrl(storagePath);
       const url = pub.publicUrl;
 
       if (preview) { preview.src = url; preview.hidden = false; }
-      if (urlInput) urlInput.value = url;
+      if (urlInput) { urlInput.value = url; onEdit(urlInput, sectionKey); }
 
       toast('Image uploaded.', 'success');
     } catch (err) {
@@ -613,7 +767,7 @@ window.AdminDashboard = (() => {
 
   return {
     init, viewMember, updateStatus, removeSubscriber,
-    toggleEditor, saveSection, chooseEventImage, uploadEventImage,
+    toggleEditor, saveSection, chooseImage, uploadImage, addItem, removeItem, onEdit,
     openTermEditor, closeTermEditor, deleteTerm, syncBundledTerms
   };
 })();
