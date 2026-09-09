@@ -13,3 +13,7 @@ CREATE POLICY "Allow anonymous update on newsletter"
   TO anon
   USING (true)
   WITH CHECK (true);
+
+
+
+  
