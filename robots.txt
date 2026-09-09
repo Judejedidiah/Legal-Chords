@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /law/
+
+
+Sitemap: https://legalchords.org/sitemap.xml
