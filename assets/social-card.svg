@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#020512"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="600" y1="200" x2="600" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#246FE0" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#246FE0" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle glow -->
+  <ellipse cx="600" cy="300" rx="500" ry="300" fill="url(#glow)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="200" stroke="#246FE0" stroke-width="0.8" fill="none" opacity="0.15"/>
+  <circle cx="1100" cy="530" r="180" stroke="#246FE0" stroke-width="0.8" fill="none" opacity="0.15"/>
+  <circle cx="950" cy="80" r="120" stroke="#F5C62F" stroke-width="0.6" fill="none" opacity="0.1"/>
+
+  <!-- Decorative dots -->
+  <circle cx="150" cy="500" r="3" fill="#246FE0" opacity="0.3"/>
+  <circle cx="300" cy="550" r="2" fill="#F5C62F" opacity="0.4"/>
+  <circle cx="1050" cy="150" r="3" fill="#246FE0" opacity="0.3"/>
+  <circle cx="900" cy="520" r="2" fill="#F5C62F" opacity="0.4"/>
+
+  <!-- Logo mark -->
+  <rect x="80" y="220" width="80" height="80" rx="20" fill="#246FE0"/>
+  <path d="M104 240L120 256L104 272" stroke="#F5C62F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M120 240L136 256L120 272" stroke="#F7F7F8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Main heading -->
+  <text x="200" y="268" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="56" font-weight="800" fill="#F7F7F8" letter-spacing="-1">LEGAL CHORDS</text>
+
+  <!-- Tagline -->
+  <text x="200" y="320" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="26" font-weight="400" fill="#A0AEC0" letter-spacing="0.5">Legal Knowledge, Redesigned for a New Generation</text>
+
+  <!-- Accent line -->
+  <rect x="200" y="350" width="80" height="4" rx="2" fill="#F5C62F"/>
+
+  <!-- Subtitle -->
+  <text x="200" y="400" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="400" fill="#718096">
+    <tspan>Making the law easier to understand, access, and apply.</tspan>
+  </text>
+
+  <!-- URL -->
+  <text x="200" y="460" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="500" fill="#246FE0" letter-spacing="1">legalchords.org</text>
+
+  <!-- Right side decorative element -->
+  <g transform="translate(900, 230)" opacity="0.9">
+    <rect width="200" height="160" rx="16" fill="#0F1D32" stroke="#246FE0" stroke-width="1"/>
+    <rect x="16" y="16" width="40" height="6" rx="3" fill="#246FE0" opacity="0.4"/>
+    <rect x="16" y="32" width="168" height="8" rx="4" fill="#F7F7F8" opacity="0.08"/>
+    <rect x="16" y="48" width="140" height="8" rx="4" fill="#F7F7F8" opacity="0.08"/>
+    <rect x="16" y="64" width="160" height="8" rx="4" fill="#F7F7F8" opacity="0.08"/>
+    <rect x="16" y="80" width="100" height="8" rx="4" fill="#F7F7F8" opacity="0.08"/>
+    <rect x="16" y="100" width="80" height="28" rx="6" fill="#246FE0" opacity="0.2"/>
+    <text x="32" y="119" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#246FE0">Know Your Rights</text>
+    <rect x="110" y="100" width="74" height="28" rx="6" fill="#F5C62F" opacity="0.15"/>
+    <text x="122" y="119" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#F5C62F">Learn More</text>
+  </g>
+</svg>
