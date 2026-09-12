@@ -3,4 +3,4 @@ Allow: /
 Disallow: /law/
 
 
-Sitemap: https://legalchords.org/sitemap.xml
+Sitemap: https://legalchords.vercel.app/sitemap.xml
