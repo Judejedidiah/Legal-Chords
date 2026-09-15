@@ -62,6 +62,10 @@
   let activeLetter = null;
   let activeCategory = null;
 
+  function esc(s) {
+    return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
   function mapDbTerm(row) {
     return {
       term: row.term,
@@ -104,7 +108,9 @@
         handleHashNavigation();
       })
       .catch(err => {
-        grid.innerHTML = '<div class="dict-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><h3>Could not load dictionary</h3><p>Please try refreshing the page.</p></div>';
+        if (!grid.children.length) {
+          grid.innerHTML = '<div class="dict-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><h3>Could not load dictionary</h3><p>Please try refreshing the page.</p></div>';
+        }
         console.error('[Legal Chords] Dictionary load error:', err);
       });
   }
@@ -234,10 +240,10 @@
     suggestIndex = -1;
     suggestBox.innerHTML = matches.map(({ t }, i) => `
       <button type="button" class="dict-suggest-item" role="option"
-              data-index="${i}" data-slug="${t.slug}"
-              onclick="window.pickSuggestion('${t.slug}')">
-        <span class="dict-suggest-term">${t.term}</span>
-        <span class="dict-suggest-meta">${t.category}</span>
+              data-index="${i}" data-slug="${esc(t.slug)}"
+              onclick="window.pickSuggestion('${esc(t.slug)}')">
+        <span class="dict-suggest-term">${esc(t.term)}</span>
+        <span class="dict-suggest-meta">${esc(t.category)}</span>
       </button>
     `).join('');
     suggestBox.hidden = false;
@@ -331,22 +337,30 @@
 
     resultsCount.innerHTML = `Showing <strong>${terms.length}</strong> term${terms.length !== 1 ? 's' : ''}`;
 
-    grid.innerHTML = terms.map(term => `
+    grid.innerHTML = terms.map(term => {
+      const slug = esc(term.slug);
+      const name = esc(term.term);
+      const category = esc(term.category);
+      const definition = esc(term.definition);
+      const plain = esc(term.plainLanguageSummary);
+      const letter = esc(term.term[0].toUpperCase());
+      return `
       <div class="dict-card" tabindex="0" role="button"
-           aria-label="View definition of ${term.term}"
-           data-slug="${term.slug}"
-           onclick="window.openTerm('${term.slug}')"
-           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.openTerm('${term.slug}')}">
-        <div class="dict-card-letter">${term.term[0]}</div>
-        <span class="dict-card-category">${term.category}</span>
-        <h3>${term.term}</h3>
-        <p class="dict-card-def">${term.definition}</p>
+           aria-label="View definition of ${name}"
+           data-slug="${slug}"
+           onclick="window.openTerm('${slug}')"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.openTerm('${slug}')}">
+        <div class="dict-card-letter">${letter}</div>
+        <span class="dict-card-category">${category}</span>
+        <h3>${name}</h3>
+        <p class="dict-card-def">${definition}</p>
         <div class="dict-card-plain">
           <strong>In plain language</strong>
-          ${term.plainLanguageSummary}
+          ${plain}
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   /* ============ TERM DETAIL PANEL ============ */
@@ -360,7 +374,7 @@
            ${term.relatedTerms.map(r => {
              const rel = allTerms.find(t => t.slug === r);
              const label = rel ? rel.term : r.replace(/-/g, ' ');
-             return `<a href="#" onclick="event.preventDefault();window.openTerm('${r}')">${label}</a>`;
+             return `<a href="#" onclick="event.preventDefault();window.openTerm('${esc(r)}')">${esc(label)}</a>`;
            }).join('')}
          </div>`
       : '';
@@ -368,7 +382,7 @@
     const citationsHTML = term.citations.length
       ? `<h4>Citations</h4>
          <ul class="dict-panel-citations">
-           ${term.citations.map(c => `<li>${c}</li>`).join('')}
+           ${term.citations.map(c => `<li>${esc(c)}</li>`).join('')}
          </ul>`
       : '';
 
@@ -380,16 +394,16 @@
       <button class="dict-panel-close" aria-label="Close term detail" onclick="window.closeTerm()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-      <div class="dict-panel-letter">${term.term[0]}</div>
-      <span class="dict-panel-category">${term.category}</span>
-      <h2>${term.term}</h2>
+      <div class="dict-panel-letter">${esc(term.term[0])}</div>
+      <span class="dict-panel-category">${esc(term.category)}</span>
+      <h2>${esc(term.term)}</h2>
       <h4>Definition</h4>
-      <p>${term.definition}</p>
+      <p>${esc(term.definition)}</p>
       <h4>In Plain Language</h4>
-      <div class="dict-panel-plain"><p>${term.plainLanguageSummary}</p></div>
+      <div class="dict-panel-plain"><p>${esc(term.plainLanguageSummary)}</p></div>
       ${citationsHTML}
       ${relatedHTML}
-      <p class="dict-panel-date">${reviewedLabel}</p>
+      <p class="dict-panel-date">${esc(reviewedLabel)}</p>
     `;
 
     overlay.classList.add('open');

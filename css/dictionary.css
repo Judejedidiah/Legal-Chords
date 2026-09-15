@@ -308,6 +308,39 @@
   margin-bottom: 4px;
 }
 
+/* ============ VISUALLY HIDDEN (a11y + crawlable metadata) ============ */
+.dict-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.dict-visually-hidden dl {
+  margin: 0;
+}
+.dict-visually-hidden dt {
+  display: inline;
+  font-weight: 600;
+}
+.dict-visually-hidden dt::after {
+  content: ': ';
+}
+.dict-visually-hidden dd {
+  display: inline;
+  margin: 0;
+}
+.dict-visually-hidden dd::after {
+  content: ' · ';
+}
+.dict-visually-hidden dd:last-of-type::after {
+  content: none;
+}
+
 /* ============ TERM DETAIL PANEL ============ */
 .dict-overlay {
   position: fixed; inset: 0;
