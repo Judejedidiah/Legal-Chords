@@ -282,6 +282,8 @@
 
       const btn = joinForm.querySelector('.join-submit');
       const origText = btn.textContent;
+      const errBox = document.getElementById('joinError');
+      if (errBox) errBox.hidden = true;
       btn.disabled = true;
       btn.textContent = 'Submitting...';
 
@@ -293,21 +295,30 @@
       );
       cleanPayload.country_code = cleanPayload.country_code || '+234';
 
+      let submitted = false;
       try {
         if (window.db) {
           const { error } = await window.db.from('memberships').insert(cleanPayload);
           if (error) throw error;
           console.info('[Legal Chords] Membership saved to Supabase:', cleanPayload.email);
+          submitted = true;
         } else {
           console.warn('[Legal Chords] Supabase not available, form data logged only:', payload);
+          submitted = true;
         }
       } catch (err) {
         console.error('[Legal Chords] Submit error:', err.message);
+        if (errBox) {
+          errBox.textContent = 'We couldn\u2019t save your application. Please try again.';
+          errBox.hidden = false;
+        }
       } finally {
         btn.disabled = false;
         btn.textContent = origText;
-        joinForm.hidden = true;
-        joinSuccess.hidden = false;
+        if (submitted) {
+          joinForm.hidden = true;
+          joinSuccess.hidden = false;
+        }
       }
     });
   }
@@ -338,6 +349,7 @@
       btn.disabled = true;
       btn.textContent = '...';
 
+      let subscribed = false;
       try {
         if (window.db) {
           const { error } = await window.db.from('newsletter_subscribers').upsert(
@@ -347,12 +359,22 @@
           if (error) throw error;
           console.info('[Legal Chords] Newsletter subscriber saved:', email);
         }
+        subscribed = true;
       } catch (err) {
         console.error('[Legal Chords] Newsletter error:', err.message);
+        if (newsletterError) {
+          newsletterError.textContent = 'We couldn\u2019t save your email. Please try again.';
+          newsletterError.hidden = false;
+        }
+        input.focus();
       } finally {
-        btn.textContent = '✓';
-        input.value = '';
-        setTimeout(() => { btn.textContent = origText; btn.disabled = false; }, 3000);
+        btn.disabled = false;
+        btn.textContent = origText;
+        if (subscribed) {
+          btn.textContent = '✓';
+          input.value = '';
+          setTimeout(() => { btn.textContent = origText; }, 3000);
+        }
       }
     });
   }

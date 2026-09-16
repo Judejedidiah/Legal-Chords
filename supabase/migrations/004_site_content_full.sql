@@ -149,7 +149,12 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "eyebrow": "Partners & Collaborators",
   "heading": "Building impact <span class=\"accent\">through collaboration.</span>",
   "lede": "We believe meaningful impact happens through collaboration. Legal Chords works with institutions, student communities, professionals, organizations and changemakers to expand access to legal knowledge.",
-  "list": ["Partner Logo", "University", "NGO", "Community", "Organization", "Innovation Hub"]
+  "list": ["Partner Logo", "University", "NGO", "Community", "Organization", "Innovation Hub"],
+  "thegenz": {
+    "logo": "assets/thegenzlogo.png",
+    "name": "TheGenZ AI Hub",
+    "description": "TheGenZ AI Hub is an institutional venture-building ecosystem. We are not a coding bootcamp, a passive consultancy, a generic meetup group, or an AI news aggregator. We operate as a repeatable foundry that brings together ambitious developers, verified real-world problems, rigorous validation methodologies, and venture resources so that promising ideas turn into enduring companies."
+  }
 }'),
 
 ('resources', 'Resources / Legal Education Hub', '{

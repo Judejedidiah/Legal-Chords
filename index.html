@@ -728,6 +728,19 @@
       <div class="partner-logo"><span data-edit="partners.list.4">Organization</span></div>
       <div class="partner-logo"><span data-edit="partners.list.5">Innovation Hub</span></div>
     </div>
+
+    <div class="partner-feature reveal">
+      <img class="partner-feature-logo"
+           src="assets/thegenzlogo.png"
+           data-edit="partners.thegenz.logo"
+           data-edit-attr="src"
+           alt="TheGenZ AI Hub logo"
+           loading="lazy" />
+      <h3 class="partner-feature-name" data-edit="partners.thegenz.name">TheGenZ AI Hub</h3>
+      <p class="partner-feature-desc" data-edit="partners.thegenz.description">
+        TheGenZ AI Hub is an institutional venture-building ecosystem. We are not a coding bootcamp, a passive consultancy, a generic meetup group, or an AI news aggregator. We operate as a repeatable foundry that brings together ambitious developers, verified real-world problems, rigorous validation methodologies, and venture resources so that promising ideas turn into enduring companies.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -1346,6 +1359,7 @@
 
       <button type="submit" class="btn btn-primary btn-lg join-submit">Submit Application</button>
       <p class="join-note">By submitting, you agree to be contacted by Legal Chords about membership, events and programs. We never share your details.</p>
+      <p class="join-error" id="joinError" hidden></p>
     </form>
 
     <div class="join-success" id="joinSuccess" hidden>
@@ -1360,7 +1374,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/load-env.js"></script>
 <script src="js/config.js"></script>
 <script src="js/supabase.js"></script>
 <script src="js/content-loader.js"></script>

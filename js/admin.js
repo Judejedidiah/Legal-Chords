@@ -63,27 +63,32 @@ window.AdminDashboard = (() => {
 
   /* ---------- LOAD ALL (OVERVIEW) ---------- */
   async function loadAll() {
-    const [memRes, nlRes, scRes] = await Promise.all([
-      window.db.from('memberships').select('id, status, created_at').order('created_at', { ascending: false }),
-      window.db.from('newsletter_subscribers').select('id, status').eq('status', 'active'),
-      window.db.from('site_content').select('id')
-    ]);
+    try {
+      const [memRes, nlRes, scRes] = await Promise.all([
+        window.db.from('memberships').select('id, status, created_at').order('created_at', { ascending: false }),
+        window.db.from('newsletter_subscribers').select('id, status').eq('status', 'active'),
+        window.db.from('site_content').select('id')
+      ]);
 
-    const memAll = memRes.data || [];
-    const total = memAll.length;
-    const pending = memAll.filter(m => m.status === 'pending').length;
+      const memAll = memRes.data || [];
+      const total = memAll.length;
+      const pending = memAll.filter(m => m.status === 'pending').length;
 
-    document.getElementById('statMembers').textContent = total;
-    document.getElementById('statPending').textContent = pending;
-    document.getElementById('statSubscribers').textContent = nlRes.data?.length || 0;
-    document.getElementById('statSections').textContent = scRes.data?.length || 0;
+      document.getElementById('statMembers').textContent = total;
+      document.getElementById('statPending').textContent = pending;
+      document.getElementById('statSubscribers').textContent = nlRes.data?.length || 0;
+      document.getElementById('statSections').textContent = scRes.data?.length || 0;
 
-    const { data: recent } = await window.db.from('memberships')
-      .select('firstname, middlename, lastname, email, role, created_at, status')
-      .order('created_at', { ascending: false })
-      .limit(5);
+      const { data: recent } = await window.db.from('memberships')
+        .select('firstname, middlename, lastname, email, role, created_at, status')
+        .order('created_at', { ascending: false })
+        .limit(5);
 
-    renderOverviewTable(recent || []);
+      renderOverviewTable(recent || []);
+    } catch (err) {
+      console.error('[Legal Chords] Overview load error:', err.message);
+      toast('Could not load dashboard data: ' + err.message, 'error');
+    }
   }
 
   function renderOverviewTable(rows) {
@@ -103,12 +108,19 @@ window.AdminDashboard = (() => {
 
   /* ---------- MEMBERSHIPS ---------- */
   async function loadMemberships() {
-    const { data } = await window.db.from('memberships')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      const { data, error } = await window.db.from('memberships')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
 
-    renderMemberships(data || []);
-    setupMembershipSearch(data || []);
+      renderMemberships(data || []);
+      setupMembershipSearch(data || []);
+    } catch (err) {
+      console.error('[Legal Chords] Memberships load error:', err.message);
+      document.getElementById('memTable').innerHTML =
+        `<tr><td colspan="8" class="admin-empty">Could not load applications: ${esc(err.message)}</td></tr>`;
+    }
   }
 
   function renderMemberships(rows) {
@@ -155,40 +167,59 @@ window.AdminDashboard = (() => {
   }
 
   async function viewMember(id) {
-    const { data: r } = await window.db.from('memberships').select('*').eq('id', id).single();
-    if (!r) return;
-    document.getElementById('modalTitle').textContent = `${r.firstname} ${r.middlename || ''} ${r.lastname}`;
-    document.getElementById('modalBody').innerHTML = `
-      ${detailRow('Email', r.email)}
-      ${detailRow('Phone', `${r.country_code || '+234'} ${r.phone}`)}
-      ${detailRow('Role', r.role)}
-      ${detailRow('Institution', r.institution)}
-      ${detailRow('Location', r.location)}
-      ${detailRow('Interests', (r.interests || []).join(', '))}
-      ${detailRow('Involvement', r.involvement)}
-      ${detailRow('Source', r.source)}
-      ${detailRow('Message', r.message)}
-      ${detailRow('Status', `<span class="status-badge status-${r.status}">${r.status}</span>`)}
-      ${detailRow('Applied', formatDate(r.created_at))}
-    `;
-    openModal();
+    try {
+      const { data: r, error } = await window.db.from('memberships').select('*').eq('id', id).single();
+      if (error) throw error;
+      if (!r) { toast('Member not found.', 'error'); return; }
+      document.getElementById('modalTitle').textContent = `${r.firstname} ${r.middlename || ''} ${r.lastname}`;
+      document.getElementById('modalBody').innerHTML = `
+        ${detailRow('Email', r.email)}
+        ${detailRow('Phone', `${r.country_code || '+234'} ${r.phone}`)}
+        ${detailRow('Role', r.role)}
+        ${detailRow('Institution', r.institution)}
+        ${detailRow('Location', r.location)}
+        ${detailRow('Interests', (r.interests || []).join(', '))}
+        ${detailRow('Involvement', r.involvement)}
+        ${detailRow('Source', r.source)}
+        ${detailRow('Message', r.message)}
+        ${detailRow('Status', `<span class="status-badge status-${esc(r.status)}">${esc(r.status)}</span>`, true)}
+        ${detailRow('Applied', formatDate(r.created_at))}
+      `;
+      openModal();
+    } catch (err) {
+      console.error('[Legal Chords] Could not load member:', err.message);
+      toast('Could not load member: ' + err.message, 'error');
+    }
   }
 
   async function updateStatus(id, status) {
-    await window.db.from('memberships').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
-    toast(`Application ${status}.`, 'success');
-    loadMemberships();
-    loadAll();
+    try {
+      const { error } = await window.db.from('memberships').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
+      if (error) throw error;
+      toast(`Application ${status}.`, 'success');
+      loadMemberships();
+      loadAll();
+    } catch (err) {
+      console.error('[Legal Chords] Status update error:', err.message);
+      toast('Could not update status: ' + err.message, 'error');
+    }
   }
 
   /* ---------- NEWSLETTER ---------- */
   async function loadNewsletter() {
-    const { data } = await window.db.from('newsletter_subscribers')
-      .select('*')
-      .order('created_at', { ascending: false });
+    try {
+      const { data, error } = await window.db.from('newsletter_subscribers')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
 
-    renderNewsletter(data || []);
-    setupNewsletterSearch(data || []);
+      renderNewsletter(data || []);
+      setupNewsletterSearch(data || []);
+    } catch (err) {
+      console.error('[Legal Chords] Newsletter load error:', err.message);
+      document.getElementById('nlTable').innerHTML =
+        `<tr><td colspan="4" class="admin-empty">Could not load subscribers: ${esc(err.message)}</td></tr>`;
+    }
   }
 
   function renderNewsletter(rows) {
@@ -223,9 +254,15 @@ window.AdminDashboard = (() => {
   }
 
   async function removeSubscriber(id) {
-    await window.db.from('newsletter_subscribers').update({ status: 'unsubscribed' }).eq('id', id);
-    toast('Subscriber removed.', 'success');
-    loadNewsletter();
+    try {
+      const { error } = await window.db.from('newsletter_subscribers').update({ status: 'unsubscribed' }).eq('id', id);
+      if (error) throw error;
+      toast('Subscriber removed.', 'success');
+      loadNewsletter();
+    } catch (err) {
+      console.error('[Legal Chords] Remove subscriber error:', err.message);
+      toast('Could not remove subscriber: ' + err.message, 'error');
+    }
   }
 
   /* ---------- CONTENT EDITOR (SCHEMA-FREE) ---------- */
@@ -284,20 +321,27 @@ window.AdminDashboard = (() => {
   }
 
   async function loadContent() {
-    const { data: sections } = await window.db.from('site_content')
-      .select('*')
-      .order('section_key');
+    try {
+      const { data: sections, error } = await window.db.from('site_content')
+        .select('*')
+        .order('section_key');
+      if (error) throw error;
 
-    const container = document.getElementById('editorContainer');
-    if (!sections?.length) {
-      container.innerHTML = '<div class="admin-empty">No content sections found. Run the migration SQL first.</div>';
-      return;
+      const container = document.getElementById('editorContainer');
+      if (!sections?.length) {
+        container.innerHTML = '<div class="admin-empty">No content sections found. Run the migration SQL first.</div>';
+        return;
+      }
+
+      sectionsCache = sections;
+      sectionsDraft = {};
+      sections.forEach(s => { sectionsDraft[s.section_key] = cloneDeep(s.content || {}); });
+      renderContentEditor();
+    } catch (err) {
+      console.error('[Legal Chords] Content load error:', err.message);
+      document.getElementById('editorContainer').innerHTML =
+        `<div class="admin-empty">Could not load content: ${esc(err.message)}</div>`;
     }
-
-    sectionsCache = sections;
-    sectionsDraft = {};
-    sections.forEach(s => { sectionsDraft[s.section_key] = cloneDeep(s.content || {}); });
-    renderContentEditor();
   }
 
   function sectionHtml(s) {
@@ -529,25 +573,29 @@ window.AdminDashboard = (() => {
   let dictSearchWired = false;
 
   async function loadDictionary() {
-    const { data, error } = await window.db.from('legal_terms').select('*').order('term');
-    if (error) {
-      toast('Failed to load terms: ' + error.message, 'error');
-      return;
-    }
-    dictAll = data || [];
-    renderDictionary(dictAll);
-    populateCategoryList();
-    if (!dictSearchWired) {
-      dictSearchWired = true;
-      document.getElementById('dictSearch').addEventListener('input', (e) => {
-        const q = e.target.value.toLowerCase();
-        const filtered = dictAll.filter(r =>
-          r.term.toLowerCase().includes(q) ||
-          (r.keywords || []).some(k => k.toLowerCase().includes(q)) ||
-          r.category.toLowerCase().includes(q)
-        );
-        renderDictionary(filtered);
-      });
+    try {
+      const { data, error } = await window.db.from('legal_terms').select('*').order('term');
+      if (error) throw error;
+      dictAll = data || [];
+      renderDictionary(dictAll);
+      populateCategoryList();
+      if (!dictSearchWired) {
+        dictSearchWired = true;
+        document.getElementById('dictSearch').addEventListener('input', (e) => {
+          const q = e.target.value.toLowerCase();
+          const filtered = dictAll.filter(r =>
+            r.term.toLowerCase().includes(q) ||
+            (r.keywords || []).some(k => k.toLowerCase().includes(q)) ||
+            r.category.toLowerCase().includes(q)
+          );
+          renderDictionary(filtered);
+        });
+      }
+    } catch (err) {
+      console.error('[Legal Chords] Dictionary load error:', err.message);
+      document.getElementById('dictTable').innerHTML =
+        `<tr><td colspan="5" class="admin-empty">Could not load terms: ${esc(err.message)}</td></tr>`;
+      toast('Failed to load terms: ' + err.message, 'error');
     }
   }
 
@@ -682,13 +730,15 @@ window.AdminDashboard = (() => {
 
   async function deleteTerm(slug) {
     if (!confirm('Delete this term? This cannot be undone.')) return;
-    const { error } = await window.db.from('legal_terms').delete().eq('slug', slug);
-    if (error) {
-      toast('Delete failed: ' + error.message, 'error');
-      return;
+    try {
+      const { error } = await window.db.from('legal_terms').delete().eq('slug', slug);
+      if (error) throw error;
+      toast('Term deleted.', 'success');
+      loadDictionary();
+    } catch (err) {
+      console.error('[Legal Chords] Term delete error:', err.message);
+      toast('Delete failed: ' + err.message, 'error');
     }
-    toast('Term deleted.', 'success');
-    loadDictionary();
   }
 
   async function syncBundledTerms() {
@@ -754,8 +804,8 @@ window.AdminDashboard = (() => {
     return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
   }
 
-  function detailRow(label, value) {
-    return `<div class="detail-row"><div class="detail-label">${label}</div><div class="detail-value">${value || '—'}</div></div>`;
+  function detailRow(label, value, isHtml) {
+    return `<div class="detail-row"><div class="detail-label">${esc(label)}</div><div class="detail-value">${isHtml ? value : esc(value || '—')}</div></div>`;
   }
 
   function labelize(key) {
