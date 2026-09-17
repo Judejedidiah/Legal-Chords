@@ -9,7 +9,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('hero', 'Hero Section', '{
   "badge": "Youth-Led • Nigeria • Est. 2026",
-  "headline": "LEGAL KNOWLEDGE<br /><span class=\"hero-headline-accent\">SHOULD NOT BE</span><br />A PRIVILEGE.",
+  "headline": { "line1": "LEGAL KNOWLEDGE", "line2": "SHOULD NOT BE", "line3": "A PRIVILEGE.", "accentLine": 2 },
   "subtitle": "Making the law easier to understand, access, and apply. Legal Chords is a youth-focused legal awareness platform making legal education practical, accessible and relevant to everyday life.",
   "primaryAction": "Explore Legal Chords",
   "primaryHref": "#programs",
@@ -36,7 +36,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('about', 'About Section', '{
   "eyebrow": "About Legal Chords",
-  "heading": "Law Should Be <span class=\"accent\">Understandable.</span>",
+  "heading": { "text": "Law Should Be", "accent": "Understandable." },
   "lede": "Legal Chords exists to bridge the gap between people and legal knowledge. We are a youth-focused legal awareness and education platform committed to making legal knowledge simple, practical and accessible.",
   "paragraphs": [
     "Through digital education, conversations, webinars, events and community initiatives, we help young people understand their rights, responsibilities and the legal systems that affect their everyday lives.",
@@ -45,9 +45,9 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "linkText": "See what we do",
   "linkHref": "#what-we-do",
   "stats": [
-    { "num": 3, "label": "Years Building<br />Legal Awareness" },
-    { "num": 100, "label": "Community Members<br />Reached" },
-    { "num": "Multiple", "label": "Educational Programs<br />&amp; Initiatives" }
+    { "num": 3, "label": "Years Building\nLegal Awareness" },
+    { "num": 100, "label": "Community Members\nReached" },
+    { "num": "Multiple", "label": "Educational Programs\n& Initiatives" }
   ]
 }'),
 
@@ -65,7 +65,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('what', 'What We Do', '{
   "eyebrow": "What We Do",
-  "heading": "Six ways we make the law <span class=\"accent\">practical.</span>",
+  "heading": { "text": "Six ways we make the law", "accent": "practical." },
   "lede": "We work at the intersection of law, education, technology and youth development, building a generation that understands the rules of the game.",
   "cards": [
     { "title": "Legal Education", "text": "Breaking down complex legal concepts into simple, understandable information." },
@@ -79,7 +79,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('programs', 'Programs Section', '{
   "eyebrow": "Our Programs",
-  "heading": "A living platform for <span class=\"accent\">legal learning.</span>",
+  "heading": { "text": "A living platform for", "accent": "legal learning." },
   "lede": "Five flagship programs turning legal awareness into action, from short daily lessons to flagship summits.",
   "cards": [
     { "tag": "Flagship", "title": "Legal Chords Summit", "text": "A flagship platform bringing young people, legal professionals, leaders and changemakers together for bold conversations about law, justice and society.", "meta": ["Annual", "Multi-city", "Hybrid"], "linkText": "Learn More", "linkHref": "#" },
@@ -92,7 +92,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('events', 'Featured Event', '{
   "sectionEyebrow": "Featured Event",
-  "sectionHeading": "What''s Happening at <span class=\"accent\">Legal Chords?</span>",
+  "sectionHeading": { "text": "What''s Happening at", "accent": "Legal Chords?" },
   "sectionLede": "Legal Chords is an active organization. Here is what is coming up next, join the conversation, share your perspective and connect with change.",
   "tag": "Upcoming",
   "day": "14",
@@ -116,7 +116,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('community', 'Community Section', '{
   "eyebrow": "The Legal Chords Community",
-  "heading": "Learn. <span class=\"accent\">Connect.</span> Lead.",
+  "heading": { "text": "Learn.", "accent": "Connect.", "suffix": "Lead." },
   "lede": "Join a growing community of young people interested in law, leadership, innovation, justice and personal development.",
   "buttonText": "Join the Community",
   "buttonHref": "#get-involved",
@@ -132,7 +132,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('impact', 'Impact Section', '{
   "eyebrow": "Our Impact",
-  "heading": "Numbers that <span class=\"accent\">tell a story.</span>",
+  "heading": { "text": "Numbers that", "accent": "tell a story." },
   "lede": "Legal awareness is not a slogan. It is a measurable shift in how people understand and exercise their rights.",
   "stats": [
     { "num": 200, "label": "Community Members", "sub": "Young people reached across programs" },
@@ -147,7 +147,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('partners', 'Partners & Collaborators', '{
   "eyebrow": "Partners & Collaborators",
-  "heading": "Building impact <span class=\"accent\">through collaboration.</span>",
+  "heading": { "text": "Building impact", "accent": "through collaboration." },
   "lede": "We believe meaningful impact happens through collaboration. Legal Chords works with institutions, student communities, professionals, organizations and changemakers to expand access to legal knowledge.",
   "list": ["Partner Logo", "University", "NGO", "Community", "Organization", "Innovation Hub"],
   "thegenz": {
@@ -159,7 +159,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('resources', 'Resources / Legal Education Hub', '{
   "eyebrow": "Resources / Legal Education Hub",
-  "heading": "Read. <span class=\"accent\">Learn.</span> Apply.",
+  "heading": { "text": "Read.", "accent": "Learn.", "suffix": "Apply." },
   "lede": "Editorial-style legal education, written for clarity, designed for relevance, and updated as society evolves.",
   "tabs": ["All", "Legal Nuggets", "Articles", "Youth & Law", "Leadership", "Technology & Law", "Rights & Responsibilities"],
   "articles": [
@@ -176,7 +176,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('get-involved', 'Get Involved', '{
   "eyebrow": "Get Involved",
-  "heading": "Don''t just learn. <span class=\"accent\">Help us create impact.</span>",
+  "heading": { "text": "Don''t just learn.", "accent": "Help us create impact." },
   "lede": "Whether you''re a student, professional, creative, researcher, communicator or changemaker, there is a place for you to contribute to the Legal Chords mission.",
   "cards": [
     { "title": "Become a Volunteer", "text": "Join our team of contributors: write, design, organize, mentor, research.", "href": "#" },
@@ -187,7 +187,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('testimonials', 'Testimonials', '{
   "eyebrow": "Voices from the Community",
-  "heading": "What our community <span class=\"accent\">says.</span>",
+  "heading": { "text": "What our community", "accent": "says." },
   "items": [
     { "quote": "Legal Chords made me realize that the law isn''t just for lawyers. The Legal Nuggets series changed how I make decisions about work, contracts and even online content.", "name": "Adaeze O.", "role": "Student, University of Lagos", "avatar": "A" },
     { "quote": "Speaking at the Legal Chords Webinar was one of the most engaging youth conversations I''ve been part of. They understand how to make the law relevant.", "name": "Kelechi N.", "role": "Legal Practitioner & Speaker", "avatar": "K" },
@@ -199,7 +199,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('cta', 'Final Call To Action', '{
   "eyebrow": "A New Generation of Legal Citizens",
-  "heading": "Knowledge creates power.<br /><span class=\"cta-accent\">Legal knowledge creates protection.</span>",
+  "heading": { "text": "Knowledge creates power.", "accent": "Legal knowledge creates protection." },
   "body": "Be part of a generation that understands the law, knows its rights and leads with purpose.",
   "buttons": [
     { "label": "Join The Community", "href": "https://chat.whatsapp.com/B4jgGjfF7tYKxDFowlYlWF" },
@@ -237,7 +237,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "newsletterNote": "Get Legal Nuggets and updates straight to your inbox.",
   "newsletterPlaceholder": "Your email",
   "copyright": "© 2026 Legal Chords. All rights reserved.",
-  "disclaimerHtml": "Legal Chords provides legal awareness and educational content and does not provide individual legal representation or legal advice. <a href=\"terms.html\" style=\"color:var(--brand-blue-bright)\">Terms &amp; Conditions</a>"
+  "disclaimerHtml": { "text": "Legal Chords provides legal awareness and educational content and does not provide individual legal representation or legal advice.", "linkText": "Terms & Conditions", "linkHref": "terms.html" }
 }')
 
 ON CONFLICT (section_key) DO UPDATE

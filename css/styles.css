@@ -795,6 +795,7 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
   font-size: 13px;
   color: var(--text-subtle);
   line-height: 1.5;
+  white-space: pre-line;
 }
 
 /* ============ MISSION / VISION ============ */

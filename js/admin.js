@@ -446,7 +446,7 @@ window.AdminDashboard = (() => {
       </div>`;
     }
 
-    const multiline = String(val || '').length > 140;
+    const multiline = String(val || '').length > 140 || String(val || '').includes('\n');
     return `<div class="editor-field">
       <label>${esc(labelize(key))}</label>
       ${multiline
