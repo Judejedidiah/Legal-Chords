@@ -772,6 +772,7 @@
     <div class="resource-grid">
       <article class="resource-card reveal">
         <div class="resource-thumb rc-1">
+          <img class="resource-thumb-img" alt="" data-edit-attr="src" data-edit-href="resources.articles.0.image" hidden>
           <span class="rc-cat" data-edit="resources.articles.0.cat">RIGHTS & RESPONSIBILITIES</span>
           <div class="rc-pattern"></div>
         </div>
@@ -780,13 +781,14 @@
           <p data-edit="resources.articles.0.text">A simple guide to the rights that protect you in everyday situations, from arrest to online expression.</p>
           <div class="resource-meta">
             <span data-edit="resources.articles.0.date">Nov 02, 2026</span>
-            <a href="#" class="rc-link" data-edit-attr="href" data-edit-href="resources.articles.0.linkHref"><span data-edit="resources.articles.0.linkText">Read More →</span></a>
+            <button type="button" class="rc-link" data-resource-index="0" data-edit="resources.articles.0.linkText">Read More</button>
           </div>
         </div>
       </article>
 
       <article class="resource-card reveal">
         <div class="resource-thumb rc-2">
+          <img class="resource-thumb-img" alt="" data-edit-attr="src" data-edit-href="resources.articles.1.image" hidden>
           <span class="rc-cat" data-edit="resources.articles.1.cat">TECHNOLOGY & LAW</span>
           <div class="rc-pattern"></div>
         </div>
@@ -795,13 +797,14 @@
           <p data-edit="resources.articles.1.text">Demystifying cyber laws, data protection and online freedoms for young creators and users.</p>
           <div class="resource-meta">
             <span data-edit="resources.articles.1.date">Oct 28, 2026</span>
-            <a href="#" class="rc-link" data-edit-attr="href" data-edit-href="resources.articles.1.linkHref"><span data-edit="resources.articles.1.linkText">Read More →</span></a>
+            <button type="button" class="rc-link" data-resource-index="1" data-edit="resources.articles.1.linkText">Read More</button>
           </div>
         </div>
       </article>
 
       <article class="resource-card reveal">
         <div class="resource-thumb rc-3">
+          <img class="resource-thumb-img" alt="" data-edit-attr="src" data-edit-href="resources.articles.2.image" hidden>
           <span class="rc-cat" data-edit="resources.articles.2.cat">LEADERSHIP</span>
           <div class="rc-pattern"></div>
         </div>
@@ -810,13 +813,14 @@
           <p data-edit="resources.articles.2.text">How understanding the law transforms leadership in student unions, startups and communities.</p>
           <div class="resource-meta">
             <span data-edit="resources.articles.2.date">Oct 20, 2026</span>
-            <a href="#" class="rc-link" data-edit-attr="href" data-edit-href="resources.articles.2.linkHref"><span data-edit="resources.articles.2.linkText">Read More →</span></a>
+            <button type="button" class="rc-link" data-resource-index="2" data-edit="resources.articles.2.linkText">Read More</button>
           </div>
         </div>
       </article>
 
       <article class="resource-card reveal">
         <div class="resource-thumb rc-4">
+          <img class="resource-thumb-img" alt="" data-edit-attr="src" data-edit-href="resources.articles.3.image" hidden>
           <span class="rc-cat" data-edit="resources.articles.3.cat">LEGAL NUGGETS</span>
           <div class="rc-pattern"></div>
         </div>
@@ -825,13 +829,14 @@
           <p data-edit="resources.articles.3.text">What every tenant and landlord should know before signing a lease, short and practical.</p>
           <div class="resource-meta">
             <span data-edit="resources.articles.3.date">Oct 14, 2026</span>
-            <a href="#" class="rc-link" data-edit-attr="href" data-edit-href="resources.articles.3.linkHref"><span data-edit="resources.articles.3.linkText">Read More →</span></a>
+            <button type="button" class="rc-link" data-resource-index="3" data-edit="resources.articles.3.linkText">Read More</button>
           </div>
         </div>
       </article>
 
       <article class="resource-card reveal">
         <div class="resource-thumb rc-5">
+          <img class="resource-thumb-img" alt="" data-edit-attr="src" data-edit-href="resources.articles.4.image" hidden>
           <span class="rc-cat" data-edit="resources.articles.4.cat">YOUTH & LAW</span>
           <div class="rc-pattern"></div>
         </div>
@@ -840,13 +845,14 @@
           <p data-edit="resources.articles.4.text">Registration, intellectual property, contracts and the legal foundation of entrepreneurship.</p>
           <div class="resource-meta">
             <span data-edit="resources.articles.4.date">Oct 05, 2026</span>
-            <a href="#" class="rc-link" data-edit-attr="href" data-edit-href="resources.articles.4.linkHref"><span data-edit="resources.articles.4.linkText">Read More →</span></a>
+            <button type="button" class="rc-link" data-resource-index="4" data-edit="resources.articles.4.linkText">Read More</button>
           </div>
         </div>
       </article>
 
       <article class="resource-card reveal">
         <div class="resource-thumb rc-6">
+          <img class="resource-thumb-img" alt="" data-edit-attr="src" data-edit-href="resources.articles.5.image" hidden>
           <span class="rc-cat" data-edit="resources.articles.5.cat">ARTICLES</span>
           <div class="rc-pattern"></div>
         </div>
@@ -855,7 +861,7 @@
           <p data-edit="resources.articles.5.text">A longer read on why legal education belongs in every school, household and movement.</p>
           <div class="resource-meta">
             <span data-edit="resources.articles.5.date">Sep 28, 2026</span>
-            <a href="#" class="rc-link" data-edit-attr="href" data-edit-href="resources.articles.5.linkHref"><span data-edit="resources.articles.5.linkText">Read More →</span></a>
+            <button type="button" class="rc-link" data-resource-index="5" data-edit="resources.articles.5.linkText">Read More</button>
           </div>
         </div>
       </article>
@@ -1100,6 +1106,28 @@
     </div>
   </div>
 </footer>
+
+<!-- ============== RESOURCE ARTICLE MODAL ============== -->
+<div class="resource-modal" id="resourceModal" aria-hidden="true">
+  <div class="resource-modal-backdrop" data-resource-close></div>
+  <div class="resource-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="resourceModalTitle" tabindex="-1">
+    <button class="resource-modal-close" type="button" data-resource-close aria-label="Close article">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="resource-modal-figure" id="resourceModalFigure" hidden>
+      <img id="resourceModalImage" alt="">
+    </div>
+
+    <div class="resource-modal-content">
+      <span class="rc-cat" id="resourceModalCat"></span>
+      <h2 id="resourceModalTitle"></h2>
+      <span class="resource-modal-date" id="resourceModalDate"></span>
+      <div class="resource-modal-text" id="resourceModalText"></div>
+      <a class="btn btn-primary resource-modal-link" id="resourceModalLink" hidden target="_blank" rel="noopener">Read the full article →</a>
+    </div>
+  </div>
+</div>
 
 <!-- ============== JOIN MODAL ============== -->
 <div class="join-modal" id="joinModal" aria-hidden="true">

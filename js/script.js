@@ -215,6 +215,96 @@
     });
   });
 
+  /* ============ RESOURCE ARTICLE MODAL ============ */
+  const resourceModal = document.getElementById('resourceModal');
+  if (resourceModal) {
+    const rTitle = document.getElementById('resourceModalTitle');
+    const rCat = document.getElementById('resourceModalCat');
+    const rDate = document.getElementById('resourceModalDate');
+    const rText = document.getElementById('resourceModalText');
+    const rImage = document.getElementById('resourceModalImage');
+    const rFigure = document.getElementById('resourceModalFigure');
+    const rLink = document.getElementById('resourceModalLink');
+    let rLastFocused = null;
+
+    const closeResourceModal = () => {
+      resourceModal.classList.remove('open');
+      resourceModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('resource-open');
+      if (rLastFocused && typeof rLastFocused.focus === 'function') rLastFocused.focus();
+    };
+
+    const openResourceModal = (card, index) => {
+      const sections = window.LegalChordsContent || {};
+      const articles = (sections.resources && sections.resources.articles) || [];
+      const data = (index != null && articles[Number(index)]) || {};
+
+      const cat = data.cat || (card.querySelector('.rc-cat') && card.querySelector('.rc-cat').textContent) || '';
+      const title = data.title || (card.querySelector('h4') && card.querySelector('h4').textContent) || '';
+      const date = data.date || (card.querySelector('.resource-meta > span') && card.querySelector('.resource-meta > span').textContent) || '';
+      const summary = data.text || (card.querySelector('.resource-body p') && card.querySelector('.resource-body p').textContent) || '';
+      const body = data.body || summary;
+      const bodyImg = card.querySelector('.resource-thumb-img');
+      const imgSrc = data.image || (bodyImg && bodyImg.getAttribute('src')) || '';
+      const href = data.linkHref;
+
+      rCat.textContent = cat;
+      rCat.hidden = !cat;
+      rTitle.textContent = title;
+      rDate.textContent = date;
+
+      rText.innerHTML = '';
+      String(body).split(/\n{2,}/).forEach(para => {
+        const clean = para.trim();
+        if (!clean) return;
+        const p = document.createElement('p');
+        p.textContent = clean;
+        rText.appendChild(p);
+      });
+
+      if (imgSrc) {
+        rImage.src = imgSrc;
+        rImage.alt = title;
+        rFigure.hidden = false;
+      } else {
+        rImage.removeAttribute('src');
+        rFigure.hidden = true;
+      }
+
+      if (href && /^https?:\/\//i.test(href)) {
+        rLink.href = href;
+        rLink.hidden = false;
+      } else {
+        rLink.hidden = true;
+      }
+
+      rLastFocused = card.querySelector('.rc-link') || card;
+      resourceModal.classList.add('open');
+      resourceModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('resource-open');
+      setTimeout(() => {
+        const dialog = resourceModal.querySelector('.resource-modal-dialog');
+        if (dialog) dialog.focus();
+      }, 50);
+    };
+
+    document.querySelectorAll('[data-resource-index]').forEach(btn => {
+      btn.addEventListener('click', () => openResourceModal(btn.closest('.resource-card'), btn.dataset.resourceIndex));
+    });
+
+    document.querySelectorAll('[data-resource-close]').forEach(el => {
+      el.addEventListener('click', closeResourceModal);
+    });
+
+    resourceModal.addEventListener('click', (e) => {
+      if (e.target === resourceModal) closeResourceModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && resourceModal.classList.contains('open')) closeResourceModal();
+    });
+  }
+
   /* ============ JOIN MODAL ============ */
   const joinModal = document.getElementById('joinModal');
   const joinForm = document.getElementById('joinForm');

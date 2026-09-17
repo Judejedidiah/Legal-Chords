@@ -95,12 +95,10 @@
     if (!isValue(value)) return;
     el.setAttribute(attrName, String(value));
 
-    if (attrName === 'src') {
-      if (el.tagName === 'IMG') {
-        el.hidden = false;
-        const poster = el.closest('.event-poster');
-        if (poster) poster.classList.add('has-image');
-      }
+    if (attrName === 'src' && el.tagName === 'IMG') {
+      el.hidden = false;
+      const holder = el.closest('.event-poster, .resource-thumb');
+      if (holder) holder.classList.add('has-image');
     }
   }
 
@@ -171,6 +169,8 @@
       data.forEach(row => {
         sections[row.section_key] = row.content;
       });
+
+      window.LegalChordsContent = sections;
 
       document.querySelectorAll('[data-edit], [data-edit-href], [data-edit-meta]').forEach(el => {
         try {

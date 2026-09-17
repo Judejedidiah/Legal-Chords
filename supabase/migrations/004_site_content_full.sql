@@ -163,12 +163,66 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "lede": "Editorial-style legal education, written for clarity, designed for relevance, and updated as society evolves.",
   "tabs": ["All", "Legal Nuggets", "Articles", "Youth & Law", "Leadership", "Technology & Law", "Rights & Responsibilities"],
   "articles": [
-    { "cat": "RIGHTS & RESPONSIBILITIES", "title": "5 Legal Rights Every Nigerian Youth Should Know", "text": "A simple guide to the rights that protect you in everyday situations, from arrest to online expression.", "date": "Nov 02, 2026", "linkText": "Read More", "linkHref": "#" },
-    { "cat": "TECHNOLOGY & LAW", "title": "Digital Rights in Nigeria: What the Law Actually Says", "text": "Demystifying cyber laws, data protection and online freedoms for young creators and users.", "date": "Oct 28, 2026", "linkText": "Read More", "linkHref": "#" },
-    { "cat": "LEADERSHIP", "title": "From Awareness to Action: Leading with Legal Literacy", "text": "How understanding the law transforms leadership in student unions, startups and communities.", "date": "Oct 20, 2026", "linkText": "Read More", "linkHref": "#" },
-    { "cat": "LEGAL NUGGETS", "title": "Renting in Nigeria: A Quick Legal Nugget", "text": "What every tenant and landlord should know before signing a lease, short and practical.", "date": "Oct 14, 2026", "linkText": "Read More", "linkHref": "#" },
-    { "cat": "YOUTH & LAW", "title": "Starting a Business as a Young Nigerian: Legal Basics", "text": "Registration, intellectual property, contracts and the legal foundation of entrepreneurship.", "date": "Oct 05, 2026", "linkText": "Read More", "linkHref": "#" },
-    { "cat": "ARTICLES", "title": "Why Legal Awareness is the New Civic Literacy", "text": "A longer read on why legal education belongs in every school, household and movement.", "date": "Sep 28, 2026", "linkText": "Read More", "linkHref": "#" }
+    {
+      "cat": "RIGHTS & RESPONSIBILITIES",
+      "title": "5 Legal Rights Every Nigerian Youth Should Know",
+      "text": "A simple guide to the rights that protect you in everyday situations, from arrest to online expression.",
+      "date": "Nov 02, 2026",
+      "image": "",
+      "body": "Every young Nigerian has rights that exist whether or not they can afford a lawyer. The Constitution and a growing body of statutes protect your person, your expression and your property. Knowing them is the first step to using them.\n\nYou have the right to dignity and freedom from torture. Section 34 of the 1999 Constitution prohibits inhuman treatment, and confessions obtained through force are not admissible in court.\n\nYou also have the right to peaceful assembly and association, to freedom of expression and to own property. On the internet, the Cybercrimes Act does not erase these rights. If you are arrested, you have the right to remain silent, to be told why you are being held, and to contact a lawyer or anyone of your choice.",
+      "linkText": "Read More",
+      "linkHref": "#"
+    },
+    {
+      "cat": "TECHNOLOGY & LAW",
+      "title": "Digital Rights in Nigeria: What the Law Actually Says",
+      "text": "Demystifying cyber laws, data protection and online freedoms for young creators and users.",
+      "date": "Oct 28, 2026",
+      "image": "",
+      "body": "Nigeria''s digital space is governed by a patchwork of laws: the Cybercrimes Act, the Nigeria Data Protection Act, and constitutional guarantees of privacy and expression.\n\nThe Cybercrimes Act criminalises fraud, identity theft and certain forms of harassment, but it has also raised concerns about vague offences and the prosecution of online speech. Courts have increasingly insisted that its provisions must be read in light of the Constitution.\n\nThe Nigeria Data Protection Act gives you rights over your personal data, including the right to know what is collected, to correct it, and to object to certain uses. For young creators, that means you can ask platforms and organisations to explain how they handle your information.",
+      "linkText": "Read More",
+      "linkHref": "#"
+    },
+    {
+      "cat": "LEADERSHIP",
+      "title": "From Awareness to Action: Leading with Legal Literacy",
+      "text": "How understanding the law transforms leadership in student unions, startups and communities.",
+      "date": "Oct 20, 2026",
+      "image": "",
+      "body": "Legal literacy is not just about staying out of trouble. It changes how you lead. A student union leader who understands due process runs fairer elections, and a founder who understands contracts protects both the business and its customers.\n\nLeadership built on legal literacy is also leadership built on trust. When people see that decisions follow known rules and that disagreements are resolved fairly, they commit more fully to the work.\n\nThe goal is not to turn every young leader into a lawyer, but to make the law a normal part of how decisions are made, from campus societies to community initiatives.",
+      "linkText": "Read More",
+      "linkHref": "#"
+    },
+    {
+      "cat": "LEGAL NUGGETS",
+      "title": "Renting in Nigeria: A Quick Legal Nugget",
+      "text": "What every tenant and landlord should know before signing a lease, short and practical.",
+      "date": "Oct 14, 2026",
+      "image": "",
+      "body": "Before you sign a tenancy agreement, confirm who actually owns the property and who has the authority to lease it. Ask for the landlord''s details and, where possible, a title document or an agent''s mandate.\n\nPut every important term in writing: the rent, the duration, the notice period, the deposit and how it will be refunded, and who is responsible for repairs. Verbal promises are difficult to enforce later.\n\nKnow your state''s tenancy law and any applicable rent control regime. If a dispute arises, document everything in writing and seek advice early rather than allowing the matter to escalate.",
+      "linkText": "Read More",
+      "linkHref": "#"
+    },
+    {
+      "cat": "YOUTH & LAW",
+      "title": "Starting a Business as a Young Nigerian: Legal Basics",
+      "text": "Registration, intellectual property, contracts and the legal foundation of entrepreneurship.",
+      "date": "Oct 05, 2026",
+      "image": "",
+      "body": "Every business has a legal shape. For many young founders, the practical starting point is registering a business name with the Corporate Affairs Commission, while a limited liability company becomes preferable once you take on partners or investors.\n\nProtect your brand early. Registering a trademark with the Nigerian trademark registry gives you exclusive rights to your name and logo within your class of goods or services.\n\nGet contracts right from the start: founder agreements, customer terms, and contracts with freelancers and vendors. A short written agreement that records what each party expects is one of the cheapest protections a young business can have.",
+      "linkText": "Read More",
+      "linkHref": "#"
+    },
+    {
+      "cat": "ARTICLES",
+      "title": "Why Legal Awareness is the New Civic Literacy",
+      "text": "A longer read on why legal education belongs in every school, household and movement.",
+      "date": "Sep 28, 2026",
+      "image": "",
+      "body": "For a democracy to work, citizens must understand not only how to vote but also how power is limited. Legal awareness is the difference between knowing that you have rights and knowing how to claim them.\n\nIn schools, workplaces and online spaces, the people who understand the law are better equipped to participate, to challenge unfairness and to hold institutions accountable. Legal literacy is civic literacy.\n\nThat is why legal education belongs in every school, household and movement. It is not a subject reserved for lawyers; it is a life skill for everyone.",
+      "linkText": "Read More",
+      "linkHref": "#"
+    }
   ],
   "ctaText": "Open the Legal Dictionary",
   "ctaHref": "dictionary.html"
