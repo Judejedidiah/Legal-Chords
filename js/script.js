@@ -331,6 +331,7 @@
   document.querySelectorAll('[data-join-open]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
+      if (navLinks && navLinks.classList.contains('open')) toggleMenu(false);
       openJoinModal();
     });
   });
