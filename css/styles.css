@@ -2224,8 +2224,12 @@ body.join-open { overflow: hidden; }
   .footer-brand { grid-column: span 2; }
 }
 
-/* Tablet nav — collapse to hamburger a bit earlier so 8 links + CTA fit */
-@media (max-width: 900px) {
+/* Tablet nav — collapse to hamburger at 1024px so the compact bar never squeezes */
+@media (max-width: 1024px) {
+  .nav-container {
+    gap: 12px;
+    padding: 0 clamp(12px, 3vw, 16px);
+  }
   .nav-links {
     position: fixed;
     top: 0; right: 0;
@@ -2418,6 +2422,7 @@ body.join-open { overflow: hidden; }
 
 @media (max-width: 380px) {
   .container { padding: 0 14px; }
+  .nav-container { padding: 0 12px; }
   .logo-title { font-size: 12px; letter-spacing: 0.12em; }
   .hamburger { padding: 6px; }
   .hero-headline { font-size: clamp(1.7rem, 8vw, 2.1rem); }
