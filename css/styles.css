@@ -539,7 +539,7 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
   letter-spacing: -0.035em;
   line-height: 0.98;
   margin-bottom: 28px;
-  color: var(--text);
+  color: #000000;
 }
 .hero-headline-accent {
   color: var(--brand-gold);
@@ -611,7 +611,7 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
   top: 30px; left: 0; right: 0;
   padding: 0;
   overflow: hidden;
-  animation: floatCard 6s ease-in-out infinite;
+  animation: floatCard 7s ease-in-out infinite;
 }
 @keyframes floatCard { 50% { transform: translateY(-10px); } }
 .hero-card-header {
@@ -677,15 +677,12 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
 }
 .hero-card-float-1 {
   top: -20px; right: -30px;
-  animation-delay: 0.5s;
 }
 .hero-card-float-2 {
   bottom: 80px; left: -40px;
-  animation-delay: 1s;
 }
 .hero-card-float-3 {
   bottom: -10px; right: 20px;
-  animation-delay: 1.5s;
 }
 .float-title { font-size: 13px; font-weight: 600; color: var(--text); }
 .float-sub { font-size: 11px; color: var(--text-subtle); margin-top: 2px; }
