@@ -27,12 +27,15 @@ CREATE INDEX IF NOT EXISTS idx_legal_terms_category ON legal_terms(category);
 ALTER TABLE legal_terms ENABLE ROW LEVEL SECURITY;
 
 -- Public read access (the public dictionary on the website)
+DROP POLICY IF EXISTS "Public read access on legal_terms" ON legal_terms;
 CREATE POLICY "Public read access on legal_terms"
   ON legal_terms FOR SELECT
   TO anon
   USING (true);
 
--- Authenticated users (admin) full access for the CMS
+-- Authenticated admin full access for the CMS
+-- NOTE: migration 006 rescopes this to app_metadata.role = 'admin'.
+DROP POLICY IF EXISTS "Admin full access on legal_terms" ON legal_terms;
 CREATE POLICY "Admin full access on legal_terms"
   ON legal_terms FOR ALL
   TO authenticated

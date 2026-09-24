@@ -11,6 +11,8 @@ window.AdminDashboard = (() => {
     setupMobileSidebar();
     setupNav();
     setupModal();
+    setupTableActions();
+    setupEditorActions();
     await loadAll();
   }
 
@@ -142,12 +144,12 @@ window.AdminDashboard = (() => {
       <td data-label="Role">${esc(r.role)}</td>
       <td data-label="Location">${esc(r.location)}</td>
       <td data-label="Date">${formatDate(r.created_at)}</td>
-      <td data-label="Status"><span class="status-badge status-${r.status}">${r.status}</span></td>
+      <td data-label="Status"><span class="status-badge status-${escAttr(r.status)}">${escAttr(r.status)}</span></td>
       <td data-label="Actions" data-full>
-        <button class="btn-sm" onclick="AdminDashboard.viewMember('${r.id}')">View</button>
+        <button type="button" class="btn-sm" data-action="view" data-id="${escAttr(r.id)}">View</button>
         ${r.status === 'pending' ? `
-          <button class="btn-sm success" onclick="AdminDashboard.updateStatus('${r.id}','approved')">Approve</button>
-          <button class="btn-sm danger" onclick="AdminDashboard.updateStatus('${r.id}','rejected')">Reject</button>
+          <button type="button" class="btn-sm success" data-action="approve" data-id="${escAttr(r.id)}">Approve</button>
+          <button type="button" class="btn-sm danger" data-action="reject" data-id="${escAttr(r.id)}">Reject</button>
         ` : ''}
       </td>
     </tr>`).join('');
@@ -235,10 +237,10 @@ window.AdminDashboard = (() => {
     }
     tbody.innerHTML = rows.map(r => `<tr>
       <td data-label="Email" style="font-weight:500;color:var(--text)">${esc(r.email)}</td>
-      <td data-label="Status"><span class="status-badge status-${r.status}">${r.status}</span></td>
+      <td data-label="Status"><span class="status-badge status-${escAttr(r.status)}">${escAttr(r.status)}</span></td>
       <td data-label="Joined">${formatDate(r.created_at)}</td>
       <td data-label="Actions" data-full>
-        <button class="btn-sm danger" onclick="AdminDashboard.removeSubscriber('${r.id}')">Remove</button>
+        <button type="button" class="btn-sm danger" data-action="remove" data-id="${escAttr(r.id)}">Remove</button>
       </td>
     </tr>`).join('');
   }
@@ -406,15 +408,15 @@ window.AdminDashboard = (() => {
         val.forEach((item, i) => {
           if (item && typeof item === 'object') {
             inner += `<div class="editor-group">
-              <div class="editor-group-head">
+<div class="editor-group-head">
                 <span>${esc(labelize(key))} ${i + 1}</span>
-                <button type="button" class="editor-remove" onclick="AdminDashboard.removeItem('${sectionKey}','${path}.${i}')" title="Remove">×</button>
+                <button type="button" class="editor-remove" data-remove-path="${path}.${i}" title="Remove">×</button>
               </div>
               <div class="editor-group-body">${renderFields(sectionKey, item, `${path}.${i}`)}</div>
             </div>`;
-          }
-        });
-        inner += `<button type="button" class="editor-add" onclick="AdminDashboard.addItem('${sectionKey}','${path}')">+ Add ${esc(labelize(key))}</button>`;
+        }
+      });
+        inner += `<button type="button" class="editor-add" data-add-path="${path}">+ Add ${esc(labelize(key))}</button>`;
         return inner;
       }
 
@@ -422,11 +424,11 @@ window.AdminDashboard = (() => {
       val.forEach((item, i) => {
         rows += `<div class="editor-list-row">
           <span class="editor-list-idx">${i + 1}</span>
-          <input type="text" data-path="${path}.${i}" value="${esc(String(item))}" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">
-          <button type="button" class="editor-remove" onclick="AdminDashboard.removeItem('${sectionKey}','${path}.${i}')" title="Remove">×</button>
+          <input type="text" data-path="${path}.${i}" value="${esc(String(item))}" oninput="AdminDashboard.onEdit(this, this.closest('.editor-section').dataset.sectionKey)">
+          <button type="button" class="editor-remove" data-remove-path="${path}.${i}" title="Remove">×</button>
         </div>`;
       });
-      rows += `<button type="button" class="editor-add" onclick="AdminDashboard.addItem('${sectionKey}','${path}')">+ Add ${esc(labelize(key))}</button>`;
+      rows += `<button type="button" class="editor-add" data-add-path="${path}">+ Add ${esc(labelize(key))}</button>`;
       return rows;
     }
 
@@ -434,7 +436,7 @@ window.AdminDashboard = (() => {
       return `<div class="editor-field">
         <label>${esc(labelize(key))}</label>
         <div class="editor-toggle-wrap">
-          <input type="checkbox" data-path="${path}" ${val ? 'checked' : ''} onchange="AdminDashboard.onEdit(this,'${sectionKey}')">
+          <input type="checkbox" data-path="${path}" ${val ? 'checked' : ''} onchange="AdminDashboard.onEdit(this, this.closest('.editor-section').dataset.sectionKey)">
         </div>
       </div>`;
     }
@@ -442,7 +444,7 @@ window.AdminDashboard = (() => {
     if (typeof val === 'number') {
       return `<div class="editor-field">
         <label>${esc(labelize(key))}</label>
-        <input type="number" data-path="${path}" value="${esc(String(val))}" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">
+        <input type="number" data-path="${path}" value="${esc(String(val))}" oninput="AdminDashboard.onEdit(this, this.closest('.editor-section').dataset.sectionKey)">
       </div>`;
     }
 
@@ -450,8 +452,8 @@ window.AdminDashboard = (() => {
     return `<div class="editor-field">
       <label>${esc(labelize(key))}</label>
       ${multiline
-        ? `<textarea data-path="${path}" rows="3" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">${esc(val)}</textarea>`
-        : `<input type="text" data-path="${path}" value="${esc(val)}" oninput="AdminDashboard.onEdit(this,'${sectionKey}')">`}
+        ? `<textarea data-path="${path}" rows="3" oninput="AdminDashboard.onEdit(this, this.closest('.editor-section').dataset.sectionKey)">${esc(val)}</textarea>`
+        : `<input type="text" data-path="${path}" value="${esc(val)}" oninput="AdminDashboard.onEdit(this, this.closest('.editor-section').dataset.sectionKey)">`}
     </div>`;
   }
 
@@ -460,14 +462,14 @@ window.AdminDashboard = (() => {
     return `<div class="editor-field">
       <label>${esc(labelize(path.split('.').pop()))}</label>
       <div class="event-image-upload">
-        <img id="imgPreview_${uid}" class="event-image-preview" src="${esc(url)}" alt="Image preview" ${url ? '' : 'hidden'}>
+        <img id="imgPreview_${uid}" class="event-image-preview" src="${escAttr(url)}" alt="Image preview" ${url ? '' : 'hidden'}>
         <div class="event-image-controls">
           <input type="file" id="imgFile_${uid}" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
-          <button type="button" class="btn-sm" onclick="AdminDashboard.chooseImage('${path}')">Choose Image</button>
-          <button type="button" class="btn-sm success" onclick="AdminDashboard.uploadImage('${path}')">Upload</button>
-          ${url ? `<a class="btn-sm" href="${esc(url)}" target="_blank" rel="noopener">View Image</a>` : ''}
+          <button type="button" class="btn-sm" data-choose-path="${escAttr(path)}">Choose Image</button>
+          <button type="button" class="btn-sm success" data-upload-path="${escAttr(path)}">Upload</button>
+          ${url && /^(https?:|\/|\.|data:image\/)/i.test(url) ? `<a class="btn-sm" href="${escAttr(url)}" target="_blank" rel="noopener">View Image</a>` : ''}
         </div>
-        <input type="text" class="event-image-url" id="imgUrl_${uid}" data-path="${path}" value="${esc(url)}" placeholder="Image URL (auto-filled on upload)" oninput="AdminDashboard.onEdit(this,'${path.split('.')[0]}')">
+        <input type="text" class="event-image-url" id="imgUrl_${uid}" data-path="${path}" value="${esc(url)}" placeholder="Image URL (auto-filled on upload)" oninput="AdminDashboard.onEdit(this, this.closest('.editor-section').dataset.sectionKey)">
       </div>
     </div>`;
   }
@@ -620,12 +622,12 @@ window.AdminDashboard = (() => {
         <td data-label="Term" style="font-weight:600;color:var(--text)">${esc(r.term)}
           <div class="term-slug">${esc(r.slug)}</div>
         </td>
-        <td data-label="Category"><span class="category-tag">${esc(r.category)}</span></td>
+        <td data-label="Category"><span class="category-tag">${escAttr(r.category)}</span></td>
         <td data-label="Keywords">${chips || '<span class="text-faint">—</span>'}</td>
         <td data-label="Last Reviewed">${formatDate(r.last_reviewed)}</td>
         <td data-label="Actions" data-full>
-          <button class="btn-sm" onclick="AdminDashboard.openTermEditor('${r.slug}')">Edit</button>
-          <button class="btn-sm danger" onclick="AdminDashboard.deleteTerm('${r.slug}')">Delete</button>
+          <button type="button" class="btn-sm" data-action="edit" data-slug="${escAttr(r.slug)}">Edit</button>
+          <button type="button" class="btn-sm danger" data-action="delete" data-slug="${escAttr(r.slug)}">Delete</button>
         </td>
       </tr>`;
     }).join('');
@@ -792,11 +794,82 @@ window.AdminDashboard = (() => {
     document.getElementById('termForm').addEventListener('submit', saveTerm);
   }
 
+  /* ---------- DELEGATED TABLE ACTIONS (XSS-hardened) ---------- */
+  function setupTableActions() {
+    const wire = (tableId, handler) => {
+      const table = document.getElementById(tableId);
+      if (!table || table.dataset.wired) return;
+      table.dataset.wired = '1';
+      table.addEventListener('click', handler);
+    };
+
+    wire('memTable', (e) => {
+      const btn = e.target.closest('.btn-sm[data-action]');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      const action = btn.dataset.action;
+      if (action === 'view') viewMember(id);
+      else if (action === 'approve') updateStatus(id, 'approved');
+      else if (action === 'reject') updateStatus(id, 'rejected');
+    });
+
+    wire('nlTable', (e) => {
+      const btn = e.target.closest('.btn-sm[data-action]');
+      if (btn && btn.dataset.action === 'remove') removeSubscriber(btn.dataset.id);
+    });
+
+    wire('dictTable', (e) => {
+      const btn = e.target.closest('.btn-sm[data-action]');
+      if (!btn) return;
+      const slug = btn.dataset.slug;
+      if (btn.dataset.action === 'edit') openTermEditor(slug);
+      else if (btn.dataset.action === 'delete') deleteTerm(slug);
+    });
+  }
+
+  function setupEditorActions() {
+    const container = document.getElementById('editorContainer');
+    if (!container || container.dataset.wired) return;
+    container.dataset.wired = '1';
+    container.addEventListener('click', (e) => {
+      const removeBtn = e.target.closest('.editor-remove[data-remove-path]');
+      if (removeBtn) {
+        const sectionKey = removeBtn.closest('.editor-section').dataset.sectionKey;
+        removeItem(sectionKey, removeBtn.dataset.removePath);
+        return;
+      }
+      const addBtn = e.target.closest('.editor-add[data-add-path]');
+      if (addBtn) {
+        const sectionKey = addBtn.closest('.editor-section').dataset.sectionKey;
+        addItem(sectionKey, addBtn.dataset.addPath);
+        return;
+      }
+      const chooseBtn = e.target.closest('.btn-sm[data-choose-path]');
+      if (chooseBtn) {
+        chooseImage(chooseBtn.dataset.choosePath);
+        return;
+      }
+      const uploadBtn = e.target.closest('.btn-sm[data-upload-path]');
+      if (uploadBtn) {
+        uploadImage(uploadBtn.dataset.uploadPath);
+      }
+    });
+  }
+
   function openModal() { document.getElementById('detailModal').classList.add('open'); }
   function closeModal() { document.getElementById('detailModal').classList.remove('open'); }
 
   /* ---------- UTILS ---------- */
   function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+  function escAttr(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
 
   function formatDate(iso) {
     if (!iso) return '—';

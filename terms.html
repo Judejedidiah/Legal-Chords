@@ -14,14 +14,13 @@
 <meta property="og:image:width" content="1600" />
 <meta property="og:image:height" content="1600" />
 <meta property="og:site_name" content="Legal Chords" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@legalchords" />
 <meta name="twitter:title" content="Terms & Conditions — Legal Chords" />
 <meta name="twitter:description" content="Read the terms governing your use of Legal Chords website, services, events and programmes." />
 <meta name="twitter:image" content="https://legal-chords.vercel.app/assets/legal-chords-logo-white.png" />
 <meta name="google-site-verification" content="0inbGyO682Lv-2aoHBJSQZdp41aTqF5LddS6wJk_TA0" />
 <meta name="robots" content="noindex" />
-<link rel="canonical" href="https://legal-chords.vercel.app/terms.html" />
 <title>Terms &amp; Conditions | Legal Chords</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -95,7 +94,7 @@
     <div class="nav-actions">
       <a href="index.html#get-involved" class="btn btn-primary nav-cta">Join Legal Chords</a>
 
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
@@ -105,7 +104,7 @@
         </svg>
       </button>
 
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <button type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -132,7 +131,7 @@
 </section>
 
 <!-- ============== TERMS BODY ============== -->
-<main class="section" style="padding-top:0">
+<main class="section terms-main" id="main" role="main">
   <div class="container">
     <div class="terms-layout">
 
@@ -423,8 +422,8 @@
 
         <h2 id="s37">37. Contact</h2>
         <p>If you have questions, concerns or feedback regarding these Terms, please contact us:</p>
-        <p><strong>Email:</strong> <a href="mailto:hello@legalchords.ng" style="color:var(--brand-blue-bright)">hello@legalchords.ng</a></p>
-        <p><strong>Website:</strong> <a href="index.html" style="color:var(--brand-blue-bright)">legal-chords.vercel.app</a></p>
+        <p><strong>Email:</strong> <a href="mailto:hello@legalchords.ng" class="link-accent">hello@legalchords.ng</a></p>
+        <p><strong>Website:</strong> <a href="index.html" class="link-accent">legal-chords.vercel.app</a></p>
 
       </article>
     </div>
@@ -446,39 +445,13 @@
   </div>
 </footer>
 
+<script src="js/site-nav.js"></script>
 <script>
 (function () {
   'use strict';
 
-  /* Theme toggle */
-  var themeToggle = document.getElementById('themeToggle');
-  var root = document.documentElement;
-  var setTheme = function (theme) {
-    root.setAttribute('data-theme', theme);
-    try { localStorage.setItem('lc-theme', theme); } catch (e) {}
-    themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-  };
-  var initialTheme = root.getAttribute('data-theme') || 'dark';
-  setTheme(initialTheme);
-  themeToggle.addEventListener('click', function () {
-    var current = root.getAttribute('data-theme');
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  });
-
-  /* Mobile menu */
-  var hamburger = document.getElementById('hamburger');
-  var navLinks = document.getElementById('navLinks');
-  var toggleMenu = function (open) {
-    var isOpen = open !== undefined ? open : !navLinks.classList.contains('open');
-    navLinks.classList.toggle('open', isOpen);
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  };
-  hamburger.addEventListener('click', function () { toggleMenu(); });
-  navLinks.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () { toggleMenu(false); });
-  });
+  /* Theme toggle, mobile menu and nav dropdowns are handled by
+     js/site-nav.js (shared across all public pages). */
 
   /* TOC active state on scroll */
   var tocLinks = document.querySelectorAll('.terms-toc-list a');
@@ -511,8 +484,5 @@
 
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js"></script>
-<script src="js/supabase.js"></script>
 </body>
 </html>

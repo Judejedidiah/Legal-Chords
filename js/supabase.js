@@ -1,33 +1,38 @@
 /* =====================================================
    LEGAL CHORDS — Supabase Client Initializer
-   Waits for config-ready, then creates window.db client.
+   Order-independent: creates window.db whenever both the
+   Supabase library and SUPABASE_CONFIG are available,
+   regardless of script load order. Idempotent.
    ===================================================== */
 
 (function () {
   'use strict';
 
   function init() {
-    if (typeof SUPABASE_CONFIG === 'undefined') {
-      console.error('[Legal Chords] Missing SUPABASE_CONFIG. Check js/config.js');
-      return;
+    if (window.db) return;
+
+    if (typeof window.supabase === 'undefined' || !window.supabase.createClient) {
+      return false;
     }
 
-    var url = SUPABASE_CONFIG.url;
-    var key = SUPABASE_CONFIG.anonKey;
-
-    if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-      window.db = window.supabase.createClient(url, key);
-      console.info('[Legal Chords] Supabase client ready. Access via window.db');
-    } else {
-      console.error('[Legal Chords] Supabase JS library not loaded. Check CDN script tag.');
+    if (typeof SUPABASE_CONFIG === 'undefined' || !SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) {
+      return false;
     }
+
+    window.db = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+    return true;
   }
 
-  // If config is already set, init now; otherwise wait
-  if (window.SUPABASE_CONFIG) {
-    init();
-  } else {
-    document.addEventListener('config-ready', init);
+  // Try immediately, then retry on config-ready and window load so the
+  // order of config.js / supabase.js / CDN tags never matters.
+  if (!init()) {
+    document.addEventListener('config-ready', function () {
+      if (!init()) {
+        // Give a late-binding CDN one more chance.
+        window.addEventListener('load', init);
+      }
+    }, { once: true });
+    window.addEventListener('load', init, { once: true });
   }
 
 })();

@@ -5,50 +5,8 @@
 (function () {
   'use strict';
 
-  /* ============ THEME TOGGLE (shared) ============ */
-  const themeToggle = document.getElementById('themeToggle');
-  const root = document.documentElement;
-
-  const setTheme = (theme) => {
-    root.setAttribute('data-theme', theme);
-    try { localStorage.setItem('lc-theme', theme); } catch (e) {}
-    themeToggle.setAttribute('aria-label',
-      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-  };
-
-  const initialTheme = root.getAttribute('data-theme') || 'dark';
-  setTheme(initialTheme);
-
-  themeToggle.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme');
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  });
-
-  if (window.matchMedia) {
-    const mq = window.matchMedia('(prefers-color-scheme: light)');
-    mq.addEventListener('change', (e) => {
-      try {
-        if (!localStorage.getItem('lc-theme')) {
-          setTheme(e.matches ? 'light' : 'dark');
-        }
-      } catch (err) {}
-    });
-  }
-
-  /* ============ MOBILE MENU ============ */
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  const toggleMenu = (open) => {
-    const isOpen = open ?? !navLinks.classList.contains('open');
-    navLinks.classList.toggle('open', isOpen);
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  };
-  hamburger.addEventListener('click', () => toggleMenu());
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => toggleMenu(false));
-  });
+  // Theme toggle, navbar scroll state, mobile menu and nav dropdowns
+  // live in js/site-nav.js (shared across all public pages).
 
   /* ============ LOAD TERMS ============ */
   const grid = document.getElementById('dictGrid');
@@ -66,13 +24,18 @@
     return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  function firstLetter(term) {
+    const t = (term || '').trim();
+    return (t.charAt(0) || '?').toUpperCase();
+  }
+
   function mapDbTerm(row) {
     return {
-      term: row.term,
-      slug: row.slug,
-      definition: row.definition,
-      plainLanguageSummary: row.plain_language_summary,
-      category: row.category,
+      term: row.term || '',
+      slug: row.slug || '',
+      definition: row.definition || '',
+      plainLanguageSummary: row.plain_language_summary || '',
+      category: row.category || '',
       relatedTerms: row.related_terms || [],
       citations: row.citations || [],
       keywords: row.keywords || [],
@@ -118,7 +81,7 @@
   /* ============ A-Z INDEX ============ */
   function buildAZIndex() {
     const azContainer = document.getElementById('dictAZ');
-    const availableLetters = new Set(allTerms.map(t => t.term[0].toUpperCase()));
+    const availableLetters = new Set(allTerms.map(t => firstLetter(t.term)));
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
     alphabet.forEach(letter => {
@@ -148,7 +111,7 @@
   /* ============ CATEGORY FILTERS ============ */
   function buildCategoryFilters() {
     const container = document.getElementById('dictFilters');
-    const categories = [...new Set(allTerms.map(t => t.category))].sort();
+    const categories = [...new Set(allTerms.map(t => t.category).filter(Boolean))].sort();
 
     const allBtn = document.createElement('button');
     allBtn.className = 'dict-filter active';
@@ -201,7 +164,8 @@
     activeCategory = null;
     document.querySelectorAll('.dict-az-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.dict-filter').forEach(b => b.classList.remove('active'));
-    document.querySelector('.dict-filter').classList.add('active');
+    const allFilter = document.querySelector('.dict-filter');
+    if (allFilter) allFilter.classList.add('active');
     filterAndRender();
     searchInput.focus();
   });
@@ -240,8 +204,7 @@
     suggestIndex = -1;
     suggestBox.innerHTML = matches.map(({ t }, i) => `
       <button type="button" class="dict-suggest-item" role="option"
-              data-index="${i}" data-slug="${esc(t.slug)}"
-              onclick="window.pickSuggestion('${esc(t.slug)}')">
+              data-index="${i}" data-slug="${esc(t.slug)}">
         <span class="dict-suggest-term">${esc(t.term)}</span>
         <span class="dict-suggest-meta">${esc(t.category)}</span>
       </button>
@@ -257,14 +220,21 @@
     suggestIndex = -1;
   }
 
-  window.pickSuggestion = function (slug) {
+  function pickSuggestion(slug) {
     const hit = allTerms.find(t => t.slug === slug);
     if (!hit) return;
     searchInput.value = hit.term;
     filterAndRender();
     hideSuggestions();
-    window.openTerm(slug);
-  };
+    openTerm(slug);
+  }
+
+  // Delegated click for suggestion items (no inline handlers, no
+  // global function lookups — XSS-hardened).
+  suggestBox.addEventListener('click', (e) => {
+    const item = e.target.closest('.dict-suggest-item');
+    if (item) pickSuggestion(item.dataset.slug);
+  });
 
   searchInput.addEventListener('keydown', (e) => {
     if (suggestBox.hidden) return;
@@ -279,10 +249,10 @@
     } else if (e.key === 'Enter' && suggestIndex >= 0) {
       e.preventDefault();
       const slug = suggestItems[suggestIndex].t.slug;
-      window.pickSuggestion(slug);
+      pickSuggestion(slug);
     } else if (e.key === 'Enter') {
       const first = suggestItems[0];
-      if (first) window.pickSuggestion(first.t.slug);
+      if (first) pickSuggestion(first.t.slug);
     }
   });
 
@@ -308,7 +278,7 @@
     }
 
     if (activeLetter) {
-      filtered = filtered.filter(t => t.term[0].toUpperCase() === activeLetter);
+      filtered = filtered.filter(t => firstLetter(t.term) === activeLetter);
     }
 
     if (activeCategory) {
@@ -343,13 +313,11 @@
       const category = esc(term.category);
       const definition = esc(term.definition);
       const plain = esc(term.plainLanguageSummary);
-      const letter = esc(term.term[0].toUpperCase());
+      const letter = esc(firstLetter(term.term));
       return `
       <div class="dict-card" tabindex="0" role="button"
            aria-label="View definition of ${name}"
-           data-slug="${slug}"
-           onclick="window.openTerm('${slug}')"
-           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.openTerm('${slug}')}">
+           data-slug="${slug}">
         <div class="dict-card-letter">${letter}</div>
         <span class="dict-card-category">${category}</span>
         <h3>${name}</h3>
@@ -363,26 +331,40 @@
     }).join('');
   }
 
+  // Delegated interactions for term cards (no inline handlers).
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.dict-card');
+    if (card) openTerm(card.dataset.slug);
+  });
+  grid.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.dict-card');
+    if (card) {
+      e.preventDefault();
+      openTerm(card.dataset.slug);
+    }
+  });
+
   /* ============ TERM DETAIL PANEL ============ */
-  window.openTerm = function (slug) {
+  function openTerm(slug) {
     const term = allTerms.find(t => t.slug === slug);
     if (!term) return;
 
-    const relatedHTML = term.relatedTerms.length
+    const relatedHTML = (term.relatedTerms || []).length
       ? `<h4>Related Terms</h4>
          <div class="dict-panel-related">
-           ${term.relatedTerms.map(r => {
+           ${(term.relatedTerms || []).map(r => {
              const rel = allTerms.find(t => t.slug === r);
-             const label = rel ? rel.term : r.replace(/-/g, ' ');
-             return `<a href="#" onclick="event.preventDefault();window.openTerm('${esc(r)}')">${esc(label)}</a>`;
+             const label = rel ? rel.term : String(r).replace(/-/g, ' ');
+             return `<a href="#" data-rel="${esc(r)}">${esc(label)}</a>`;
            }).join('')}
          </div>`
       : '';
 
-    const citationsHTML = term.citations.length
+    const citationsHTML = (term.citations || []).length
       ? `<h4>Citations</h4>
          <ul class="dict-panel-citations">
-           ${term.citations.map(c => `<li>${esc(c)}</li>`).join('')}
+           ${(term.citations || []).map(c => `<li>${esc(c)}</li>`).join('')}
          </ul>`
       : '';
 
@@ -391,10 +373,10 @@
       : 'Last reviewed: not recorded';
 
     panel.innerHTML = `
-      <button class="dict-panel-close" aria-label="Close term detail" onclick="window.closeTerm()">
+      <button class="dict-panel-close" type="button" data-dict-close aria-label="Close term detail">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-      <div class="dict-panel-letter">${esc(term.term[0])}</div>
+      <div class="dict-panel-letter">${esc(firstLetter(term.term))}</div>
       <span class="dict-panel-category">${esc(term.category)}</span>
       <h2>${esc(term.term)}</h2>
       <h4>Definition</h4>
@@ -411,28 +393,45 @@
     document.body.style.overflow = 'hidden';
 
     // Update URL hash
-    history.pushState(null, '', '#' + slug);
+    if (window.location.hash !== '#' + slug) {
+      history.pushState(null, '', '#' + slug);
+    }
 
     // Focus the panel
     setTimeout(() => panel.focus(), 100);
-  };
+  }
 
-  window.closeTerm = function () {
+  function closeTerm() {
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    history.pushState(null, '', window.location.pathname);
-  };
+    if (window.location.hash) {
+      history.pushState(null, '', window.location.pathname);
+    }
+  }
+
+  // Delegated panel interactions: close button + related-term links.
+  panel.addEventListener('click', (e) => {
+    if (e.target.closest('[data-dict-close]')) {
+      closeTerm();
+      return;
+    }
+    const rel = e.target.closest('[data-rel]');
+    if (rel) {
+      e.preventDefault();
+      openTerm(rel.dataset.rel);
+    }
+  });
 
   // Close on overlay click
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) window.closeTerm();
+    if (e.target === overlay) closeTerm();
   });
 
   // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('open')) {
-      window.closeTerm();
+      closeTerm();
     }
   });
 
@@ -440,16 +439,16 @@
   function handleHashNavigation() {
     const hash = window.location.hash.slice(1);
     if (hash && allTerms.find(t => t.slug === hash)) {
-      setTimeout(() => window.openTerm(hash), 100);
+      setTimeout(() => openTerm(hash), 100);
     }
   }
 
   window.addEventListener('hashchange', () => {
     const hash = window.location.hash.slice(1);
     if (hash && allTerms.find(t => t.slug === hash)) {
-      window.openTerm(hash);
+      openTerm(hash);
     } else if (!hash) {
-      window.closeTerm();
+      closeTerm();
     }
   });
 

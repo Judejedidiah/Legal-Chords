@@ -17,27 +17,33 @@ ON CONFLICT (id) DO NOTHING;
 
 -- 2. Storage policies
 -- Public read: anyone can view event images
+DROP POLICY IF EXISTS "Public read event images" ON storage.objects;
 CREATE POLICY "Public read event images"
   ON storage.objects FOR SELECT
   TO anon
   USING (bucket_id = 'event-images');
 
+DROP POLICY IF EXISTS "Public read event images auth" ON storage.objects;
 CREATE POLICY "Public read event images auth"
   ON storage.objects FOR SELECT
   TO authenticated
   USING (bucket_id = 'event-images');
 
 -- Authenticated (admin) can upload images
+-- NOTE: migration 006 rescopes these to app_metadata.role = 'admin'.
+DROP POLICY IF EXISTS "Admin upload event images" ON storage.objects;
 CREATE POLICY "Admin upload event images"
   ON storage.objects FOR INSERT
   TO authenticated
   WITH CHECK (bucket_id = 'event-images');
 
+DROP POLICY IF EXISTS "Admin update event images" ON storage.objects;
 CREATE POLICY "Admin update event images"
   ON storage.objects FOR UPDATE
   TO authenticated
   USING (bucket_id = 'event-images');
 
+DROP POLICY IF EXISTS "Admin delete event images" ON storage.objects;
 CREATE POLICY "Admin delete event images"
   ON storage.objects FOR DELETE
   TO authenticated

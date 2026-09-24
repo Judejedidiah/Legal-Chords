@@ -118,7 +118,7 @@
     <div class="nav-actions">
       <a href="#get-involved" class="btn btn-primary nav-cta" data-join-open>Join Legal Chords</a>
 
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
@@ -128,7 +128,7 @@
         </svg>
       </button>
 
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <button type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -1082,8 +1082,8 @@
         <h5 data-edit="footer.newsletterTitle">Stay Updated</h5>
         <p data-edit="footer.newsletterNote">Get Legal Nuggets and updates straight to your inbox.</p>
         <form class="newsletter" id="newsletterForm">
-          <input type="email" name="email" placeholder="Your email" required data-edit-attr="placeholder" data-edit-href="footer.newsletterPlaceholder" />
-          <button type="submit">→</button>
+          <input type="email" name="email" placeholder="Your email" required aria-label="Email address" data-edit-attr="placeholder" data-edit-href="footer.newsletterPlaceholder" />
+          <button type="submit" aria-label="Subscribe to the newsletter">→</button>
         </form>
         <p class="newsletter-error" hidden>Please enter a valid email address.</p>
       </div>
@@ -1095,7 +1095,7 @@
       <p data-edit="footer.copyright">&copy; 2026 Legal Chords. All rights reserved.</p>
       <p class="disclaimer" data-edit="footer.disclaimerHtml" data-edit-compose="link">
         Legal Chords provides legal awareness and educational content and does not provide individual
-        legal representation or legal advice. <a href="terms.html" style="color:var(--brand-blue-bright)">Terms &amp; Conditions</a>
+        legal representation or legal advice. <a href="terms.html" class="link-accent">Terms &amp; Conditions</a>
       </p>
     </div>
   </div>
@@ -1398,9 +1398,10 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.0"></script>
 <script src="js/config.js"></script>
 <script src="js/supabase.js"></script>
+<script src="js/site-nav.js"></script>
 <script src="js/content-loader.js"></script>
 <script src="js/script.js"></script>
 </body>

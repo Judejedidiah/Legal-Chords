@@ -6,7 +6,6 @@
 
    Attribute conventions:
      data-edit="section.path"      -> path to content value
-     data-edit-html                -> value is applied as innerHTML
      data-edit-attr="name"         -> value applied to attribute (src/href/placeholder)
      data-edit-href="section.path" -> alternative path for the attribute value
      data-edit-meta="section.path" -> value is an array rebuilt as <span> items
@@ -41,6 +40,21 @@
     return d.innerHTML;
   }
 
+  // Attribute-context escaper: esc() only escapes & < >, so quote-encode for use inside attributes.
+  function attrEsc(value) {
+    return esc(value)
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function isSafeHref(value) {
+    return /^(https?:|mailto:|tel:|\/|\.|#|data:image\/)/i.test(String(value));
+  }
+
+  function isSafeSrc(value) {
+    return /^(https?:|\/|\.|data:image\/)/i.test(String(value));
+  }
+
   function applyCompose(el, value) {
     if (!value || typeof value !== 'object' || Array.isArray(value)) return;
     const type = el.dataset.editCompose;
@@ -58,7 +72,8 @@
     } else if (type === 'cta') {
       html = `${esc(value.text)}<br /><span class="cta-accent">${esc(value.accent)}</span>`;
     } else if (type === 'link') {
-      html = `${esc(value.text)} <a href="${esc(value.linkHref)}" style="color:var(--brand-blue-bright)">${esc(value.linkText)}</a>`;
+      const href = isSafeHref(value.linkHref) ? attrEsc(value.linkHref) : '#';
+      html = `${esc(value.text)} <a href="${href}" style="color:var(--brand-blue-bright)">${esc(value.linkText)}</a>`;
     } else {
       return;
     }
@@ -86,14 +101,12 @@
     }
   }
 
-  function applyHtml(el, value) {
-    if (!isValue(value)) return;
-    el.innerHTML = String(value);
-  }
-
   function applyAttr(el, attrName, value) {
     if (!isValue(value)) return;
-    el.setAttribute(attrName, String(value));
+    const raw = String(value);
+    if (attrName === 'href' && !isSafeHref(raw)) return;
+    if (attrName === 'src' && !isSafeSrc(raw)) return;
+    el.setAttribute(attrName, raw);
 
     if (attrName === 'src' && el.tagName === 'IMG') {
       el.hidden = false;
@@ -146,11 +159,6 @@
 
     if (el.dataset.editCompose) {
       applyCompose(el, value);
-      return;
-    }
-
-    if (el.hasAttribute('data-edit-html')) {
-      applyHtml(el, value);
       return;
     }
 

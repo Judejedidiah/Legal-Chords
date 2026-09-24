@@ -6,8 +6,12 @@
 -- the ON CONFLICT branch performs an UPDATE, which anon
 -- had no policy for, so returning subscribers errored.
 -- This adds an equally-scoped anon UPDATE policy.
+--
+-- NOTE: migration 006 supersedes this — anon write access
+-- is revoked and replaced by the subscribe_to_newsletter RPC.
 -- =====================================================
 
+DROP POLICY IF EXISTS "Allow anonymous update on newsletter" ON newsletter_subscribers;
 CREATE POLICY "Allow anonymous update on newsletter"
   ON newsletter_subscribers FOR UPDATE
   TO anon

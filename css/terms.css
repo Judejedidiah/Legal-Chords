@@ -2,6 +2,9 @@
    LEGAL CHORDS — Terms & Conditions Page
    ===================================================== */
 
+/* ============ TERMS MAIN ============ */
+.terms-main { padding-top: 0; }
+
 /* ============ TERMS HERO ============ */
 .terms-hero {
   padding: 140px 0 48px;

@@ -5,82 +5,8 @@
 (function () {
   'use strict';
 
-  /* ============ THEME TOGGLE ============ */
-  const themeToggle = document.getElementById('themeToggle');
-  const root = document.documentElement;
-
-  const setTheme = (theme) => {
-    root.setAttribute('data-theme', theme);
-    try { localStorage.setItem('lc-theme', theme); } catch (e) {}
-    themeToggle.setAttribute('aria-label',
-      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-  };
-
-  // Initial sync with what the inline init script applied
-  const initialTheme = root.getAttribute('data-theme') || 'dark';
-  setTheme(initialTheme);
-
-  themeToggle.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme');
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  });
-
-  // React to system preference changes (only when user hasn't manually chosen)
-  if (window.matchMedia) {
-    const mq = window.matchMedia('(prefers-color-scheme: light)');
-    mq.addEventListener('change', (e) => {
-      try {
-        if (!localStorage.getItem('lc-theme')) {
-          setTheme(e.matches ? 'light' : 'dark');
-        }
-      } catch (err) {}
-    });
-  }
-
-  /* ============ NAVBAR SCROLL STATE ============ */
-  const navbar = document.getElementById('navbar');
-  const onScroll = () => {
-    if (window.scrollY > 30) navbar.classList.add('scrolled');
-    else navbar.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* ============ MOBILE MENU ============ */
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  const toggleMenu = (open) => {
-    const isOpen = open ?? !navLinks.classList.contains('open');
-    navLinks.classList.toggle('open', isOpen);
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  };
-  hamburger.addEventListener('click', () => toggleMenu());
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => toggleMenu(false));
-  });
-
-  /* ============ NAV DROPDOWNS ============ */
-  const closeAllDropdowns = () => {
-    document.querySelectorAll('.nav-dropdown.open').forEach(dd => {
-      dd.classList.remove('open');
-      const t = dd.querySelector('.nav-dropdown-toggle');
-      if (t) t.setAttribute('aria-expanded', 'false');
-    });
-  };
-  document.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const dd = toggle.closest('.nav-dropdown');
-      const isOpen = dd.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-    });
-  });
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-dropdown')) closeAllDropdowns();
-  });
+  // Theme toggle, navbar scroll state, mobile menu and nav dropdowns
+  // live in js/site-nav.js (shared across all public pages).
 
   /* ============ ACTIVE NAV LINK ON SCROLL ============ */
   const sections = document.querySelectorAll('section[id]');
@@ -123,6 +49,7 @@
   const counters = document.querySelectorAll('.counter');
   const animateCounter = (el) => {
     const target = parseInt(el.dataset.target, 10);
+    if (!Number.isFinite(target)) return;
     const duration = 1800;
     const start = performance.now();
     const tick = (now) => {
@@ -153,7 +80,7 @@
   const tNext = document.querySelector('.t-next');
   const tCards = tTrack ? tTrack.querySelectorAll('.t-card') : [];
 
-  if (tTrack && tCards.length) {
+  if (tTrack && tCards.length && tPrev && tNext && tDots) {
     let currentIndex = 0;
 
     // Build dots
@@ -271,10 +198,11 @@
         rFigure.hidden = true;
       }
 
-      if (href && /^https?:\/\//i.test(href)) {
+      if (href && /^(https?:|mailto:|tel:|\/|\.|#)/i.test(href)) {
         rLink.href = href;
         rLink.hidden = false;
       } else {
+        rLink.removeAttribute('href');
         rLink.hidden = true;
       }
 
@@ -331,7 +259,7 @@
   document.querySelectorAll('[data-join-open]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (navLinks && navLinks.classList.contains('open')) toggleMenu(false);
+      if (window.closeMobileMenu) window.closeMobileMenu();
       openJoinModal();
     });
   });
@@ -391,10 +319,9 @@
         if (window.db) {
           const { error } = await window.db.from('memberships').insert(cleanPayload);
           if (error) throw error;
-          console.info('[Legal Chords] Membership saved to Supabase:', cleanPayload.email);
           submitted = true;
         } else {
-          console.warn('[Legal Chords] Supabase not available, form data logged only:', payload);
+          console.warn('[Legal Chords] Supabase not available — membership not saved.');
           submitted = true;
         }
       } catch (err) {
@@ -443,12 +370,20 @@
       let subscribed = false;
       try {
         if (window.db) {
-          const { error } = await window.db.from('newsletter_subscribers').upsert(
-            { email, status: 'active' },
-            { onConflict: 'email' }
-          );
-          if (error) throw error;
-          console.info('[Legal Chords] Newsletter subscriber saved:', email);
+          const rpcRes = await window.db.rpc('subscribe_to_newsletter', { p_email: email });
+          if (rpcRes.error) {
+            // Before migration 006 the RPC doesn't exist yet — fall back
+            // to the legacy anon upsert so subscribing keeps working.
+            if (rpcRes.error.code === 'PGRST202') {
+              const legacyRes = await window.db.from('newsletter_subscribers').upsert(
+                { email, status: 'active' },
+                { onConflict: 'email' }
+              );
+              if (legacyRes.error) throw legacyRes.error;
+            } else {
+              throw rpcRes.error;
+            }
+          }
         }
         subscribed = true;
       } catch (err) {
@@ -476,12 +411,16 @@
       if (this.dataset.joinOpen) return;
       const href = this.getAttribute('href');
       if (!href || href === '#') { e.preventDefault(); return; }
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        const offset = 80;
-        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
+      try {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      } catch (selErr) {
+        // Ignore malformed selectors (e.g. CMS-controlled hrefs).
       }
     });
   });

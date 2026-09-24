@@ -58,23 +58,28 @@ ALTER TABLE site_content ENABLE ROW LEVEL SECURITY;
 -- You can also use a separate admin_users table for multiple admins
 
 -- Allow anonymous inserts (form submissions)
+DROP POLICY IF EXISTS "Allow anonymous inserts on memberships" ON memberships;
 CREATE POLICY "Allow anonymous inserts on memberships"
   ON memberships FOR INSERT
   TO anon
   WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Allow anonymous inserts on newsletter" ON newsletter_subscribers;
 CREATE POLICY "Allow anonymous inserts on newsletter"
   ON newsletter_subscribers FOR INSERT
   TO anon
   WITH CHECK (true);
 
--- Allow authenticated users full access (admin)
+-- Allow authenticated admin full access
+-- NOTE: migration 006 rescopes these to app_metadata.role = 'admin'.
+DROP POLICY IF EXISTS "Admin full access on memberships" ON memberships;
 CREATE POLICY "Admin full access on memberships"
   ON memberships FOR ALL
   TO authenticated
   USING (true)
   WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Admin full access on newsletter" ON newsletter_subscribers;
 CREATE POLICY "Admin full access on newsletter"
   ON newsletter_subscribers FOR ALL
   TO authenticated
@@ -82,12 +87,14 @@ CREATE POLICY "Admin full access on newsletter"
   WITH CHECK (true);
 
 -- Public read access for site_content (so the website can load it)
+DROP POLICY IF EXISTS "Public read access on site_content" ON site_content;
 CREATE POLICY "Public read access on site_content"
   ON site_content FOR SELECT
   TO anon
   USING (true);
 
 -- Authenticated users can update site_content (admin)
+DROP POLICY IF EXISTS "Admin full access on site_content" ON site_content;
 CREATE POLICY "Admin full access on site_content"
   ON site_content FOR ALL
   TO authenticated

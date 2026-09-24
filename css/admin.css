@@ -449,7 +449,7 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.03em;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 .editor-group-body { padding: 12px; }
 .editor-list-row {
@@ -530,7 +530,6 @@
 }
 .kw-chip-more { color: var(--text-faint); background: var(--bg); }
 .text-faint { color: var(--text-faint); }
-.admin-modal-lg { max-width: 720px; }
 
 /* ============ EVENT IMAGE UPLOAD ============ */
 .event-image-upload {
@@ -607,6 +606,8 @@
   padding: 32px;
   box-shadow: var(--shadow-lg);
 }
+/* Placed after .admin-modal so the wider variant wins (same specificity). */
+.admin-modal-lg { max-width: 720px; }
 .admin-modal h3 {
   font-size: 18px;
   font-weight: 700;
