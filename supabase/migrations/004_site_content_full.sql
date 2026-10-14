@@ -154,6 +154,11 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
     "logo": "assets/thegenzlogo.png",
     "name": "TheGenZ AI Hub",
     "description": "TheGenZ AI Hub is an institutional venture-building ecosystem. We are not a coding bootcamp, a passive consultancy, a generic meetup group, or an AI news aggregator. We operate as a repeatable foundry that brings together ambitious developers, verified real-world problems, rigorous validation methodologies, and venture resources so that promising ideas turn into enduring companies."
+  },
+  "womenablaze": {
+    "logo": "assets/Women Ablaze.jpeg",
+    "name": "Women Ablaze",
+    "description": "Women Ablaze is a faith-based organisation committed to empowering women and girls from diverse backgrounds through Education, Faith, Purpose discovery, Skills development, leadership, Self-awareness, and Community development."
   }
 }'),
 
