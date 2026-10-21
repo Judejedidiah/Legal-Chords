@@ -102,6 +102,9 @@ CREATE POLICY "Admin full access on site_content"
   WITH CHECK (true);
 
 -- 6. SEED DEFAULT SITE CONTENT
+-- Minimal bootstrap seed only, applied with DO NOTHING so it never
+-- overwrites existing rows. Migration 004 is the canonical, current
+-- source of homepage content and supersedes everything seeded here.
 INSERT INTO site_content (section_key, section_label, content) VALUES
 ('hero', 'Hero Section', '{
   "badge": "Youth-Led • Nigeria • Est. 2026",

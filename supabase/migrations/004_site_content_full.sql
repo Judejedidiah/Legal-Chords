@@ -1,8 +1,24 @@
 -- =====================================================
 -- LEGAL CHORDS — Migration 004: Full editable site content
 -- Run this in the Supabase SQL Editor after 001-003.
--- Defines the canonical JSON shape for EVERY homepage
--- section so admins can edit all of it from the CMS.
+--
+-- This is the canonical, current content for EVERY homepage
+-- section and is the single source of truth for seeded
+-- content (it supersedes the partial seed in 001).
+--
+-- Safe to re-run: it upserts on section_key, so running it
+-- again refreshes content without creating duplicates and
+-- without touching the schema, RLS policies, or the CMS
+-- loader contract (same section_keys and JSON paths the
+-- site already reads via js/content-loader.js).
+--
+-- IMPORTANT — if the live site already has edited rows in
+-- site_content, re-running this REPLACES those edits for
+-- the sections below. Back up first if that matters:
+--   select section_key, content from site_content;
+-- To apply only the CTA/footer corrections without losing
+-- other live edits, copy the individual INSERT ... ON
+-- CONFLICT blocks you need instead of running the file.
 -- =====================================================
 
 INSERT INTO site_content (section_key, section_label, content) VALUES
@@ -267,7 +283,7 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
 
 ('footer', 'Footer', '{
   "brandText": "Making legal knowledge accessible, practical and understandable for a new generation of Nigerian changemakers.",
-  "social": ["#", "#", "#", "#", "mailto:hello@legalchords.ng"],
+  "social": ["#", "#", "#", "#", "mailto:legalchords@gmail.com"],
   "columns": [
     { "title": "Explore", "links": [
       { "label": "About", "href": "#about" },
@@ -288,7 +304,8 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
       { "label": "Facebook", "href": "#" },
       { "label": "LinkedIn", "href": "#" },
       { "label": "X / Twitter", "href": "#" },
-      { "label": "Email", "href": "mailto:hello@legalchords.ng" }
+      { "label": "Email", "href": "mailto:legalchords@gmail.com" },
+      { "label": "0703 828 366", "href": "tel:+234703828366" }
     ] }
   ],
   "newsletterTitle": "Stay Updated",
