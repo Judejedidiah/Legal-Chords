@@ -175,6 +175,11 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
     "logo": "assets/Women Ablaze.jpeg",
     "name": "Women Ablaze",
     "description": "Women Ablaze is a faith-based organisation committed to empowering women and girls from diverse backgrounds through Education, Faith, Purpose discovery, Skills development, leadership, Self-awareness, and Community development."
+  },
+  "redguard": {
+    "logo": "assets/redguard profile.jpeg",
+    "name": "RedGuard",
+    "description": "We aim to empower Africa''s digital future by building a strong and welcoming cybersecurity community. Our goal is to secure Africa''s digital ecosystem and guide aspiring professionals as they start and succeed in their cybersecurity career."
   }
 }'),
 
