@@ -7,7 +7,7 @@
 
 /* ============ TERMS HERO ============ */
 .terms-hero {
-  padding: 140px 0 48px;
+  padding: 120px 0 40px;
   background: var(--bg);
   position: relative;
   overflow: hidden;
@@ -20,11 +20,11 @@
   pointer-events: none;
 }
 .terms-hero .container { position: relative; z-index: 1; }
-.terms-hero .eyebrow { margin-bottom: 14px; }
+.terms-hero .eyebrow { margin-bottom: 10px; }
 .terms-hero h1 {
   font-size: clamp(2rem, 4.2vw, 3.2rem);
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   letter-spacing: -0.025em;
   color: var(--text);
 }
@@ -35,8 +35,8 @@
   line-height: 1.7;
 }
 .terms-meta {
-  margin-top: 20px;
-  display: flex; flex-wrap: wrap; gap: 20px;
+  margin-top: 16px;
+  display: flex; flex-wrap: wrap; gap: 18px;
   font-size: 13px;
   color: var(--text-faint);
 }
@@ -53,8 +53,8 @@
 .terms-layout {
   display: grid;
   grid-template-columns: 220px 1fr;
-  gap: 48px;
-  padding: 48px 0 100px;
+  gap: 40px;
+  padding: 40px 0 72px;
 }
 
 /* ============ TERMS SIDEBAR (TOC) ============ */
@@ -72,7 +72,7 @@
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--brand-blue-bright);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .terms-toc-list {
   list-style: none;
@@ -117,8 +117,8 @@
   font-size: 22px;
   font-weight: 700;
   color: var(--text);
-  margin: 48px 0 16px;
-  padding-bottom: 10px;
+  margin: 36px 0 12px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--border-soft);
   scroll-margin-top: 100px;
 }
@@ -127,23 +127,23 @@
   font-size: 17px;
   font-weight: 600;
   color: var(--text);
-  margin: 28px 0 10px;
+  margin: 22px 0 8px;
 }
 .terms-content p {
   font-size: 15px;
   color: var(--text-muted);
   line-height: 1.75;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .terms-content ul,
 .terms-content ol {
-  margin: 0 0 16px 20px;
+  margin: 0 0 14px 20px;
   color: var(--text-muted);
 }
 .terms-content li {
   font-size: 15px;
   line-height: 1.7;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   padding-left: 4px;
 }
 .terms-content li::marker {
@@ -157,12 +157,12 @@
   border: none;
   height: 1px;
   background: var(--border-soft);
-  margin: 36px 0;
+  margin: 28px 0;
 }
 
 /* ============ BACK TO TOP ============ */
 .terms-back-top {
-  position: fixed; bottom: 32px; right: 32px;
+  position: fixed; bottom: 24px; right: 24px;
   width: 44px; height: 44px;
   background: var(--grad-blue);
   border: none;
@@ -189,7 +189,7 @@
 .terms-footer {
   background: var(--bg-alt);
   border-top: 1px solid var(--border);
-  padding: 48px 0 24px;
+  padding: 40px 0 24px;
 }
 .terms-footer-inner {
   display: flex; justify-content: space-between; align-items: center;
@@ -214,21 +214,21 @@
 }
 
 @media (max-width: 768px) {
-  .terms-hero { padding: 120px 0 36px; }
+  .terms-hero { padding: 104px 0 32px; }
   .terms-hero h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
 
   .terms-layout {
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 0 0 80px;
+    padding: 0 0 60px;
   }
 
   .terms-toc {
     position: static;
     max-height: none;
-    padding: 0 0 24px;
+    padding: 0 0 20px;
     border-bottom: 1px solid var(--border-soft);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   .terms-toc-list {
     display: flex; flex-wrap: wrap; gap: 4px;
@@ -245,12 +245,12 @@
   }
   .terms-toc-list a .toc-num { display: none; }
 
-  .terms-content h2 { font-size: 20px; margin-top: 36px; }
+  .terms-content h2 { font-size: 20px; margin-top: 28px; }
   .terms-content p, .terms-content li { font-size: 14px; }
 }
 
 @media (max-width: 480px) {
-  .terms-hero { padding: 110px 0 28px; }
+  .terms-hero { padding: 96px 0 26px; }
   .terms-meta { flex-direction: column; gap: 8px; }
 }
 
