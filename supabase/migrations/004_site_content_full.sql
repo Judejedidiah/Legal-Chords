@@ -11,8 +11,8 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "badge": "Youth-Led • Nigeria • Est. 2026",
   "headline": { "line1": "LEGAL KNOWLEDGE", "line2": "SHOULD NOT BE", "line3": "A PRIVILEGE.", "accentLine": 2 },
   "subtitle": "Making the law easier to understand, access, and apply. Legal Chords is a youth-focused legal awareness platform making legal education practical, accessible and relevant to everyday life.",
-  "primaryAction": "Explore Legal Chords",
-  "primaryHref": "#programs",
+  "primaryAction": "Join The Community",
+  "primaryHref": "https://chat.whatsapp.com/B4jgGjfF7tYKxDFowlYlWF",
   "secondaryAction": "Join Legal Chords",
   "secondaryHref": "#get-involved",
   "trust": ["Legal Awareness", "Youth Development", "Leadership", "Innovation"],
@@ -261,7 +261,6 @@ INSERT INTO site_content (section_key, section_label, content) VALUES
   "heading": { "text": "Knowledge creates power.", "accent": "Legal knowledge creates protection." },
   "body": "Be part of a generation that understands the law, knows its rights and leads with purpose.",
   "buttons": [
-    { "label": "Join The Community", "href": "https://chat.whatsapp.com/B4jgGjfF7tYKxDFowlYlWF" },
     { "label": "Explore Our Programs", "href": "#programs" }
   ]
 }'),
