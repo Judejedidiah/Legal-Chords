@@ -61,6 +61,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
           Memberships
         </button>
+        <button class="admin-nav-item" data-tab="volunteers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Volunteers
+        </button>
         <button class="admin-nav-item" data-tab="newsletter">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
           Newsletter
@@ -162,6 +166,48 @@
             </tr></thead>
             <tbody id="memTable">
               <tr><td colspan="8" class="admin-empty" style="padding:40px;">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== VOLUNTEERS TAB ===== -->
+      <div class="admin-tab" id="tab-volunteers" style="display:none;">
+        <div class="admin-header">
+          <div>
+            <h2>Volunteer Applications</h2>
+            <p>Review and manage all volunteer registrations.</p>
+          </div>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <div class="admin-stat-label">Total</div>
+            <div class="admin-stat-num" id="volTotal">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Pending</div>
+            <div class="admin-stat-num" id="volPending">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Approved</div>
+            <div class="admin-stat-num" id="volApproved">0</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat-label">Rejected</div>
+            <div class="admin-stat-num" id="volRejected">0</div>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <h3>All Applications</h3>
+            <input type="search" class="admin-table-search" id="volSearch" placeholder="Search by name, email...">
+          </div>
+          <table class="admin-table">
+            <thead><tr>
+              <th>Name</th><th>Email</th><th>Phone</th><th>Departments</th><th>Date</th><th>Status</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="volTable">
+              <tr><td colspan="7" class="admin-empty" style="padding:40px;">Loading...</td></tr>
             </tbody>
           </table>
         </div>

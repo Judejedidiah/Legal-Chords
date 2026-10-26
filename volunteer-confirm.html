@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Submitted | Legal Chords</title>
+    <meta name="description" content="Your volunteer application has been submitted." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/png" href="assets/legal-chords-logo-white.png" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("lc-theme");
+          var theme =
+            saved ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ============== NAVIGATION ============== -->
+    <header class="navbar" id="navbar">
+      <div class="container nav-container">
+        <a href="index.html#home" class="logo" aria-label="Legal Chords Home">
+          <span class="logo-mark">
+            <img
+              class="logo-img"
+              src="assets/legal-chords-logo.png"
+              alt="Legal Chords logo"
+            />
+          </span>
+          <span class="logo-text">
+            <span class="logo-title">LEGAL CHORDS</span>
+            <span class="logo-sub">Legal Awareness Platform</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" id="navLinks" aria-label="Primary">
+          <a href="index.html#home" class="nav-link">Home</a>
+
+          <div class="nav-dropdown">
+            <button
+              type="button"
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              About
+              <svg
+                class="nav-caret"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="index.html#about" class="nav-link nav-dropdown-item">About Us</a>
+              <a href="index.html#what-we-do" class="nav-link nav-dropdown-item"
+                >What We Do</a
+              >
+              <a href="index.html#impact" class="nav-link nav-dropdown-item"
+                >Our Impact</a
+              >
+            </div>
+          </div>
+
+          <a href="index.html#programs" class="nav-link">Programs</a>
+          <a href="index.html#events" class="nav-link">Events</a>
+
+          <div class="nav-dropdown">
+            <button
+              type="button"
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Resources
+              <svg
+                class="nav-caret"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="index.html#resources" class="nav-link nav-dropdown-item"
+                >Resource Hub</a
+              >
+              <a href="dictionary.html" class="nav-link nav-dropdown-item"
+                >Legal Dictionary</a
+              >
+              <a href="terms.html" class="nav-link nav-dropdown-item"
+                >Terms &amp; Conditions</a
+              >
+            </div>
+          </div>
+
+          <a href="volunteer.html" class="nav-link active">Volunteer</a>
+
+          <a href="volunteer-apply.html" class="btn btn-primary nav-cta-mobile"
+            >Apply Now</a
+          >
+        </nav>
+
+        <div class="nav-actions">
+          <a href="volunteer-apply.html" class="btn btn-primary nav-cta"
+            >Apply Now</a
+          >
+
+          <button
+            type="button"
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+            title="Toggle light/dark mode"
+          >
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="hamburger"
+            id="hamburger"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" style="min-height: 70vh; display: flex; align-items: center;">
+        <div class="container" style="max-width: 720px; text-align: center;">
+          <div class="hero-badge reveal" style="margin: 0 auto 24px;">
+            <span class="hero-badge-dot"></span>
+            <span>Application Submitted</span>
+          </div>
+          <h1 class="section-title reveal" style="margin-bottom: 16px;">
+            Thank you for <span class="accent">applying</span>!
+          </h1>
+          <p class="section-lede reveal" style="margin: 0 auto 32px;">
+            Your volunteer application has been received. We appreciate your interest in joining Legal Chords and contributing to our mission of promoting legal literacy, rights awareness, and ethical leadership.
+          </p>
+          <p class="reveal" style="color: var(--text-muted); margin-bottom: 32px; line-height: 1.8;">
+            Our team will review your application carefully. If shortlisted, we will reach out to you via email or phone for the next steps in the selection process.
+          </p>
+          <div class="hero-actions reveal" style="justify-content: center;">
+            <a href="volunteer.html" class="btn btn-primary btn-lg">
+              <span>Back to Volunteer</span>
+            </a>
+            <a href="index.html" class="btn btn-ghost btn-lg">
+              <span>Go to Home</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html#home" class="logo">
+              <span class="logo-mark footer-logo-mark">
+                <img
+                  class="logo-img"
+                  src="assets/legal-chords-logo.png"
+                  alt="Legal Chords logo"
+                />
+              </span>
+              <span class="logo-text">
+                <span class="logo-title">LEGAL CHORDS</span>
+                <span class="logo-sub">Legal Awareness Platform</span>
+              </span>
+            </a>
+            <p>
+              Making legal knowledge accessible, practical and understandable
+              for a new generation of Nigerian changemakers.
+            </p>
+          </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Legal Chords. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/site-nav.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

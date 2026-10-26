@@ -58,6 +58,7 @@ window.AdminDashboard = (() => {
     const target = document.getElementById(`tab-${tab}`);
     if (target) { target.style.display = ''; target.classList.add('visible'); }
     if (tab === 'memberships') loadMemberships();
+    if (tab === 'volunteers') loadVolunteers();
     if (tab === 'newsletter') loadNewsletter();
     if (tab === 'content') loadContent();
     if (tab === 'dictionary') loadDictionary();
@@ -66,18 +67,20 @@ window.AdminDashboard = (() => {
   /* ---------- LOAD ALL (OVERVIEW) ---------- */
   async function loadAll() {
     try {
-      const [memRes, nlRes, scRes] = await Promise.all([
+      const [memRes, volRes, nlRes, scRes] = await Promise.all([
         window.db.from('memberships').select('id, status, created_at').order('created_at', { ascending: false }),
+        window.db.from('volunteer_applications').select('id, status, created_at').order('created_at', { ascending: false }),
         window.db.from('newsletter_subscribers').select('id, status').eq('status', 'active'),
         window.db.from('site_content').select('id')
       ]);
 
       const memAll = memRes.data || [];
+      const volAll = volRes.data || [];
       const total = memAll.length;
       const pending = memAll.filter(m => m.status === 'pending').length;
 
-      document.getElementById('statMembers').textContent = total;
-      document.getElementById('statPending').textContent = pending;
+      document.getElementById('statMembers').textContent = total + volAll.length;
+      document.getElementById('statPending').textContent = pending + volAll.filter(v => v.status === 'pending').length;
       document.getElementById('statSubscribers').textContent = nlRes.data?.length || 0;
       document.getElementById('statSections').textContent = scRes.data?.length || 0;
 
@@ -106,6 +109,166 @@ window.AdminDashboard = (() => {
       <td data-label="Date">${formatDate(r.created_at)}</td>
       <td data-label="Status"><span class="status-badge status-${r.status}">${r.status}</span></td>
     </tr>`).join('');
+  }
+
+  /* ---------- VOLUNTEERS ---------- */
+  async function loadVolunteers() {
+    try {
+      const { data, error } = await window.db.from('volunteer_applications')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+
+      renderVolunteers(data || []);
+      setupVolunteerSearch(data || []);
+    } catch (err) {
+      console.error('[Legal Chords] Volunteers load error:', err.message);
+      document.getElementById('volTable').innerHTML =
+        `<tr><td colspan="7" class="admin-empty">Could not load applications: ${esc(err.message)}</td></tr>`;
+    }
+  }
+
+  function parseMaybeJSON(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val;
+    if (typeof val === 'string') {
+      try {
+        const parsed = JSON.parse(val);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return val ? [val] : [];
+      }
+    }
+    return [];
+  }
+
+  function renderVolunteers(rows) {
+    const tbody = document.getElementById('volTable');
+    document.getElementById('volTotal').textContent = rows.length;
+    document.getElementById('volPending').textContent = rows.filter(r => r.status === 'pending').length;
+    document.getElementById('volApproved').textContent = rows.filter(r => r.status === 'approved').length;
+    document.getElementById('volRejected').textContent = rows.filter(r => r.status === 'rejected').length;
+
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="admin-empty">No applications yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(r => {
+      const depts = parseMaybeJSON(r.q16).join(', ');
+      return `<tr>
+        <td data-label="Name" style="font-weight:600;color:var(--text)">${esc(r.q1_firstname || '')} ${esc(r.q1_lastname || '')}</td>
+        <td data-label="Email">${esc(r.q6_email || '')}</td>
+        <td data-label="Phone">${esc(r.q7_phone || '')}</td>
+        <td data-label="Departments">${esc(depts)}</td>
+        <td data-label="Date">${formatDate(r.created_at)}</td>
+        <td data-label="Status"><span class="status-badge status-${escAttr(r.status)}">${escAttr(r.status)}</span></td>
+        <td data-label="Actions" data-full>
+          <button type="button" class="btn-sm" data-action="view-vol" data-id="${escAttr(r.id)}">View</button>
+          ${r.status === 'pending' ? `
+            <button type="button" class="btn-sm success" data-action="approve-vol" data-id="${escAttr(r.id)}">Approve</button>
+            <button type="button" class="btn-sm danger" data-action="reject-vol" data-id="${escAttr(r.id)}">Reject</button>
+          ` : ''}
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  function setupVolunteerSearch(data) {
+    const input = document.getElementById('volSearch');
+    if (!input || input.dataset.wired) return;
+    input.dataset.wired = '1';
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase();
+      const filtered = data.filter(r =>
+        `${r.q1_firstname || ''} ${r.q1_lastname || ''} ${r.q6_email || ''} ${r.q7_phone || ''}`.toLowerCase().includes(q)
+      );
+      renderVolunteers(filtered);
+    });
+  }
+
+  async function viewVolunteer(id) {
+    try {
+      const { data: r, error } = await window.db.from('volunteer_applications').select('*').eq('id', id).single();
+      if (error) throw error;
+      if (!r) { toast('Volunteer not found.', 'error'); return; }
+      document.getElementById('modalTitle').textContent = `${r.q1_firstname || ''} ${r.q1_lastname || ''} - Volunteer Application`;
+      const depts = parseMaybeJSON(r.q16).join(', ');
+      const skills = parseMaybeJSON(r.q21).join(', ');
+      document.getElementById('modalBody').innerHTML = `
+        <div style="margin-bottom:16px;"><strong>Section 1: Personal Information</strong></div>
+        ${detailRow('First Name', r.q1_firstname)}
+        ${detailRow('Last Name', r.q1_lastname)}
+        ${detailRow('Other Names', r.q3)}
+        ${detailRow('Date of Birth', r.q4_dob)}
+        ${detailRow('Gender', r.q5)}${r.q5 === 'Other' ? detailRow('Gender (Other)', r.q5_other) : ''}
+        ${detailRow('Email', r.q6_email)}
+        ${detailRow('Phone', r.q7_phone)}
+        ${detailRow('State of Residence', r.q8)}
+        ${detailRow('Country of Residence', r.q9)}
+        ${detailRow('Home Address', r.q10)}
+        ${detailRow('How heard about us', r.q11)}${r.q11 === 'Other' ? detailRow('How heard (Other)', r.q11_other) : ''}
+        <div style="margin:16px 0 12px;"><strong>Section 2: Education &amp; Affiliation</strong></div>
+        ${detailRow('Current Status', r.q12)}${r.q12 === 'Other' ? detailRow('Status (Other)', r.q12_other) : ''}
+        ${detailRow('Institution/Organization', r.q13)}
+        ${detailRow('Law Student?', r.q14)}
+        ${r.q14 === 'Yes' ? detailRow('Level/Year', r.q15) : ''}
+        ${detailRow('Preferred Departments', depts)}${r.q16_other ? detailRow('Department (Other)', r.q16_other) : ''}
+        <div style="margin:16px 0 12px;"><strong>Section 3: Availability &amp; Commitment</strong></div>
+        ${detailRow('Hours/week', r.q17)}
+        ${detailRow('Mode of volunteering', r.q18)}
+        ${detailRow('Available for meetings/trainings', r.q19)}
+        ${detailRow('Preferred start date', r.q20)}
+        <div style="margin:16px 0 12px;"><strong>Section 4: Skills &amp; Experience</strong></div>
+        ${detailRow('Key Skills', skills)}${r.q21_other ? detailRow('Skills (Other)', r.q21_other) : ''}
+        ${detailRow('Relevant Experience', r.q22)}
+        ${detailRow('Portfolio/LinkedIn/Website', r.q23)}
+        <div style="margin:16px 0 12px;"><strong>Section 5: Interests &amp; Motivation</strong></div>
+        ${detailRow('Why volunteer with Legal Chords', r.q24)}
+        ${detailRow('Impact hoped to make', r.q25)}
+        ${detailRow('Value to bring', r.q26)}
+        ${detailRow('Willing to learn and grow', r.q27)}
+        ${detailRow('Willing to commit to probation/orientation', r.q28)}
+        <div style="margin:16px 0 12px;"><strong>Section 6: References &amp; Online Presence</strong></div>
+        ${detailRow('Reference 1 Name', r.q29_name)}
+        ${detailRow('Reference 1 Contact', r.q29_contact)}
+        ${detailRow('Reference 1 Relationship', r.q29_relation)}
+        ${detailRow('Reference 2 Name', r.q30_name)}
+        ${detailRow('Reference 2 Contact', r.q30_contact)}
+        ${detailRow('Reference 2 Relationship', r.q30_relation)}
+        ${detailRow('Agree to policies/guidelines', r.q31)}
+        ${detailRow('May we contact you', r.q32)}
+        <div style="margin:16px 0 12px;"><strong>Section 7: Declaration &amp; Consent</strong></div>
+        ${detailRow('Declaration true & accurate', r.q33)}
+        ${detailRow('Consent to process data', r.q34)}
+        ${detailRow('Subscribe to newsletter', r.q35)}
+        ${detailRow('Additional info', r.q36)}
+        ${detailRow('Full name for signature', r.q37)}
+        ${detailRow('How found application link', r.q38)}${r.q38 === 'Other' ? detailRow('How found (Other)', r.q38_other) : ''}
+        ${detailRow('Date of application', r.q39)}
+        ${detailRow('Status', `<span class="status-badge status-${esc(r.status)}">${esc(r.status)}</span>`, true)}
+        ${detailRow('Applied', formatDate(r.created_at))}
+      `;
+      openModal();
+    } catch (err) {
+      console.error('[Legal Chords] Could not load volunteer:', err.message);
+      toast('Could not load volunteer: ' + err.message, 'error');
+    }
+  }
+
+  async function updateVolunteerStatus(id, status) {
+    try {
+      const { error } = await window.db.from('volunteer_applications').update({ status, updated_at: new Date().toISOString() }).eq('id', id);
+      if (error) throw error;
+      toast(`Volunteer application ${status}.`, 'success');
+      closeModal();
+      if (document.querySelector('.admin-nav-item[data-tab="volunteers"]')?.classList.contains('active')) {
+        loadVolunteers();
+      }
+      loadAll();
+    } catch (err) {
+      console.error('[Legal Chords] Status update error:', err.message);
+      toast('Update failed: ' + err.message, 'error');
+    }
   }
 
   /* ---------- MEMBERSHIPS ---------- */
@@ -811,6 +974,16 @@ window.AdminDashboard = (() => {
       if (action === 'view') viewMember(id);
       else if (action === 'approve') updateStatus(id, 'approved');
       else if (action === 'reject') updateStatus(id, 'rejected');
+    });
+
+    wire('volTable', (e) => {
+      const btn = e.target.closest('.btn-sm[data-action]');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      const action = btn.dataset.action;
+      if (action === 'view-vol') viewVolunteer(id);
+      else if (action === 'approve-vol') updateVolunteerStatus(id, 'approved');
+      else if (action === 'reject-vol') updateVolunteerStatus(id, 'rejected');
     });
 
     wire('nlTable', (e) => {

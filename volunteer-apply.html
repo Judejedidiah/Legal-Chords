@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Apply to volunteer with Legal Chords" />
+    <title>Volunteer Application | Legal Chords</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <meta name="theme-color" content="#020512" />
+    <link rel="icon" type="image/png" href="assets/legal-chords-logo-white.png" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("lc-theme");
+          var theme =
+            saved ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
+    <style>
+      .volunteer-apply-hero {
+        padding: 140px 0 60px;
+        background: radial-gradient(1200px 600px at 50% 0%, rgba(36,111,224,0.12), transparent 70%), var(--bg);
+      }
+      .form-wrap {
+        max-width: 880px;
+        margin: 0 auto;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .form-header {
+        padding: 32px 32px 24px;
+        border-bottom: 1px solid var(--border);
+      }
+      .form-intro {
+        color: var(--text-muted);
+        margin-top: 12px;
+        line-height: 1.7;
+      }
+      .progress-bar {
+        display: flex;
+        gap: 8px;
+        margin-top: 24px;
+        align-items: center;
+      }
+      .progress-step {
+        flex: 1;
+        height: 6px;
+        background: var(--bg-elevated);
+        border-radius: 999px;
+        position: relative;
+        overflow: hidden;
+      }
+      .progress-step.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background: var(--brand-blue);
+      }
+      .progress-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--text-faint);
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .progress-label.active {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .form-body {
+        padding: 32px;
+      }
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+      .step-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .step-desc {
+        color: var(--text-muted);
+        margin-bottom: 24px;
+        line-height: 1.7;
+      }
+      .form-grid {
+        display: grid;
+        gap: 18px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .field-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      @media (max-width: 640px) {
+        .field-row {
+          grid-template-columns: 1fr;
+        }
+        .form-header, .form-body {
+          padding: 24px;
+        }
+      }
+      .field label, .field legend {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .required {
+        color: #f59e0b;
+      }
+      .field input[type="text"],
+      .field input[type="email"],
+      .field input[type="tel"],
+      .field input[type="url"],
+      .field input[type="number"],
+      .field select,
+      .field textarea {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+      }
+      .field textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: var(--brand-blue-bright);
+        box-shadow: 0 0 0 3px rgba(36,111,224,0.18);
+      }
+      .radio-group, .checkbox-group {
+        display: grid;
+        gap: 10px;
+      }
+      .radio-item, .checkbox-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+      .radio-item input, .checkbox-item input {
+        margin-top: 3px;
+        accent-color: var(--brand-blue-bright);
+      }
+      .radio-item:has(input:checked), .checkbox-item:has(input:checked) {
+        border-color: var(--brand-blue-bright);
+        background: rgba(36,111,224,0.12);
+      }
+      .radio-item.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .helper {
+        font-size: 12px;
+        color: var(--text-faint);
+      }
+      .error {
+        font-size: 12px;
+        color: #f59e0b;
+      }
+      .other-field {
+        display: none;
+        margin-top: 10px;
+      }
+      .other-field.active {
+        display: block;
+      }
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        flex-wrap: wrap;
+      }
+      .form-actions .btn {
+        min-width: 140px;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============== NAVIGATION ============== -->
+    <header class="navbar" id="navbar">
+      <div class="container nav-container">
+        <a href="index.html#home" class="logo" aria-label="Legal Chords Home">
+          <span class="logo-mark">
+            <img class="logo-img" src="assets/legal-chords-logo.png" alt="Legal Chords logo" />
+          </span>
+          <span class="logo-text">
+            <span class="logo-title">LEGAL CHORDS</span>
+            <span class="logo-sub">Legal Awareness Platform</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" id="navLinks" aria-label="Primary">
+          <a href="index.html#home" class="nav-link">Home</a>
+          <div class="nav-dropdown">
+            <button type="button" class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              About
+              <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="index.html#about" class="nav-link nav-dropdown-item">About Us</a>
+              <a href="index.html#what-we-do" class="nav-link nav-dropdown-item">What We Do</a>
+              <a href="index.html#impact" class="nav-link nav-dropdown-item">Our Impact</a>
+            </div>
+          </div>
+          <a href="index.html#programs" class="nav-link">Programs</a>
+          <a href="index.html#events" class="nav-link">Events</a>
+          <div class="nav-dropdown">
+            <button type="button" class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+              Resources
+              <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="index.html#resources" class="nav-link nav-dropdown-item">Resource Hub</a>
+              <a href="dictionary.html" class="nav-link nav-dropdown-item">Legal Dictionary</a>
+              <a href="terms.html" class="nav-link nav-dropdown-item">Terms &amp; Conditions</a>
+            </div>
+          </div>
+          <a href="volunteer.html" class="nav-link active">Volunteer</a>
+          <a href="volunteer-apply.html" class="btn btn-primary nav-cta-mobile">Apply Now</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="volunteer-apply.html" class="btn btn-primary nav-cta">Apply Now</a>
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+          </button>
+          <button type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="volunteer-apply-hero">
+        <div class="container">
+          <div class="hero-badge reveal">
+            <span class="hero-badge-dot"></span>
+            <span>Volunteer Registration &amp; Application Questionnaire</span>
+          </div>
+          <h1 class="hero-headline reveal" style="font-size: clamp(2rem, 4vw, 3.4rem); margin-top: 18px;">
+            Volunteer <span class="accent">Application</span>
+          </h1>
+          <p class="hero-sub reveal" style="max-width: 760px;">
+            Complete all sections below. Your progress is saved automatically so you can return later.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 40px;">
+        <div class="container">
+          <div class="form-wrap reveal">
+            <div class="form-header">
+              <h2 class="section-title" style="font-size: 28px;">Application Form</h2>
+              <p class="form-intro">
+                Please fill in this form accurately. Fields marked with <span class="required">*</span> are required.
+              </p>
+              <div class="progress-bar" id="progressBar">
+                <div class="progress-step active" data-step="1"></div>
+                <div class="progress-step" data-step="2"></div>
+                <div class="progress-step" data-step="3"></div>
+                <div class="progress-step" data-step="4"></div>
+                <div class="progress-step" data-step="5"></div>
+                <div class="progress-step" data-step="6"></div>
+                <div class="progress-step" data-step="7"></div>
+              </div>
+              <div class="progress-labels">
+                <span class="progress-label active" data-step-label="1">Section 1: Personal Information</span>
+                <span class="progress-label" data-step-label="2">Section 2: Education &amp; Affiliation</span>
+                <span class="progress-label" data-step-label="3">Section 3: Availability &amp; Commitment</span>
+                <span class="progress-label" data-step-label="4">Section 4: Skills &amp; Experience</span>
+                <span class="progress-label" data-step-label="5">Section 5: Interests &amp; Motivation</span>
+                <span class="progress-label" data-step-label="6">Section 6: References &amp; Online Presence</span>
+                <span class="progress-label" data-step-label="7">Section 7: Declaration &amp; Consent</span>
+              </div>
+            </div>
+
+            <form id="volunteerForm" novalidate>
+              <div class="form-body">
+                <!-- Step 1 -->
+                <div class="step active" data-step="1">
+                  <h3 class="step-title">Section 1: Personal Information</h3>
+                  <p class="step-desc">Tell us a bit about yourself.</p>
+                  <div class="form-grid">
+                    <div class="field-row">
+                      <div class="field">
+                        <label for="q1_firstname">1. First Name <span class="required">*</span></label>
+                        <input type="text" id="q1_firstname" name="q1_firstname" required />
+                        <span class="error" data-error-for="q1_firstname"></span>
+                      </div>
+                      <div class="field">
+                        <label for="q1_lastname">2. Last Name <span class="required">*</span></label>
+                        <input type="text" id="q1_lastname" name="q1_lastname" required />
+                        <span class="error" data-error-for="q1_lastname"></span>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q3">3. Other Names (if any)</label>
+                      <input type="text" id="q3" name="q3" />
+                    </div>
+                    <div class="field-row">
+                      <div class="field">
+                        <label for="q4_dob">4. Date of Birth <span class="required">*</span></label>
+                        <input type="text" id="q4_dob" name="q4_dob" placeholder="DD/MM/YYYY" required />
+                        <span class="error" data-error-for="q4_dob"></span>
+                      </div>
+                      <div class="field">
+                        <label for="q5">5. Gender <span class="required">*</span></label>
+                        <select id="q5" name="q5" required>
+                          <option value="" disabled selected>Select</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Prefer not to say">Prefer not to say</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <span class="error" data-error-for="q5"></span>
+                        <div class="other-field" data-other-for="q5">
+                          <input type="text" name="q5_other" placeholder="Please specify" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <div class="field">
+                        <label for="q6_email">6. Email Address <span class="required">*</span></label>
+                        <input type="email" id="q6_email" name="q6_email" placeholder="you@example.com" required />
+                        <span class="error" data-error-for="q6_email"></span>
+                      </div>
+                      <div class="field">
+                        <label for="q7_phone">7. Phone Number (WhatsApp preferred) <span class="required">*</span></label>
+                        <input type="tel" id="q7_phone" name="q7_phone" placeholder="+234..." required />
+                        <span class="error" data-error-for="q7_phone"></span>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q8">8. State of Residence <span class="required">*</span></label>
+                      <input type="text" id="q8" name="q8" required />
+                      <span class="error" data-error-for="q8"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q9">9. Country of Residence <span class="required">*</span></label>
+                      <input type="text" id="q9" name="q9" required />
+                      <span class="error" data-error-for="q9"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q10">10. Home Address (Optional)</label>
+                      <textarea id="q10" name="q10"></textarea>
+                    </div>
+                    <div class="field">
+                      <label for="q11">11. How did you hear about Legal Chords? <span class="required">*</span></label>
+                      <select id="q11" name="q11" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Friend/Referral">Friend/Referral</option>
+                        <option value="Event/Webinar">Event/Webinar</option>
+                        <option value="School/University">School/University</option>
+                        <option value="Website">Website</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <span class="error" data-error-for="q11"></span>
+                      <div class="other-field" data-other-for="q11">
+                        <input type="text" name="q11_other" placeholder="Please specify" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step" data-step="2">
+                  <h3 class="step-title">Section 2: Education &amp; Affiliation</h3>
+                  <p class="step-desc">Tell us about your academic/professional background.</p>
+                  <div class="form-grid">
+                    <div class="field">
+                      <label for="q12">12. Current Status <span class="required">*</span></label>
+                      <select id="q12" name="q12" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="Student">Student</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="Working Professional">Working Professional</option>
+                        <option value="NYSC Corps Member">NYSC Corps Member</option>
+                        <option value="Unemployed">Unemployed</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <span class="error" data-error-for="q12"></span>
+                      <div class="other-field" data-other-for="q12">
+                        <input type="text" name="q12_other" placeholder="Please specify" />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q13">13. Institution/Organization (if applicable)</label>
+                      <input type="text" id="q13" name="q13" />
+                    </div>
+                    <div class="field">
+                      <label for="q14">14. Are you currently a Law Student? <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q14" value="Yes" required /> Yes</label>
+                        <label class="radio-item"><input type="radio" name="q14" value="No" required /> No</label>
+                      </div>
+                      <span class="error" data-error-for="q14"></span>
+                    </div>
+                    <div class="field" id="q15Wrap" style="display:none;">
+                      <label for="q15">15. If Yes, which level/year of study? <span class="required">*</span></label>
+                      <input type="text" id="q15" name="q15" />
+                      <span class="error" data-error-for="q15"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q16">16. Preferred Department(s) - Select a maximum of 2 <span class="required">*</span></label>
+                      <p class="helper">You may select up to 2 departments.</p>
+                      <div class="checkbox-group" id="deptGroup">
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Administration and Operations" /> Administration and Operations</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Content Writing and Legal Education" /> Content Writing and Legal Education</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Programs and Events" /> Programs and Events</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Media and Communications" /> Media and Communications</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Graphic Design and Creative Services" /> Graphic Design and Creative Services</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Technology and Website Development" /> Technology and Website Development</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Community Engagement and Outreach" /> Community Engagement and Outreach</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Growth, Strategy, and Partnerships" /> Growth, Strategy, and Partnerships</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Public Relations" /> Public Relations</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Research and Policy" /> Research and Policy</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Monitoring and Evaluation" /> Monitoring and Evaluation</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Academy Support and Learning Operations" /> Academy Support and Learning Operations</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Open to placement based on organizational needs" /> Open to placement based on organizational needs</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q16" value="Other" data-other-trigger="q16" /> Other</label>
+                      </div>
+                      <p class="helper" id="q16Helper">Maximum of 2 selections allowed.</p>
+                      <span class="error" data-error-for="q16"></span>
+                      <div class="other-field" data-other-for="q16">
+                        <input type="text" name="q16_other" placeholder="Please specify" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step" data-step="3">
+                  <h3 class="step-title">Section 3: Availability &amp; Commitment</h3>
+                  <p class="step-desc">Let us know your availability.</p>
+                  <div class="form-grid">
+                    <div class="field">
+                      <label for="q17">17. How many hours per week can you commit? <span class="required">*</span></label>
+                      <select id="q17" name="q17" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="1-3 hours">1-3 hours</option>
+                        <option value="4-6 hours">4-6 hours</option>
+                        <option value="7-10 hours">7-10 hours</option>
+                        <option value="10+ hours">10+ hours</option>
+                      </select>
+                      <span class="error" data-error-for="q17"></span>
+                    </div>
+                    <div class="field">
+                      <label>18. Preferred mode of volunteering <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q18" value="Fully Remote" required /> Fully Remote</label>
+                        <label class="radio-item"><input type="radio" name="q18" value="Hybrid" required /> Hybrid</label>
+                        <label class="radio-item"><input type="radio" name="q18" value="On-Site" required /> On-Site</label>
+                      </div>
+                      <span class="error" data-error-for="q18"></span>
+                    </div>
+                    <div class="field">
+                      <label>19. Are you available for meetings/trainings? <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q19" value="Yes" required /> Yes</label>
+                        <label class="radio-item"><input type="radio" name="q19" value="No" required /> No</label>
+                        <label class="radio-item"><input type="radio" name="q19" value="Occasionally" required /> Occasionally</label>
+                      </div>
+                      <span class="error" data-error-for="q19"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q20">20. Preferred start date (Month/Year or Specific Date)</label>
+                      <input type="text" id="q20" name="q20" placeholder="e.g., November 2026" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step" data-step="4">
+                  <h3 class="step-title">Section 4: Skills &amp; Experience</h3>
+                  <p class="step-desc">Highlight what you bring to the team.</p>
+                  <div class="form-grid">
+                    <div class="field">
+                      <label>21. Key Skills (Select relevant skills) <span class="required">*</span></label>
+                      <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Writing/Editing" /> Writing/Editing</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Research" /> Research</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Graphic Design" /> Graphic Design</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Video Editing" /> Video Editing</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Social Media Management" /> Social Media Management</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Public Speaking" /> Public Speaking</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Event Planning" /> Event Planning</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Web Development" /> Web Development</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Data/Analytics" /> Data/Analytics</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Project Management" /> Project Management</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Legal Research/Analysis" /> Legal Research/Analysis</label>
+                        <label class="checkbox-item"><input type="checkbox" name="q21" value="Other" data-other-trigger="q21" /> Other</label>
+                      </div>
+                      <span class="error" data-error-for="q21"></span>
+                      <div class="other-field" data-other-for="q21">
+                        <input type="text" name="q21_other" placeholder="Please specify" />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q22">22. Relevant Experience (Brief description of past volunteer/work experience) <span class="required">*</span></label>
+                      <textarea id="q22" name="q22" required></textarea>
+                      <span class="error" data-error-for="q22"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q23">23. Portfolio/LinkedIn/Website URL (if applicable)</label>
+                      <input type="url" id="q23" name="q23" placeholder="https://..." />
+                      <span class="error" data-error-for="q23"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step" data-step="5">
+                  <h3 class="step-title">Section 5: Interests &amp; Motivation</h3>
+                  <p class="step-desc">Tell us why you want to volunteer with us.</p>
+                  <div class="form-grid">
+                    <div class="field">
+                      <label for="q24">24. Why do you want to volunteer with Legal Chords? <span class="required">*</span></label>
+                      <textarea id="q24" name="q24" required></textarea>
+                      <span class="error" data-error-for="q24"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q25">25. What impact do you hope to make? <span class="required">*</span></label>
+                      <textarea id="q25" name="q25" required></textarea>
+                      <span class="error" data-error-for="q25"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q26">26. What value will you bring to the team? <span class="required">*</span></label>
+                      <textarea id="q26" name="q26" required></textarea>
+                      <span class="error" data-error-for="q26"></span>
+                    </div>
+                    <div class="field">
+                      <label>27. Are you willing to learn and grow? <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q27" value="Yes" required /> Yes</label>
+                        <label class="radio-item"><input type="radio" name="q27" value="No" required /> No</label>
+                      </div>
+                      <span class="error" data-error-for="q27"></span>
+                    </div>
+                    <div class="field">
+                      <label>28. Are you willing to commit to the probation/orientation process? <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q28" value="Yes" required /> Yes</label>
+                        <label class="radio-item"><input type="radio" name="q28" value="No" required /> No</label>
+                      </div>
+                      <span class="error" data-error-for="q28"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="step" data-step="6">
+                  <h3 class="step-title">Section 6: References &amp; Online Presence</h3>
+                  <p class="step-desc">Provide references if available.</p>
+                  <div class="form-grid">
+                    <div class="field-row">
+                      <div class="field">
+                        <label for="q29_name">29. Reference Name (if any)</label>
+                        <input type="text" id="q29_name" name="q29_name" />
+                      </div>
+                      <div class="field">
+                        <label for="q29_contact">Reference Contact (Phone/Email)</label>
+                        <input type="text" id="q29_contact" name="q29_contact" />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q29_relation">Relationship</label>
+                      <input type="text" id="q29_relation" name="q29_relation" />
+                    </div>
+                    <div class="field-row">
+                      <div class="field">
+                        <label for="q30_name">30. Second Reference Name (if any)</label>
+                        <input type="text" id="q30_name" name="q30_name" />
+                      </div>
+                      <div class="field">
+                        <label for="q30_contact">Reference Contact (Phone/Email)</label>
+                        <input type="text" id="q30_contact" name="q30_contact" />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q30_relation">Relationship</label>
+                      <input type="text" id="q30_relation" name="q30_relation" />
+                    </div>
+                    <div class="field">
+                      <label for="q31">31. Do you agree to abide by Legal Chords policies and guidelines? <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q31" value="Yes" required /> Yes</label>
+                        <label class="radio-item"><input type="radio" name="q31" value="No" required /> No</label>
+                      </div>
+                      <p class="helper">If yes, we ask that you review our policies <a href="terms.html" class="link-accent">here</a> if available.</p>
+                      <span class="error" data-error-for="q31"></span>
+                    </div>
+                    <div class="field">
+                      <label>32. May we contact you regarding this application? <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q32" value="Yes" required /> Yes</label>
+                        <label class="radio-item"><input type="radio" name="q32" value="No" required /> No</label>
+                      </div>
+                      <span class="error" data-error-for="q32"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Step 7 -->
+                <div class="step" data-step="7">
+                  <h3 class="step-title">Section 7: Declaration &amp; Consent</h3>
+                  <p class="step-desc">Final confirmation before submission.</p>
+                  <div class="form-grid">
+                    <div class="field">
+                      <label for="q33">33. I declare that all information provided is true and accurate to the best of my knowledge. <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q33" value="I Agree" required /> I Agree</label>
+                        <label class="radio-item"><input type="radio" name="q33" value="I Do Not Agree" required /> I Do Not Agree</label>
+                      </div>
+                      <span class="error" data-error-for="q33"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q34">34. I consent to Legal Chords processing my personal data for the purpose of this application. <span class="required">*</span></label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q34" value="I Agree" required /> I Agree</label>
+                        <label class="radio-item"><input type="radio" name="q34" value="I Do Not Agree" required /> I Do Not Agree</label>
+                      </div>
+                      <span class="error" data-error-for="q34"></span>
+                    </div>
+                    <div class="field">
+                      <label>35. Would you like to subscribe to our newsletter for updates? (Optional)</label>
+                      <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="q35" value="Yes" /> Yes</label>
+                        <label class="radio-item"><input type="radio" name="q35" value="No" /> No</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q36">36. Any additional information you'd like us to know? (Optional)</label>
+                      <textarea id="q36" name="q36"></textarea>
+                    </div>
+                    <div class="field">
+                      <label for="q37">37. Full Name for Signature <span class="required">*</span></label>
+                      <input type="text" id="q37" name="q37" required />
+                      <span class="error" data-error-for="q37"></span>
+                    </div>
+                    <div class="field">
+                      <label for="q38">38. How did you find this application link? (Optional)</label>
+                      <select id="q38" name="q38">
+                        <option value="" selected>Select</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Referral">Referral</option>
+                        <option value="Website">Website</option>
+                        <option value="Event">Event</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <div class="other-field" data-other-for="q38">
+                        <input type="text" name="q38_other" placeholder="Please specify" />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="q39">39. Date of Application <span class="required">*</span></label>
+                      <input type="text" id="q39" name="q39" placeholder="DD/MM/YYYY" required />
+                      <span class="error" data-error-for="q39"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="button" class="btn btn-ghost" id="prevBtn">← Back</button>
+                  <button type="button" class="btn btn-primary" id="nextBtn">Next →</button>
+                  <button type="submit" class="btn btn-primary" id="submitBtn" style="display:none;">Submit Application</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html#home" class="logo">
+              <span class="logo-mark footer-logo-mark">
+                <img class="logo-img" src="assets/legal-chords-logo.png" alt="Legal Chords logo" />
+              </span>
+              <span class="logo-text">
+                <span class="logo-title">LEGAL CHORDS</span>
+                <span class="logo-sub">Legal Awareness Platform</span>
+              </span>
+            </a>
+            <p>Making legal knowledge accessible, practical and understandable for a new generation of Nigerian changemakers.</p>
+          </div>
+        </div>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Legal Chords. All rights reserved.</p>
+          <p class="disclaimer">
+            Legal Chords provides legal awareness and educational content and does not provide individual legal representation or legal advice.
+            <a href="terms.html" class="link-accent">Terms &amp; Conditions</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/site-nav.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      const STORAGE_KEY = "legalchords_volunteer_progress";
+      const form = document.getElementById("volunteerForm");
+      const steps = Array.from(document.querySelectorAll(".step"));
+      const progressSteps = Array.from(document.querySelectorAll(".progress-step"));
+      const progressLabels = Array.from(document.querySelectorAll(".progress-label"));
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const submitBtn = document.getElementById("submitBtn");
+      let currentStep = 1;
+
+      function showStep(step) {
+        currentStep = step;
+        steps.forEach((s) => s.classList.toggle("active", Number(s.dataset.step) === step));
+        progressSteps.forEach((ps) => ps.classList.toggle("active", Number(ps.dataset.step) <= step));
+        progressLabels.forEach((pl) => pl.classList.toggle("active", Number(pl.dataset.stepLabel) <= step));
+        if (step === 1) {
+          prevBtn.style.display = "none";
+        } else {
+          prevBtn.style.display = "inline-flex";
+        }
+        if (step === steps.length) {
+          nextBtn.style.display = "none";
+          submitBtn.style.display = "inline-flex";
+        } else {
+          nextBtn.style.display = "inline-flex";
+          submitBtn.style.display = "none";
+        }
+        window.scrollTo({ top: 200, behavior: "smooth" });
+      }
+
+      // Other fields
+      document.querySelectorAll("select, input[type=radio], input[type=checkbox]").forEach((el) => {
+        el.addEventListener("change", () => {
+          // select with other
+          if (el.tagName === "SELECT") {
+            const other = document.querySelector(`.other-field[data-other-for='${el.id}']`) || document.querySelector(`.other-field[data-other-for='${el.name}']`);
+            if (other) {
+              if (el.value === "Other") {
+                other.classList.add("active");
+              } else {
+                other.classList.remove("active");
+              }
+            }
+          }
+          // radio with other? not specified, but handle
+          if (el.type === "radio") {
+            const name = el.name;
+            const other = document.querySelector(`.other-field[data-other-for='${name}']`);
+            if (other) {
+              const checked = document.querySelector(`input[name='${name}']:checked`);
+              if (checked && (checked.value === "Other" || checked.dataset.otherTrigger)) {
+                other.classList.add("active");
+              } else if (checked) {
+                other.classList.remove("active");
+              }
+            }
+          }
+          // checkbox other
+          if (el.type === "checkbox") {
+            if (el.dataset.otherTrigger) {
+              const other = document.querySelector(`.other-field[data-other-for='${el.dataset.otherTrigger}']`);
+              if (other) {
+                other.classList.toggle("active", el.checked);
+              }
+            }
+          }
+          saveProgress();
+        });
+      });
+
+      // Q14 conditional
+      document.querySelectorAll("input[name='q14']").forEach((r) => {
+        r.addEventListener("change", () => {
+          const wrap = document.getElementById("q15Wrap");
+          const input = document.getElementById("q15");
+          if (document.querySelector("input[name='q14']:checked")?.value === "Yes") {
+            wrap.style.display = "flex";
+            input.required = true;
+          } else {
+            wrap.style.display = "none";
+            input.required = false;
+            input.value = "";
+          }
+          saveProgress();
+        });
+      });
+
+      // Q16 max 2
+      const deptBoxes = document.querySelectorAll("#deptGroup input[name='q16']");
+      deptBoxes.forEach((box) => {
+        box.addEventListener("change", () => {
+          const checked = Array.from(deptBoxes).filter((b) => b.checked && b.value !== "Other");
+          // also count other if checked
+          const otherChecked = Array.from(deptBoxes).find((b) => b.value === "Other" && b.checked);
+          if (checked.length >= 2 && !box.checked) {
+            // don't allow checking more if already 2 non-other selected? requirement says max 2 total
+          }
+          const allChecked = Array.from(deptBoxes).filter((b) => b.checked);
+          if (allChecked.length > 2) {
+            box.checked = false;
+            alert("Maximum of 2 selections allowed for preferred departments.");
+            return;
+          }
+          // disable remaining if 2 selected
+          if (allChecked.length === 2) {
+            deptBoxes.forEach((b) => {
+              if (!b.checked) {
+                b.disabled = true;
+                b.parentElement.classList.add("disabled");
+              }
+            });
+          } else {
+            deptBoxes.forEach((b) => {
+              b.disabled = false;
+              b.parentElement.classList.remove("disabled");
+            });
+          }
+          // other field
+          const otherBox = Array.from(deptBoxes).find((b) => b.value === "Other");
+          const otherField = document.querySelector(".other-field[data-other-for='q16']");
+          if (otherField) {
+            otherField.classList.toggle("active", otherBox && otherBox.checked);
+          }
+          saveProgress();
+        });
+      });
+
+      // Q23 URL validation
+      const q23 = document.getElementById("q23");
+      if (q23) {
+        q23.addEventListener("blur", () => {
+          if (q23.value && q23.value.trim()) {
+            try {
+              new URL(q23.value);
+              q23.setCustomValidity("");
+            } catch {
+              q23.setCustomValidity("Please enter a valid URL.");
+            }
+          } else {
+            q23.setCustomValidity("");
+          }
+        });
+      }
+
+      prevBtn.addEventListener("click", () => {
+        if (currentStep > 1) showStep(currentStep - 1);
+      });
+      nextBtn.addEventListener("click", () => {
+        if (validateStep(currentStep)) {
+          saveProgress();
+          if (currentStep < steps.length) showStep(currentStep + 1);
+        }
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (validateStep(steps.length)) {
+          const btn = document.getElementById("submitBtn");
+          const origText = btn ? btn.textContent : "Submit Application";
+          if (btn) {
+            btn.disabled = true;
+            btn.textContent = "Submitting...";
+          }
+          try {
+            const formData = new FormData(form);
+            const payload = {};
+            // text/select/textarea
+            form.querySelectorAll("input:not([type=checkbox]):not([type=radio]), select, textarea").forEach((el) => {
+              if (el.name && el.value !== undefined) {
+                payload[el.name] = el.value;
+              }
+            });
+            // radios
+            form.querySelectorAll("input[type=radio]:checked").forEach((el) => {
+              payload[el.name] = el.value;
+            });
+            // checkboxes as arrays
+            const checkboxGroups = {};
+            form.querySelectorAll("input[type=checkbox]:checked").forEach((el) => {
+              if (!checkboxGroups[el.name]) checkboxGroups[el.name] = [];
+              checkboxGroups[el.name].push(el.value);
+            });
+            Object.keys(checkboxGroups).forEach((k) => {
+              payload[k] = JSON.stringify(checkboxGroups[k]);
+            });
+            // Also store other fields
+            form.querySelectorAll(".other-field input").forEach((el) => {
+              if (el.name && el.value) payload[el.name] = el.value;
+            });
+            // ensure required arrays
+            if (!payload.q16) payload.q16 = JSON.stringify([]);
+            if (!payload.q21) payload.q21 = JSON.stringify([]);
+
+            let submitted = false;
+            if (window.db) {
+              try {
+                const { error } = await window.db.from('volunteer_applications').insert(payload);
+                if (error) throw error;
+                submitted = true;
+              } catch (err) {
+                console.error('[Legal Chords] Volunteer submit error:', err.message);
+                alert('We could not save your application. Please try again.');
+              }
+            } else {
+              console.warn('[Legal Chords] Supabase not available — volunteer application not saved.');
+              submitted = true;
+            }
+            if (submitted) {
+              try {
+                localStorage.removeItem(STORAGE_KEY);
+              } catch (err) {}
+              window.location.href = "volunteer-confirm.html";
+            } else if (btn) {
+              btn.disabled = false;
+              btn.textContent = origText;
+            }
+          } catch (err) {
+            console.error(err);
+            if (btn) {
+              btn.disabled = false;
+              btn.textContent = origText;
+            }
+            alert('Something went wrong. Please try again.');
+          }
+        } else {
+          // find first error step
+          for (let i = 1; i <= steps.length; i++) {
+            if (!validateStep(i, true)) {
+              showStep(i);
+              break;
+            }
+          }
+        }
+      });
+
+      function validateStep(step, silent = false) {
+        let valid = true;
+        const stepEl = document.querySelector(`.step[data-step='${step}']`);
+        if (!stepEl) return true;
+        // clear errors
+        stepEl.querySelectorAll(".error").forEach((e) => (e.textContent = ""));
+        // required inputs
+        stepEl.querySelectorAll("input[required], select[required], textarea[required]").forEach((input) => {
+          if (input.type === "radio") {
+            const name = input.name;
+            const checked = stepEl.querySelector(`input[name='${name}']:checked`);
+            if (!checked) {
+              valid = false;
+              const err = stepEl.querySelector(`.error[data-error-for='${name}']`);
+              if (err && !silent) err.textContent = "This field is required.";
+            }
+            return;
+          }
+          if (input.type === "checkbox") {
+            // handled separately for groups
+            return;
+          }
+          if (!input.value || !input.value.trim()) {
+            valid = false;
+            const err = stepEl.querySelector(`.error[data-error-for='${input.id}']`) || stepEl.querySelector(`.error[data-error-for='${input.name}']`);
+            if (err && !silent) err.textContent = "This field is required.";
+          }
+        });
+        // checkbox groups required
+        const requiredCheckboxGroups = ["q16", "q21"];
+        requiredCheckboxGroups.forEach((name) => {
+          const group = stepEl.querySelectorAll(`input[name='${name}']`);
+          if (group.length) {
+            const checked = Array.from(group).some((b) => b.checked);
+            if (!checked) {
+              valid = false;
+              const err = stepEl.querySelector(`.error[data-error-for='${name}']`);
+              if (err && !silent) err.textContent = "Please select at least one option.";
+            }
+          }
+        });
+        // q15 conditional
+        if (step === 2) {
+          const q14Yes = document.querySelector("input[name='q14']:checked")?.value === "Yes";
+          const q15 = document.getElementById("q15");
+          if (q14Yes) {
+            if (!q15.value || !q15.value.trim()) {
+              valid = false;
+              const err = stepEl.querySelector(`.error[data-error-for='q15']`);
+              if (err && !silent) err.textContent = "This field is required.";
+            }
+          }
+        }
+        // q23 url
+        if (step === 4 && q23 && q23.value && q23.value.trim()) {
+          try {
+            new URL(q23.value);
+          } catch {
+            valid = false;
+            const err = stepEl.querySelector(`.error[data-error-for='q23']`);
+            if (err && !silent) err.textContent = "Please enter a valid URL.";
+          }
+        }
+        // email
+        const email = stepEl.querySelector("input[type='email']");
+        if (email && email.value) {
+          const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRe.test(email.value)) {
+            valid = false;
+            const err = stepEl.querySelector(`.error[data-error-for='${email.id}']`);
+            if (err && !silent) err.textContent = "Please enter a valid email address.";
+          }
+        }
+        // q33, q34 must be I Agree
+        if (step === 7) {
+          const q33 = document.querySelector("input[name='q33']:checked")?.value;
+          const q34 = document.querySelector("input[name='q34']:checked")?.value;
+          if (q33 !== "I Agree") {
+            valid = false;
+            const err = stepEl.querySelector(`.error[data-error-for='q33']`);
+            if (err && !silent) err.textContent = "You must agree to proceed.";
+          }
+          if (q34 !== "I Agree") {
+            valid = false;
+            const err = stepEl.querySelector(`.error[data-error-for='q34']`);
+            if (err && !silent) err.textContent = "You must agree to proceed.";
+          }
+        }
+        return valid;
+      }
+
+      function saveProgress() {
+        try {
+          const data = {};
+          form.querySelectorAll("input, select, textarea").forEach((el) => {
+            if (el.type === "radio") {
+              if (el.checked) data[el.name] = el.value;
+              return;
+            }
+            if (el.type === "checkbox") {
+              if (!data[el.name]) data[el.name] = [];
+              if (el.checked) data[el.name].push(el.value);
+              return;
+            }
+            data[el.id || el.name] = el.value;
+          });
+          data._step = currentStep;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {}
+      }
+
+      function loadProgress() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          const data = JSON.parse(raw);
+          Object.keys(data).forEach((key) => {
+            if (key === "_step") return;
+            if (Array.isArray(data[key])) {
+              data[key].forEach((val) => {
+                const el = form.querySelector(`input[name='${key}'][value='${CSS.escape(val)}']`);
+                if (el) {
+                  el.checked = true;
+                  el.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+              });
+              return;
+            }
+            const el = document.getElementById(key) || form.querySelector(`[name='${key}']`);
+            if (el) {
+              if (el.type === "radio") {
+                const r = form.querySelector(`input[name='${key}'][value='${CSS.escape(data[key])}']`);
+                if (r) {
+                  r.checked = true;
+                  r.dispatchEvent(new Event("change", { bubbles: true }));
+                }
+              } else {
+                el.value = data[key];
+                el.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+            }
+          });
+          if (data._step) {
+            showStep(data._step);
+          }
+        } catch (e) {}
+      }
+
+      form.addEventListener("input", saveProgress);
+      form.addEventListener("change", saveProgress);
+      document.addEventListener("DOMContentLoaded", () => {
+        loadProgress();
+        showStep(currentStep);
+        // set today's date if empty
+        const q39 = document.getElementById("q39");
+        if (q39 && !q39.value) {
+          const d = new Date();
+          const dd = String(d.getDate()).padStart(2, '0');
+          const mm = String(d.getMonth() + 1).padStart(2, '0');
+          const yyyy = d.getFullYear();
+          q39.value = dd + '/' + mm + '/' + yyyy;
+        }
+      });
+    </script>
+  </body>
+</html>

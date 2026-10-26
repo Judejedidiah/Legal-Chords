@@ -581,7 +581,7 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
 }
 .scroll-line {
   width: 1px; height: 50px;
-  background: linear-gradient(180deg, var(--brand-blue-bright), transparent);
+  background: var(--brand-blue-bright);
   position: relative;
   overflow: hidden;
 }
@@ -862,7 +862,7 @@ p { color: var(--text-muted); line-height: 1.7; transition: color 0.5s var(--eas
 }
 .mv-line {
   height: 2px;
-  background: linear-gradient(90deg, var(--brand-blue-bright), transparent);
+  background: var(--brand-blue-bright);
   border-radius: 999px;
   width: 80px;
 }
@@ -1687,7 +1687,7 @@ body.resource-open { overflow: hidden; }
 .t-avatar {
   width: 44px; height: 44px;
   border-radius: 50%;
-  background: var(--grad-blue);
+  background: var(--brand-blue);
   display: flex; align-items: center; justify-content: center;
   font-size: 16px;
   font-weight: 700;
@@ -1875,7 +1875,7 @@ body.resource-open { overflow: hidden; }
 .newsletter button {
   width: 36px; height: 36px;
   border-radius: 50%;
-  background: var(--grad-blue);
+  background: var(--brand-blue);
   border: none;
   color: var(--brand-white);
   font-size: 16px;

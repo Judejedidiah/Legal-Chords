@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Volunteer with Legal Chords — Youth-focused legal awareness and leadership initiative. Join our team and make an impact."
+    />
+    <meta
+      name="keywords"
+      content="Legal Chords, Volunteer, Legal Awareness, Youth Development, Leadership"
+    />
+    <meta name="author" content="Legal Chords" />
+    <meta property="og:title" content="Volunteer with Legal Chords" />
+    <meta
+      property="og:description"
+      content="Join Legal Chords as a volunteer. Make a difference in legal awareness and youth development."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://legal-chords.vercel.app/volunteer.html" />
+    <meta
+      property="og:image"
+      content="https://legal-chords.vercel.app/assets/legal-chords-logo-white.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Volunteer with Legal Chords" />
+    <meta
+      name="twitter:description"
+      content="Join Legal Chords as a volunteer. Make a difference in legal awareness and youth development."
+    />
+    <meta
+      name="twitter:image"
+      content="https://legal-chords.vercel.app/assets/legal-chords-logo-white.png"
+    />
+    <title>Volunteer | Legal Chords</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <meta name="theme-color" content="#020512" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/legal-chords-logo-white.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="1600x1600"
+      href="assets/legal-chords-logo-white.png"
+    />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("lc-theme");
+          var theme =
+            saved ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ============== NAVIGATION ============== -->
+    <header class="navbar" id="navbar">
+      <div class="container nav-container">
+        <a href="index.html#home" class="logo" aria-label="Legal Chords Home">
+          <span class="logo-mark">
+            <img
+              class="logo-img"
+              src="assets/legal-chords-logo.png"
+              alt="Legal Chords logo"
+            />
+          </span>
+          <span class="logo-text">
+            <span class="logo-title">LEGAL CHORDS</span>
+            <span class="logo-sub">Legal Awareness Platform</span>
+          </span>
+        </a>
+
+        <nav class="nav-links" id="navLinks" aria-label="Primary">
+          <a href="index.html#home" class="nav-link">Home</a>
+
+          <div class="nav-dropdown">
+            <button
+              type="button"
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              About
+              <svg
+                class="nav-caret"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="index.html#about" class="nav-link nav-dropdown-item">About Us</a>
+              <a href="index.html#what-we-do" class="nav-link nav-dropdown-item"
+                >What We Do</a
+              >
+              <a href="index.html#impact" class="nav-link nav-dropdown-item"
+                >Our Impact</a
+              >
+            </div>
+          </div>
+
+          <a href="index.html#programs" class="nav-link">Programs</a>
+          <a href="index.html#events" class="nav-link">Events</a>
+
+          <div class="nav-dropdown">
+            <button
+              type="button"
+              class="nav-link nav-dropdown-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Resources
+              <svg
+                class="nav-caret"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu">
+              <a href="index.html#resources" class="nav-link nav-dropdown-item"
+                >Resource Hub</a
+              >
+              <a href="dictionary.html" class="nav-link nav-dropdown-item"
+                >Legal Dictionary</a
+              >
+              <a href="terms.html" class="nav-link nav-dropdown-item"
+                >Terms &amp; Conditions</a
+              >
+            </div>
+          </div>
+
+          <a href="volunteer.html" class="nav-link active">Volunteer</a>
+
+          <a
+            href="volunteer-apply.html"
+            class="btn btn-primary nav-cta-mobile"
+            >Apply Now</a
+          >
+        </nav>
+
+        <div class="nav-actions">
+          <a href="volunteer-apply.html" class="btn btn-primary nav-cta"
+            >Apply Now</a
+          >
+
+          <button
+            type="button"
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+            title="Toggle light/dark mode"
+          >
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="hamburger"
+            id="hamburger"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============== VOLUNTEER HERO ============== -->
+    <section class="hero" id="volunteer-hero" style="min-height: 70vh;">
+      <div class="hero-bg">
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+      </div>
+
+      <div class="container hero-content">
+        <div class="hero-text" style="max-width: 700px;">
+          <div class="hero-badge reveal">
+            <span class="hero-badge-dot"></span>
+            <span>Volunteer with Legal Chords</span>
+          </div>
+
+          <h1
+            class="hero-headline reveal"
+            style="font-size: clamp(2.2rem, 4.5vw, 3.8rem);"
+          >
+            Volunteer to Create<br />
+            <span class="accent">Legal Awareness</span><br />
+            &amp; Leadership
+          </h1>
+
+          <p class="hero-sub reveal">
+            Join our youth-focused legal awareness and leadership initiative. 
+            Contribute your skills, time, and passion to promote legal literacy, 
+            rights awareness, and ethical leadership through education, advocacy, 
+            and community engagement.
+          </p>
+
+          <div class="hero-actions reveal">
+            <a href="volunteer-apply.html" class="btn btn-primary btn-lg">
+              <span>Apply Now</span>
+              <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                <path
+                  d="M5 12h14M13 5l7 7-7 7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <a href="#departments" class="btn btn-ghost btn-lg">
+              <span>View Departments</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== WHY VOLUNTEER ============== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Why Volunteer</span>
+          <h2 class="section-title">
+            Make a <span class="accent">Meaningful Impact</span>
+          </h2>
+          <p class="section-lede">
+            Legal Chords is committed to promoting legal literacy, empowering individuals 
+            with knowledge of their rights, and encouraging ethical leadership through 
+            education, advocacy, community engagement, and collaborative initiatives.
+          </p>
+        </div>
+
+        <div class="what-grid">
+          <article class="what-card reveal">
+            <div class="what-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+                <path
+                  d="M12 14l9-5-9-5-9 5 9 5z"
+                  stroke="#246FE0"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12 14l6.16-3.42a12 12 0 01.34 6.84A12 12 0 0112 21a12 12 0 01-6.5-3.58 12 12 0 01.34-6.84L12 14z"
+                  stroke="#246FE0"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                  opacity="0.7"
+                />
+              </svg>
+            </div>
+            <h4>Empower Through Education</h4>
+            <p>
+              Help simplify complex legal concepts and make legal knowledge 
+              accessible to young people and communities.
+            </p>
+          </article>
+
+          <article class="what-card reveal">
+            <div class="what-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+                <path
+                  d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"
+                  stroke="#246FE0"
+                  stroke-width="1.6"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                  stroke="#246FE0"
+                  stroke-width="1.6"
+                />
+                <path
+                  d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"
+                  stroke="#F5C62F"
+                  stroke-width="1.6"
+                />
+              </svg>
+            </div>
+            <h4>Build Leadership Skills</h4>
+            <p>
+              Develop your leadership, teamwork, communication, and project 
+              management skills in a supportive environment.
+            </p>
+          </article>
+
+          <article class="what-card reveal">
+            <div class="what-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+                <path
+                  d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"
+                  stroke="#246FE0"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9 12l2 2 4-4"
+                  stroke="#246FE0"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <h4>Drive Social Change</h4>
+            <p>
+              Contribute to creating a society where people understand their rights, 
+              fulfill responsibilities, and make informed decisions.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== WHAT TO EXPECT ============== -->
+    <section class="section" style="background: var(--bg-alt);">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">What to Expect</span>
+          <h2 class="section-title">
+            Our <span class="accent">Selection Process</span>
+          </h2>
+        </div>
+
+        <div class="programs-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <article class="program-card reveal">
+            <div class="program-tag">Step 1</div>
+            <h3 style="font-size: 22px;">Application Review</h3>
+            <p>
+              We review all applications carefully to understand your background, 
+              interests, skills, and motivation for volunteering with Legal Chords.
+            </p>
+          </article>
+
+          <article class="program-card reveal">
+            <div class="program-tag">Step 2</div>
+            <h3 style="font-size: 22px;">Interview</h3>
+            <p>
+              Shortlisted applicants may be invited for an interview (virtual or 
+              physical) to discuss their application and fit for the team.
+            </p>
+          </article>
+
+          <article class="program-card reveal">
+            <div class="program-tag">Step 3</div>
+            <h3 style="font-size: 22px;">Orientation &amp; Probation</h3>
+            <p>
+              Successful applicants undergo orientation and may have a probationary 
+              period to ensure a good fit for both parties.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== DEPARTMENTS ============== -->
+    <section class="section" id="departments">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Departments</span>
+          <h2 class="section-title">
+            Choose Your <span class="accent">Area of Service</span>
+          </h2>
+          <p class="section-lede">
+            We have 14 departments where you can contribute your skills and make an impact.
+          </p>
+        </div>
+
+        <div class="what-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Administration and Operations</h4>
+            <p>Manage operations, coordinate activities, and ensure smooth day-to-day running of the organization.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Content Writing and Legal Education</h4>
+            <p>Create educational content, legal explainers, articles, and simplify complex legal concepts.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Programs and Events</h4>
+            <p>Plan, organize, and execute webinars, summits, workshops, and other community events.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Media and Communications</h4>
+            <p>Manage public relations, communications strategy, and media outreach initiatives.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Graphic Design and Creative Services</h4>
+            <p>Create visual content, branding materials, social media graphics, and design assets.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Technology and Website Development</h4>
+            <p>Build and maintain the website, develop digital tools, and manage tech infrastructure.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Community Engagement and Outreach</h4>
+            <p>Engage communities, build partnerships, and expand our reach to underserved areas.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Growth, Strategy, and Partnerships</h4>
+            <p>Develop growth strategies, identify opportunities, and build strategic partnerships.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Public Relations</h4>
+            <p>Manage brand image, handle media relations, and communicate our mission effectively.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Research and Policy</h4>
+            <p>Conduct legal research, analyze policies, and contribute to advocacy efforts.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Monitoring and Evaluation</h4>
+            <p>Track impact, measure outcomes, and ensure program effectiveness.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Academy Support and Learning Operations</h4>
+            <p>Support educational programs, coordinate training, and facilitate learning activities.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Open to placement based on organizational needs</h4>
+            <p>Flexible placement where your skills best serve the organization's current needs.</p>
+          </article>
+
+          <article class="what-card reveal">
+            <h4 style="color: var(--brand-blue-bright);">Other</h4>
+            <p>Have a unique skill or idea? Tell us about it in your application.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CTA ============== -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-wrap reveal">
+          <div class="cta-bg">
+            <div class="cta-glow cta-glow-1"></div>
+            <div class="cta-glow cta-glow-2"></div>
+            <div class="cta-orb"></div>
+          </div>
+
+          <div class="cta-content">
+            <span class="eyebrow eyebrow-light">Ready to Make an Impact?</span>
+            <h2>
+              Start Your <span class="cta-accent">Volunteer Journey</span> Today
+            </h2>
+            <p>
+              Join Legal Chords in our mission to promote legal literacy, empower 
+              individuals with knowledge of their rights, and encourage ethical leadership.
+            </p>
+            <div class="cta-actions">
+              <a href="volunteer-apply.html" class="btn btn-primary btn-lg">
+                <span>Apply Now</span>
+                <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+                  <path
+                    d="M5 12h14M13 5l7 7-7 7"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== FOOTER ============== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="index.html#home" class="logo">
+              <span class="logo-mark footer-logo-mark">
+                <img
+                  class="logo-img"
+                  src="assets/legal-chords-logo.png"
+                  alt="Legal Chords logo"
+                />
+              </span>
+              <span class="logo-text">
+                <span class="logo-title">LEGAL CHORDS</span>
+                <span class="logo-sub">Legal Awareness Platform</span>
+              </span>
+            </a>
+            <p>
+              Making legal knowledge accessible, practical and understandable
+              for a new generation of Nigerian changemakers.
+            </p>
+            <div class="footer-social">
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                  <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6" />
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                </svg>
+              </a>
+              <a href="#" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                </svg>
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 4a2 2 0 110 4 2 2 0 010-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                </svg>
+              </a>
+              <a href="#" aria-label="X">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+                </svg>
+              </a>
+              <a href="mailto:legalchords@gmail.com" aria-label="Email">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                  <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6" />
+                  <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h5>Explore</h5>
+            <a href="index.html#about">About</a>
+            <a href="index.html#programs">Programs</a>
+            <a href="index.html#events">Events</a>
+            <a href="index.html#resources">Resources</a>
+            <a href="dictionary.html">Legal Dictionary</a>
+            <a href="index.html#impact">Our Impact</a>
+          </div>
+
+          <div class="footer-col">
+            <h5>Get Involved</h5>
+            <a href="volunteer.html">Volunteer</a>
+            <a href="index.html#get-involved">Partner With Us</a>
+            <a href="index.html#get-involved">Join the Community</a>
+            <a href="index.html#get-involved">Support Us</a>
+          </div>
+
+          <div class="footer-col">
+            <h5>Connect</h5>
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">X / Twitter</a>
+            <a href="mailto:legalchords@gmail.com">Email</a>
+            <a href="tel:+234703828366">0703 828 366</a>
+          </div>
+
+          <div class="footer-col footer-newsletter">
+            <h5>Stay Updated</h5>
+            <p>Get Legal Nuggets and updates straight to your inbox.</p>
+            <form class="newsletter" id="newsletterForm">
+              <input
+                type="email"
+                name="email"
+                placeholder="Your email"
+                required
+                aria-label="Email address"
+              />
+              <button type="submit" aria-label="Subscribe to the newsletter">
+                →
+              </button>
+            </form>
+            <p class="newsletter-error" hidden>
+              Please enter a valid email address.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Legal Chords. All rights reserved.</p>
+          <p class="disclaimer">
+            Legal Chords provides legal awareness and educational content and
+            does not provide individual legal representation or legal advice.
+            <a href="terms.html" class="link-accent">Terms &amp; Conditions</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/site-nav.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
