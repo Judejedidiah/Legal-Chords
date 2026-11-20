@@ -170,11 +170,14 @@ window.AdminAuth = (() => {
       const functionUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.adminLoginFunctionUrl)
         || 'https://khceilswfwrpyhkarntf.supabase.co/functions/v1/admin-login';
 
+      const anonKey = window.SUPABASE_CONFIG ? window.SUPABASE_CONFIG.anonKey : '';
       const res = await fetch(functionUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': window.SUPABASE_CONFIG ? window.SUPABASE_CONFIG.anonKey : ''
+          'apikey': anonKey,
+          // Supabase's gateway verifies JWT on deployed functions by default.
+          'Authorization': `Bearer ${anonKey}`
         },
         body: JSON.stringify({ email, password })
       });

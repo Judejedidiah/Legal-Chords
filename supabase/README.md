@@ -28,12 +28,15 @@ supabase functions deploy admin-login
 
 ## 3. Verify
 
-The function must answer to `OPTIONS` with `200 ok` and reject non-`POST` requests with `400`:
+The function must answer to `OPTIONS` with `200 ok` and reject non-`POST` requests with `400`. The gateway verifies JWTs by default, so authenticated probes need the anon key in an `Authorization: Bearer` header as well as `apikey`:
 
 ```bash
 curl -i -X OPTIONS https://<PROJECT_ID>.supabase.co/functions/v1/admin-login
-curl -i https://<PROJECT_ID>.supabase.co/functions/v1/admin-login
+curl -i https://<PROJECT_ID>.supabase.co/functions/v1/admin-login \
+  -H "apikey: <ANON_KEY>" -H "Authorization: Bearer <ANON_KEY>"
 ```
+
+`js/admin-auth.js` sends both headers. If you turn off "Verify JWT" for this function in the dashboard, the `Authorization` header is harmless and can stay.
 
 A `404 NOT_FOUND` means the function has **not** been deployed — the browser is already calling it, so admin login will fail until it is deployed.
 
