@@ -7,8 +7,9 @@
    writes.
 
    To point at a different project, edit js/config.js:
-     url:     'https://YOUR_PROJECT_ID.supabase.co'
-     anonKey: 'YOUR_ANON_KEY_HERE'
+     url:                   'https://YOUR_PROJECT_ID.supabase.co'
+     anonKey:               'YOUR_ANON_KEY_HERE'
+     adminLoginFunctionUrl: 'https://YOUR_PROJECT_ID.supabase.co/functions/v1/admin-login'
 
    NEVER put a service-role key or password in this repo.
    ===================================================== */
@@ -18,7 +19,8 @@
 
   window.SUPABASE_CONFIG = {
     url: 'https://YOUR_PROJECT_ID.supabase.co',
-    anonKey: 'YOUR_ANON_KEY_HERE'
+    anonKey: 'YOUR_ANON_KEY_HERE',
+    adminLoginFunctionUrl: 'https://YOUR_PROJECT_ID.supabase.co/functions/v1/admin-login'
   };
 
   document.dispatchEvent(new Event('config-ready'));

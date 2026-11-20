@@ -10,7 +10,8 @@
 
   window.SUPABASE_CONFIG = {
     url: 'https://khceilswfwrpyhkarntf.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoY2VpbHN3ZndycHloa2FybnRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNjk3OTgsImV4cCI6MjEwMzg0NTc5OH0.QxBRsvco6jVs2LTkxCjKcAPotdKEC1EGmulqH4RktUQ'
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoY2VpbHN3ZndycHloa2FybnRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNjk3OTgsImV4cCI6MjEwMzg0NTc5OH0.QxBRsvco6jVs2LTkxCjKcAPotdKEC1EGmulqH4RktUQ',
+    adminLoginFunctionUrl: 'https://khceilswfwrpyhkarntf.supabase.co/functions/v1/admin-login'
   };
 
   document.dispatchEvent(new Event('config-ready'));

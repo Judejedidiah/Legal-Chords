@@ -2,11 +2,13 @@
    LEGAL CHORDS — Admin Authentication
    Single fixed admin account + auto-login session timeout.
 
-   NOTE: This email/password are visible in client JS by
-   design (public). Real protection comes from Supabase
-   Auth + the app_metadata.role = 'admin' RLS scoping in
-   migration 006. Create this account in Supabase Auth
-   (or via the dashboard) with app_metadata {"role":"admin"}.
+   Credentials are submitted to the server-side `admin-login`
+   Edge Function, which enforces the account allowlist and
+   IP/email rate limiting. No password is stored in this file.
+   Supabase Auth + app_metadata.role = 'admin' RLS scoping
+   (migration 006) remain the final authorization boundary.
+   Create this account in Supabase Auth (or via the dashboard)
+   with app_metadata {"role":"admin"}.
    ===================================================== */
 
 window.AdminAuth = (() => {
@@ -14,7 +16,6 @@ window.AdminAuth = (() => {
 
   // The ONLY account allowed to use the dashboard.
   const ALLOWED_ADMIN_EMAIL = 'legalchords@gmail.com';
-  const ALLOWED_ADMIN_PASSWORD = 'khceilswfwrpyhkarntf';
 
   // Session timeout for the auto-login (stored Supabase session).
   // After this many ms of inactivity the admin is auto-logged-out
@@ -153,13 +154,6 @@ window.AdminAuth = (() => {
     const btn = document.getElementById('loginBtn');
     const errEl = document.getElementById('loginError');
 
-    // Strict single-credential enforcement (before hitting Supabase).
-    if (email !== ALLOWED_ADMIN_EMAIL || password !== ALLOWED_ADMIN_PASSWORD) {
-      errEl.textContent = 'Invalid credentials. Please try again.';
-      errEl.classList.add('visible');
-      return;
-    }
-
     btn.disabled = true;
     btn.textContent = 'Signing in...';
     errEl.classList.remove('visible');
@@ -173,9 +167,42 @@ window.AdminAuth = (() => {
     }
 
     try {
-      const { data, error } = await window.db.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      applyAuth(data.session ? data.session.user : data.user);
+      const functionUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.adminLoginFunctionUrl)
+        || 'https://khceilswfwrpyhkarntf.supabase.co/functions/v1/admin-login';
+
+      const res = await fetch(functionUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': window.SUPABASE_CONFIG ? window.SUPABASE_CONFIG.anonKey : ''
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      if (res.status === 429) {
+        const retryAfter = res.headers.get('Retry-After');
+        errEl.textContent = retryAfter
+          ? `Too many attempts. Try again in ${retryAfter} seconds.`
+          : 'Too many attempts. Please try again later.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        errEl.textContent = data.error || 'Invalid credentials. Please try again.';
+        errEl.classList.add('visible');
+        return;
+      }
+
+      const data = await res.json();
+      if (data.session) {
+        await window.db.auth.setSession({ access_token: data.session.access_token, refresh_token: data.session.refresh_token });
+        applyAuth(data.user || (data.session.user));
+      } else {
+        errEl.textContent = 'Invalid credentials. Please try again.';
+        errEl.classList.add('visible');
+      }
     } catch (err) {
       errEl.textContent = err.message || 'Invalid credentials. Please try again.';
       errEl.classList.add('visible');
