@@ -20,4 +20,5 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: curl -fsS "$SUPABASE_URL/rest/v1/keep-alive?select=id&limit=1" -H "apikey: $SUPABASE_KEY"
+        run: |
+          curl -fsS "$SUPABASE_URL/rest/v1/keep-alive?select=id&limit=1" -H "apikey: $SUPABASE_KEY"
