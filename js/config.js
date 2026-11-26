@@ -1,13 +1,3 @@
-/* =====================================================
-   LEGAL CHORDS — Supabase Configuration
-
-   Replace PASTE_PUBLISHABLE_KEY_HERE with the publishable
-   key from Supabase Dashboard > Settings > API Keys.
-   The publishable key (sb_publishable_...) is PUBLIC BY
-   DESIGN (Supabase sends it to browsers) — every write is
-   protected by RLS. Never put a secret key (sb_secret_...)
-   or any password in this file.
-   ===================================================== */
 
 (function () {
   "use strict";
