@@ -1,13 +1,15 @@
 // Supabase Edge Function: admin-login
 // Enforces IP/account rate limiting, blocks brute force, resolves real IP safely behind proxies
 // Uses Postgres as shared store, logs block events
+// The caller's publishable key is validated by @supabase/server; the privileged
+// client comes from the project's default secret key injected by Supabase.
 
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import { withSupabase } from "npm:@supabase/server@1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 const ALLOWED_ADMIN_EMAIL = "legalchords@gmail.com";
@@ -42,11 +44,10 @@ function getRealClientIp(req: Request): string {
   return "unknown";
 }
 
-serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
-  }
-
+// auth: 'publishable' validates the `apikey` header against the default
+// publishable key and supplies ctx.supabaseAdmin (default secret key).
+// verify_jwt must be false for this function (see supabase/config.toml).
+const loginHandler = withSupabase({ auth: "publishable" }, async (req, ctx) => {
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: GENERIC_ERROR }), {
       status: 400,
@@ -55,9 +56,7 @@ serve(async (req) => {
   }
 
   try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const supabase = ctx.supabaseAdmin;
 
     const body = await req.json();
     const email = String(body.email || "").trim().toLowerCase();
@@ -140,9 +139,19 @@ serve(async (req) => {
   }
 });
 
+export default {
+  fetch: (req: Request) => {
+    // Browser preflights carry no apikey, so answer before the auth gate.
+    if (req.method === "OPTIONS") {
+      return new Response("ok", { headers: corsHeaders });
+    }
+    return loginHandler(req);
+  },
+};
+
 async function checkAndCreateBlocks(supabase: any, ip: string, email: string, now: Date) {
   const windowStart = new Date(now.getTime() - WINDOW_MINUTES * 60 * 1000).toISOString();
-  
+
   // Count failed attempts in window for IP
   const { count: ipFails } = await supabase
     .from("admin_login_attempts")
@@ -150,7 +159,7 @@ async function checkAndCreateBlocks(supabase: any, ip: string, email: string, no
     .eq("ip", ip)
     .eq("success", false)
     .gte("created_at", windowStart);
-  
+
   // Count failed attempts in window for email
   const { count: emailFails } = await supabase
     .from("admin_login_attempts")
@@ -158,9 +167,9 @@ async function checkAndCreateBlocks(supabase: any, ip: string, email: string, no
     .eq("email", email)
     .eq("success", false)
     .gte("created_at", windowStart);
-  
+
   const blockedUntil = new Date(now.getTime() + BLOCK_MINUTES * 60 * 1000).toISOString();
-  
+
   if ((ipFails || 0) >= MAX_ATTEMPTS) {
     await supabase.from("admin_login_blocks").upsert({
       key_type: "ip",
@@ -172,7 +181,7 @@ async function checkAndCreateBlocks(supabase: any, ip: string, email: string, no
     // Log block event
     console.log(JSON.stringify({ event: "admin_login_block", key_type: "ip", key_value: ip, blocked_until: blockedUntil }));
   }
-  
+
   if ((emailFails || 0) >= MAX_ATTEMPTS) {
     await supabase.from("admin_login_blocks").upsert({
       key_type: "email",

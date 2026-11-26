@@ -166,18 +166,23 @@ window.AdminAuth = (() => {
       return;
     }
 
-    try {
-      const functionUrl = (window.SUPABASE_CONFIG && window.SUPABASE_CONFIG.adminLoginFunctionUrl)
-        || 'https://khceilswfwrpyhkarntf.supabase.co/functions/v1/admin-login';
+    const config = window.SUPABASE_CONFIG;
+    if (!config || !config.adminLoginFunctionUrl || !config.publishableKey) {
+      errEl.textContent = 'Supabase is not configured. Check js/config.js and redeploy.';
+      errEl.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+      return;
+    }
 
-      const anonKey = window.SUPABASE_CONFIG ? window.SUPABASE_CONFIG.anonKey : '';
-      const res = await fetch(functionUrl, {
+    try {
+      // New-format API keys go on apikey only. They are not JWTs, so they
+      // must not be sent as a Bearer token (the function gates on this key).
+      const res = await fetch(config.adminLoginFunctionUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': anonKey,
-          // Supabase's gateway verifies JWT on deployed functions by default.
-          'Authorization': `Bearer ${anonKey}`
+          'apikey': config.publishableKey
         },
         body: JSON.stringify({ email, password })
       });

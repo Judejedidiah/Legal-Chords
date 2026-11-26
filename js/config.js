@@ -1,19 +1,23 @@
 /* =====================================================
    LEGAL CHORDS — Supabase Configuration
-   The anon key below is PUBLIC BY DESIGN (Supabase sends
-   it to browsers) — every write is protected by RLS.
-   Do NOT put service-role keys or secrets here.
+
+   Replace PASTE_PUBLISHABLE_KEY_HERE with the publishable
+   key from Supabase Dashboard > Settings > API Keys.
+   The publishable key (sb_publishable_...) is PUBLIC BY
+   DESIGN (Supabase sends it to browsers) — every write is
+   protected by RLS. Never put a secret key (sb_secret_...)
+   or any password in this file.
    ===================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
   window.SUPABASE_CONFIG = {
-    url: 'https://khceilswfwrpyhkarntf.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtoY2VpbHN3ZndycHloa2FybnRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNjk3OTgsImV4cCI6MjEwMzg0NTc5OH0.QxBRsvco6jVs2LTkxCjKcAPotdKEC1EGmulqH4RktUQ',
-    adminLoginFunctionUrl: 'https://khceilswfwrpyhkarntf.supabase.co/functions/v1/admin-login'
+    url: "https://khceilswfwrpyhkarntf.supabase.co",
+    publishableKey: "sb_publishable_yQV_tBKTOH4SUqR_FKSeRA_QbQsOSYE",
+    adminLoginFunctionUrl:
+      "https://khceilswfwrpyhkarntf.supabase.co/functions/v1/admin-login",
   };
 
-  document.dispatchEvent(new Event('config-ready'));
-
+  document.dispatchEvent(new Event("config-ready"));
 })();

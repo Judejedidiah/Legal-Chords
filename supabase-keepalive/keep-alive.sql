@@ -18,3 +18,12 @@ CREATE POLICY "keep-alive anon select"
   FOR SELECT
   TO anon
   USING (true);
+
+
+
+
+
+
+
+
+

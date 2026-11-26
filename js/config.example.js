@@ -1,17 +1,18 @@
 /* =====================================================
    LEGAL CHORDS — Supabase Configuration (EXAMPLE)
 
-   js/config.js is the real (committed) config and works
-   out of the box with the public anon key. The anon key is
-   safe to ship in the browser — RLS policies protect all
-   writes.
+   js/config.js is the real (committed) config. It carries
+   the public publishable key, which is safe to ship to the
+   browser — RLS policies protect all writes.
 
    To point at a different project, edit js/config.js:
-     url:                   'https://YOUR_PROJECT_ID.supabase.co'
-     anonKey:               'YOUR_ANON_KEY_HERE'
-     adminLoginFunctionUrl: 'https://YOUR_PROJECT_ID.supabase.co/functions/v1/admin-login'
+     url:              'https://YOUR_PROJECT_ID.supabase.co'
+     publishableKey:   'sb_publishable_...'
+     adminLoginFunctionUrl:
+       'https://YOUR_PROJECT_ID.supabase.co/functions/v1/admin-login'
 
-   NEVER put a service-role key or password in this repo.
+   Keys come from Supabase Dashboard > Settings > API Keys.
+   NEVER put a secret key (sb_secret_...) or password here.
    ===================================================== */
 
 (function () {
@@ -19,7 +20,7 @@
 
   window.SUPABASE_CONFIG = {
     url: 'https://YOUR_PROJECT_ID.supabase.co',
-    anonKey: 'YOUR_ANON_KEY_HERE',
+    publishableKey: 'sb_publishable_...',
     adminLoginFunctionUrl: 'https://YOUR_PROJECT_ID.supabase.co/functions/v1/admin-login'
   };
 

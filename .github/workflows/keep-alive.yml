@@ -19,6 +19,7 @@ jobs:
       - name: Ping Supabase REST endpoint
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
         run: |
-          curl -fsS "$SUPABASE_URL/rest/v1/keep-alive?select=id&limit=1" -H "apikey: $SUPABASE_KEY"
+          # The publishable key (sb_publishable_...) is safe in CI; never use a secret key here.
+          curl -fsS "$SUPABASE_URL/rest/v1/keep-alive?select=id&limit=1" -H "apikey: $SUPABASE_PUBLISHABLE_KEY"

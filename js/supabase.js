@@ -15,11 +15,20 @@
       return false;
     }
 
-    if (typeof SUPABASE_CONFIG === 'undefined' || !SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) {
+    const config = window.SUPABASE_CONFIG;
+    if (!config || !config.url || !config.publishableKey) {
       return false;
     }
 
-    window.db = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+    if (!/^sb_publishable_/.test(config.publishableKey)) {
+      console.error(
+        '[Legal Chords] SUPABASE_CONFIG.publishableKey is missing or is not a publishable key. ' +
+        'Paste the sb_publishable_... value from Supabase Dashboard > Settings > API Keys into js/config.js.'
+      );
+      return false;
+    }
+
+    window.db = window.supabase.createClient(config.url, config.publishableKey);
     return true;
   }
 

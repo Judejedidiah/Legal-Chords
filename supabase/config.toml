@@ -1,0 +1,7 @@
+project_id = "khceilswfwrpyhkarntf"
+
+# admin-login is called from the browser with the publishable key on the
+# `apikey` header (not a user JWT). The @supabase/server SDK in the function
+# validates that key, so the platform's JWT check must be off.
+[functions.admin-login]
+verify_jwt = false
